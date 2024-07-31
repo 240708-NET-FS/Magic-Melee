@@ -8,6 +8,7 @@ Character Sheet Creator that allows users to save their characters.
 
 - User can log in and out
 - User can create view, update, and delete multiple characters of their own
+- User characters contain inventories and learned spell lists (stored in many to many relationship in database) 
 
 # Entity Relationship Diagram
 
