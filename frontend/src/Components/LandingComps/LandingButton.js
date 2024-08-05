@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from "@mui/material";
 
 
+// perhaps include activity indicator
 class LandingButton extends React.Component {
         render() {
             return (
@@ -11,7 +12,7 @@ class LandingButton extends React.Component {
                                 borderRadius: this.props.radius,
                                 bgcolor: this.props.color,
                                 width: this.props.size,
-                                borderColor: 'secondary.main',
+                                borderColor: this.props.borderColor,
                                 border: this.props.borderWidth
                             }}
                             onClick={this.props.onPress}

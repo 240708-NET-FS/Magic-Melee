@@ -1,0 +1,24 @@
+.landing-modal{
+
+}
+
+.textBox{
+    border-radius: 10px;
+    background-color: #ebe2fa;
+    height: 45px;
+    width: 275px;
+    border: none;
+    padding-left: 15px;
+    font-size: 16px;
+    position: relative;
+
+}
+
+/*.submitLanding{*/
+/*    border-radius: 40px;*/
+/*    background-color: #480355;*/
+/*    padding: 10px;*/
+/*    border: none;*/
+/*    width: 150px;*/
+/*}*/
+
