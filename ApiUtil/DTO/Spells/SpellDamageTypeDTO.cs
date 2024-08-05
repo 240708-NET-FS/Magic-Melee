@@ -1,6 +1,6 @@
 namespace ApiUtil.DTO.Spells; 
 
-public class SpellDamageTypeDTO (string name) {
+public class SpellDamageTypeDTO (string? name) {
 
-    public string name = name; 
+    public string name = name ?? "N/A"; 
 }

@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO; 
+namespace ApiUtil.DTO.Spells; 
 
 public class SpellShellInboundDTO(string name , int level, string url) {
 

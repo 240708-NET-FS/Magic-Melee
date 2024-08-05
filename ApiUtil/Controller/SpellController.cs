@@ -14,25 +14,62 @@ class SpellController : IDungeonController {
     {
         BaseAddress = new Uri(GetBaseURL())
     }; 
-    public static async Task<List<SpellShellInboundDTO>> GetAllSpells() {
+    public static async Task<List<SpellEntityDTO?>> GetAllSpells() 
+    {
         using HttpResponseMessage response = await s_client.GetAsync(GetBaseURL());
-        List<SpellShellInboundDTO>? spells = [] ; 
+        List<SpellShellInboundDTO?> spellShells = [] ; 
+
+        List<SpellEntityDTO?> spells = []; 
         try 
         {
             response.EnsureSuccessStatusCode();
             var streamResponse = await response.Content.ReadAsStringAsync();
-            SpellsInboundResponseDTO responseDTO = JsonConvert.DeserializeObject<SpellsInboundResponseDTO>(streamResponse); 
-            spells = responseDTO.results; 
+            ApiResponseDTO<SpellShellInboundDTO> responseDTO = JsonConvert.DeserializeObject<ApiResponseDTO<SpellShellInboundDTO>>(streamResponse); 
+            spellShells = responseDTO.results; 
 
+            for ( int i = 0; i < spellShells.Count; i++ ){
+                System.Console.WriteLine($"adding spell : {spellShells[i].name}");
+                SpellInboundDTO spellInboundDTO = await GetSpellInboundDTO(spellShells[i]);
+                SpellEntityDTO spell = GetSpellEntityDTO(spellInboundDTO); 
+                if(spell!= null) spells.Add(spell);  
+            }
 
             return spells; 
 
         } catch (Exception e)
         {
-            System.Console.WriteLine($"Error in spell Controller: {e.Message}");
+            System.Console.WriteLine($"Error in GetAllSpells: {e.Message}");
             return spells ;
         }
     }
+
+    public static async Task<SpellInboundDTO?> GetSpellInboundDTO(SpellShellInboundDTO spellShell) 
+    {
+        string spellURL = GetBaseURL() + spellShell.url[12..]; 
+        using HttpResponseMessage response = await s_client.GetAsync(spellURL); 
+        
+
+        try 
+        {
+            response.EnsureSuccessStatusCode(); 
+            var streamResponse = await response.Content.ReadAsStringAsync(); 
+            SpellInboundDTO? spell = JsonConvert.DeserializeObject<SpellInboundDTO>(streamResponse); 
+            return spell; 
+        } catch(Exception e) 
+        {
+            System.Console.WriteLine($"Error in GetSpellInboundDTO: {e.Message}");
+            return null ;
+        }
+     }
+
+     public static SpellEntityDTO GetSpellEntityDTO(SpellInboundDTO spellInboundDTO) 
+     {
+        string damageType= "N/A";
+        if(spellInboundDTO.damage != null) damageType = spellInboundDTO.damage.damage_type.name; 
+
+        return new SpellEntityDTO(spellInboundDTO.name, spellInboundDTO.range, spellInboundDTO.level, damageType);
+     }
+
 
 
 }
