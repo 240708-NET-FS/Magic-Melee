@@ -20,7 +20,7 @@ public class RaceController : IDungeonController {
         var responseString = await response.Content.ReadAsStringAsync(); 
         // deserialize 
         ApiResponseDTO<RaceShellDTO> apiResponseDTO = JsonConvert.DeserializeObject<ApiResponseDTO<RaceShellDTO>>(responseString) ; 
-        List<RaceShellDTO> raceShellDTOs = apiResponseDTO.results; 
+        List<RaceShellDTO> raceShellDTOs = apiResponseDTO.Results; 
         List<RaceDTO> races = []; 
         foreach(RaceShellDTO raceShellDTO in raceShellDTOs) {
             races.Add(await GetRaceDTO(raceShellDTO)); 
@@ -29,7 +29,7 @@ public class RaceController : IDungeonController {
     }
 
     public static async  Task<RaceDTO> GetRaceDTO(RaceShellDTO raceShellDTO) {
-        string url = raceShellDTO.url; 
+        string url = raceShellDTO.Url; 
         using HttpResponseMessage response = await s_client.GetAsync(GetBaseURL() + url[11..]); 
         var responseString = await response.Content.ReadAsStringAsync(); 
         // deserialize 
