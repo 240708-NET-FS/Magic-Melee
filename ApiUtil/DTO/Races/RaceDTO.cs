@@ -1,11 +1,11 @@
 namespace ApiUtil.DTO.Races; 
 
 public class RaceDTO (string name, string url, int speed, List<AbilityBonusDTO> ability_bonuses) {
-    public string name = name ; 
+    public string Name = name ; 
 
-    public string url = url; 
+    public string Url = url; 
 
-    public int speed = speed; 
+    public int Speed = speed; 
 
     public List<AbilityBonusDTO> ability_bonuses = ability_bonuses; 
 }
