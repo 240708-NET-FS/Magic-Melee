@@ -1,6 +1,7 @@
 namespace ApiUtil.DTO.Spells; 
-public class SpellEntityDTO(string name , string range, int level, string DamageType) {
+public class SpellEntityDTO( string name , string range, int level, string DamageType) {
 
+ 
     public string Name = name; 
     public string Range = range; 
     public int Level = level; 
