@@ -19,7 +19,7 @@ public class MagicMeleeDBContext : DBContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+        //Add relationships
     }
 }
 
