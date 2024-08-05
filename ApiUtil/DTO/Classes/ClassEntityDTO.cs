@@ -1,11 +1,15 @@
+
 namespace ApiUtil.DTO.Classes; 
-public class ClassEntityDTO(string index , string name, int hit_die, List<ClassShellDTO> subclasses ) 
+
+public class ClassEntityDTO(string index , string name, int hit_die, List<GenericResourceDTO> subclasses, List<GenericResourceDTO> starting_equipment_options ) 
 {
-    string ID=index; 
-    int HitDie = hit_die; 
+    public string ID=index; 
+    public int HitDie = hit_die; 
 
-    string Name = name ; 
+    public string Name = name ; 
 
-    List<ClassShellDTO> Subclasses = subclasses; 
+   public List<GenericResourceDTO> Subclasses = subclasses; 
+
+   public List<GenericResourceDTO> StartingEquipmentOptions = starting_equipment_options; 
 
 }
