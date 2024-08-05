@@ -1,3 +1,5 @@
+// SpellController.cs 
+// use this to get the list of all spells for entry into database. 
 using ApiUtil.DTO;
 using ApiUtil.DTO.Spells;
 using Newtonsoft.Json;  

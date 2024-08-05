@@ -1,7 +1,7 @@
-using ApiUtil.DTO;
-using ApiUtil.DTO.Spells;
+using Magic_Melee.ApiUtil.DTO;
+using Magic_Melee.ApiUtil.DTO.Spells;
 using Newtonsoft.Json;  
-namespace ApiUtil.Controller; 
+namespace Magic_Melee.ApiUtil.Controller; 
 
 
 class SpellController : IDungeonController {

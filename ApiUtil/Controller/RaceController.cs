@@ -1,3 +1,5 @@
+// RaceController.cs
+// use this to get the list of all races for entry into database. 
 using ApiUtil.DTO;
 using ApiUtil.DTO.Races;
 using Newtonsoft.Json;  

@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO.Items; 
+namespace Magic_Melee.ApiUtil.DTO.Items; 
 public class EquipmentOptionsListDTO(string desc, int choose, FromEquipmentOptionsDTO from) {
     public string Description = desc; 
     public int choose = choose ;

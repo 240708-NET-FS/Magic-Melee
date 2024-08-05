@@ -1,5 +1,5 @@
 
-namespace ApiUtil.DTO.Classes; 
+namespace Magic_Melee.ApiUtil.DTO.Classes; 
 
 public class ClassDTO(string index , string name, int hit_die, List<GenericResourceDTO> subclasses, List<GenericResourceDTO> starting_equipment ) 
 {

@@ -1,3 +1,5 @@
+// Use this to get the list of all classes for entry into database.
+// also could use to populate list of starting equipment options 
 using ApiUtil.DTO;
 using ApiUtil.DTO.Classes;
 using Newtonsoft.Json;  

@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO.Items; 
+namespace Magic_Melee.ApiUtil.DTO.Items; 
 public class EquipmentDTO (string index, string name , string? armor_category, ArmorClassDTO armor_class, int weight) {
     public string ID = index ; 
     public string Name = name ;

@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO.Spells; 
+namespace Magic_Melee.ApiUtil.DTO.Spells; 
 public class SpellEntityDTO( string name , string range, int level, string DamageType) {
 
  

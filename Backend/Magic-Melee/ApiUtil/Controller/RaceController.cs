@@ -1,7 +1,7 @@
-using ApiUtil.DTO;
-using ApiUtil.DTO.Races;
+using Magic_Melee.ApiUtil.DTO;
+using Magic_Melee.ApiUtil.DTO.Races;
 using Newtonsoft.Json;  
-namespace ApiUtil.Controller; 
+namespace Magic_Melee.ApiUtil.Controller; 
 
 public class RaceController : IDungeonController {
 

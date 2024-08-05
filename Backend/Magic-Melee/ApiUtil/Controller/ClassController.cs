@@ -1,8 +1,8 @@
-using ApiUtil.DTO;
-using ApiUtil.DTO.Classes;
+using Magic_Melee.ApiUtil.DTO;
+using Magic_Melee.ApiUtil.DTO.Classes;
 using Newtonsoft.Json;  
 
-namespace ApiUtil.Controller; 
+namespace Magic_Melee.ApiUtil.Controller; 
 
 class ClassController : IDungeonController {
      public static string GetBaseURL()  {

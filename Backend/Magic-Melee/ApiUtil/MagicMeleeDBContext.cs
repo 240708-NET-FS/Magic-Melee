@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Magic-Melee.ApiUtil.DTO;
+using Magic_Melee.ApiUtil.DTO;
 
-namespace Magic-Melee.Data;
+namespace Magic_Melee.Data;
 
 public class MagicMeleeDBContext : DBContext
 {

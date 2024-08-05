@@ -1,3 +1,7 @@
+
+using Magic_Melee.ApiUtil.DTO; 
+using Magic_Melee.ApiUtil.Controller;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

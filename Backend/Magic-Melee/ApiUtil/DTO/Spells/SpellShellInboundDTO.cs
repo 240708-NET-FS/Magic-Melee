@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO.Spells; 
+namespace Magic_Melee.ApiUtil.DTO.Spells; 
 
 public class SpellShellInboundDTO( string name , int level, string url)  {
 
