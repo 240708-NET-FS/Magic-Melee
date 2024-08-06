@@ -1,4 +1,5 @@
 using MagicMelee.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MagicMelee.Data;
 

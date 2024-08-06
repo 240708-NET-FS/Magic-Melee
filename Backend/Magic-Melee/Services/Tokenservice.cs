@@ -22,11 +22,11 @@ namespace Magic_Melee.Services
             _config = config;
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(Login login)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Sub, login.Username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
