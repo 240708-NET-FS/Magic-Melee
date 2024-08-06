@@ -1,6 +1,12 @@
-
-using Magic_Melee.ApiUtil.DTO; 
-using Magic_Melee.ApiUtil.Controller;
+using System;
+using System.Text;
+using Magic_Melee.Services;
+using MagicMelee.Data;
+using MagicMelee.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,4 +51,36 @@ app.Run();
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+    public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<AppContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+    services.AddIdentity<User, IdentityRole>()
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders();
+
+    services.AddScoped<ILoginService, LoginService>();
+    services.AddScoped<ILoginRepo, LoginRepo>();
+    services.AddScoped<ITokenService, TokenService>();
+
+    services.AddControllers();
+
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = Configuration["Jwt:Issuer"],
+                ValidAudience = Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            };
+        });
+
+}
 }

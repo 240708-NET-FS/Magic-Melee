@@ -1,3 +1,5 @@
+using MagicMelee.Models;
+using Microsoft.EntityFrameworkCore;
 namespace MagicMelee.Data;
 
 public class MagicMeleeContext : DbContext
@@ -27,5 +29,10 @@ public class MagicMeleeContext : DbContext
             .HasForeignKey(cs => cs.SpellId);
 
         // Additional configurations
+    }
+
+    internal async Task SaveChangesAsync()
+    {
+        throw new NotImplementedException();
     }
 }
