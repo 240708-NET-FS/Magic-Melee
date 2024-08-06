@@ -1,21 +1,28 @@
+using Magic_Melee.Services;
+using MagicMelee.DTO;
+using MagicMelee.Models;
+using Microsoft.AspNetCore.Identity;
+
 namespace MagicMelee.Services;
 
 public interface ILoginService
 {
-    Task<string> LoginAsync(UserLoginDto userLogin);
+    Task<string> LoginAsync(UserDTO userLogin);
 }
 public class LoginService : ILoginService
 {
     private readonly ILoginRepo _loginRepo;
-    private readonly ITokenService _tokenService;
+    private readonly TokenService _tokenService;
 
     public LoginService(ILoginRepo LoginRepo, ITokenService TokenService)
     {
         _loginRepo = LoginRepo;
-        _tokenService = TokenService;
+#pragma warning disable CS8601 // Possible null reference assignment.
+        _tokenService = (TokenService?)TokenService;
+#pragma warning restore CS8601 // Possible null reference assignment.
     }
 
-    public async Task<string> LoginAsync(UserLoginDto userLogin)
+    public async Task<string> LoginAsync(LoginDTO userLogin)
     {
         var user = await _loginRepo.GetUserByUsernameAsync(userLogin.Username);
         if (user == null)
@@ -31,7 +38,13 @@ public class LoginService : ILoginService
 
         return _tokenService.CreateToken(user);
     }
-        public interface ILoginRepo
+
+    public Task<string> LoginAsync(UserDTO userLogin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public interface ILoginRepo
     {
         Task<User> GetUserByUsernameAsync(string username);
         Task<bool> VerifyPasswordAsync(User user, string password);
@@ -57,6 +70,6 @@ public class LoginService : ILoginService
             }
         }
     }
-}
+
 
     

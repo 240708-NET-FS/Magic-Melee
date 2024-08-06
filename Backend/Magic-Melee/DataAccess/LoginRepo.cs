@@ -1,3 +1,5 @@
+using MagicMelee.Models;
+
 namespace MagicMelee.Data;
 
 public class LoginRepo : ILoginRepo

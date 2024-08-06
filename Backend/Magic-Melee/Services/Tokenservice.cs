@@ -1,33 +1,46 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using MagicMelee.Models;
+using MagicMelee.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-namespace Magic_Melee.Services;
+using Microsoft.IdentityModel.Tokens;
 
-public interface TokenService : ITokenService
+namespace Magic_Melee.Services
 {
-    private readonly IConfiguration _config;
-
-    public TokenService(IConfiguration config)
+    public interface ITokenService
     {
-        _config = config;
+        string CreateToken(User user);
     }
 
-    public string CreateToken(User user)
+    public class TokenService : ITokenService
     {
-        var claims = new List<Claim>
+        private readonly IConfiguration _config;
+
+        public TokenService(IConfiguration config)
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+            _config = config;
+        }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        public string CreateToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
 
-        var token = new JwtSecurityToken(
-            _config["Jwt:Issuer"],
-            _config["Jwt:Audience"],
-            claims,
-            expires: DateTime.Now.AddDays(7),
-            signingCredentials: creds);
-        
-        return new JwtSecurityTokenHandler().WriteToken(token);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }
