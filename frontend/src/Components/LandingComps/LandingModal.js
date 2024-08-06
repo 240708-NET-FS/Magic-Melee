@@ -36,14 +36,13 @@ class LandingModal extends React.Component{
                                 <form onSubmit={this.props.handleSubmit}>
                                     <div style={{paddingBottom: 10}}>
 
-                                        <input className="textBox" type="text" placeholder={"Enter Username"}/>
+                                        <input className="textBox" type="text" placeholder={"Enter Username"} value={this.props.loginCreds.username} onChange={e => this.props.setLoginCreds({...this.props.loginCreds, username: e.target.value})}/>
                                     </div>
 
                                     <div>
 
-                                        <input className="textBox" type="text" placeholder={"Enter Password"}/>
+                                        <input className="textBox" type="text" placeholder={"Enter Password"} value={this.props.loginCreds.password} onChange={e => this.props.setLoginCreds({...this.props.loginCreds, password: e.target.value})}/>
                                     </div>
-
 
                                 </form>
 
@@ -78,8 +77,7 @@ class LandingModal extends React.Component{
                                         }}>
 
                                             <div style={{paddingBottom: 10}}>
-
-                                                <input className="textBox" type="text" placeholder={"Enter Username"}/>
+                                                <input className="textBox" type="text" placeholder={"Enter Username"} value={this.props.loginCreds.username} onChange={e => this.props.setLoginCreds({username: e.target.value, password: null})}/>
                                             </div>
 
                                             <div>
@@ -101,7 +99,6 @@ class LandingModal extends React.Component{
                                                size={200} onPress={this.props.handleSubmit}/>
                             </div>
                         </div>
-
 
                     </div>
 

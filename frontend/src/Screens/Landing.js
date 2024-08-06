@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import bg2 from "../Assets/m&mbg2.jpg";
 import LandingStyles from "../Styles/LandingStyles.css";
 import LandingModal from "../Components/LandingComps/LandingModal";
+import { Alert } from "react-native-web";
 function Landing() {
 
 
@@ -11,8 +12,9 @@ function Landing() {
     const [content, setContent] = useState("");
 
     // make type whatever
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginCreds, setLoginCreds] = useState({username: "", password: ""})
+    const [newAcc, setNewAcc] = useState({fName: "", lName: "", username: "", password: ""});
+      
 
 
     const navigate = useNavigate();
@@ -41,7 +43,22 @@ function Landing() {
   }
   const handleSubmit = (params) => {
   //     validate form submission by content type (create account or login)
-      console.log("submitting things");
+      console.log(loginCreds);
+      if(content == "Login"){
+        // validate things!!!
+        if(loginCreds.username == null || loginCreds.password == null){
+            Alert.alert("Invalid credentials! Please reenter information!");
+        }else{
+            setOpen(false);
+            // route to actual user home
+            navigate("/home");
+        }
+
+      }else{
+        // validate for new account!!
+
+      }
+
   }
     return (
       <div className="landing-body">
@@ -76,7 +93,7 @@ function Landing() {
                                   size={250}
                                   onPress={onPressCreate}
                               />
-                              <LandingButton
+                              {/* <LandingButton
                                   radius={4}
                                   color={"black"}
                                   text={"Continue As Guest"}
@@ -84,7 +101,7 @@ function Landing() {
                                   borderWidth={2}
                                   size={250}
                                   onPress={onPressGuest}
-                              />
+                              /> */}
 
                           </div>
                       </div>
@@ -101,14 +118,14 @@ function Landing() {
                   setOpen={setOpen}
                   handleClose={handleClose}
                   handleSubmit={handleSubmit}
-                  content={content} />
-
-
-
-
-
-
-
+                  content={content}
+                  loginCreds={loginCreds}
+                  setLoginCreds={setLoginCreds}
+                  newAcc={newAcc}
+                  setNewAcc={setNewAcc}
+                 
+                 
+                  />
 
           </div>
 
