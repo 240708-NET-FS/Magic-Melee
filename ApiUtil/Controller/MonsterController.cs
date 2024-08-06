@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace ApiUtil.Controller; 
 public class MonsterController : IDungeonController {
-
+    public static readonly string endpoint="/api/monsters/";
     public static string GetBaseURL()  
     {
-        return "https://www.dnd5eapi.co/api/monsters/"; 
+        return $"https://www.dnd5eapi.co{endpoint}"; 
     } 
 
     private static readonly HttpClient s_client = new() 
@@ -27,13 +27,20 @@ public class MonsterController : IDungeonController {
         return monsters; 
     }
 
-    public static async  Task<MonsterDTO> GetMonsterDTO(GenericResourceDTO classShellDTO) {
+    public static async  Task<MonsterDTO?> GetMonsterDTO(GenericResourceDTO classShellDTO) {
         string url = classShellDTO.Url; 
         using HttpResponseMessage response = await s_client.GetAsync(GetBaseURL() + url[13..]); 
         var responseString = await response.Content.ReadAsStringAsync(); 
         // deserialize 
-        MonsterDTO  monsterDTO = JsonConvert.DeserializeObject<MonsterDTO>(responseString); 
+        MonsterDTO?  monsterDTO = JsonConvert.DeserializeObject<MonsterDTO>(responseString); 
         return monsterDTO; 
 
+    }
+
+    public static async Task<MonsterDTO?> FindMonster(string name) {
+        string index=GenericResourceDTO.NameToIndex(name); 
+        GenericResourceDTO genericResourceDTO=  new(index, name, endpoint + index); 
+        MonsterDTO monsterDTO = await GetMonsterDTO(genericResourceDTO); 
+        return monsterDTO; 
     }
 }

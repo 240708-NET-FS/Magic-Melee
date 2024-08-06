@@ -23,9 +23,27 @@ public class MonsterDTO(string index, string name, string hit_dice, List<ArmorCl
 
     public override string ToString()
     {
-        string damageVulnerabilities = DamageVulnerabilities.Count > 0? DamageVulnerabilities[0] : "N/A"; 
-        return $"Name : {Name} | Damage Vulnerabilities: {damageVulnerabilities}";
+        string damageVulnerabilities = DamageVulnerabilities.Count > 0 ? DamageVulnerabilities[0] : "N/A"; 
+        return $"Name : {Name} | Armor Class: {ArmorClass[0].Value } | Damage Vulnerabilities: {damageVulnerabilities}";
+        //return $"Name : {Name} | Damage Vulnerabilities: {damageVulnerabilities}";
+        //return $"Name : {Name} | HP: {HitPoints}";
     }
+
+    public static MonsterDTO Search(string name , List<MonsterDTO> monsters) {
+        // monsters are alphabetically sorted when they come in 
+        int left = 0; 
+        int right = monsters.Count-1; 
+        int mid  = right/2; 
+        while ( left < right) {
+            if (monsters[mid].Name == name  ) return monsters[mid]; 
+            else if (monsters[mid].Name[0] > name[0] ) right= mid-1; 
+            else left = mid+1; 
+            mid = (left + right ) / 2; 
+        }
+        if(monsters[mid].Name == name ) return monsters[mid];
+        return null;   
+    }
+
 }
 
 public class ArmorClassDTO(string type, string value){

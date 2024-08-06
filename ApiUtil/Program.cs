@@ -23,7 +23,11 @@ public class ApiUtil {
         // List<ClassDTO> classes = ClassController.GetAllClasses().GetAwaiter().GetResult(); 
         // for(int i = 0; i < classes.Count; i++) System.Console.WriteLine(classes[i]);
 
-        List<MonsterDTO> monsters= MonsterController.GetAllMonsters().GetAwaiter().GetResult(); 
-        for(int i = 0; i < monsters.Count; i++) System.Console.WriteLine(monsters[i]);
+        //List<MonsterDTO> monsters= MonsterController.GetAllMonsters().GetAwaiter().GetResult(); 
+        //for(int i = 0; i < monsters.Count; i++) System.Console.WriteLine(monsters[i]);
+        System.Console.WriteLine( MonsterController.FindMonster("Half-Red Dragon Veteran").GetAwaiter().GetResult());
+        System.Console.WriteLine( MonsterController.FindMonster("Awakened Shrub").GetAwaiter().GetResult());
+        //System.Console.WriteLine( MonsterController.FindMonster("Xorn").GetAwaiter().GetResult());
+
     }
 }
