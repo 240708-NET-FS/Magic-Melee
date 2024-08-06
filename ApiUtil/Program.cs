@@ -4,6 +4,7 @@ using ApiUtil.Controller;
 using ApiUtil.DTO.Races;
 using ApiUtil.DTO.Spells;
 using ApiUtil.DTO.Classes;
+using ApiUtil.DTO.Monsters;
 
 namespace ApiUtil; 
 
@@ -21,5 +22,8 @@ public class ApiUtil {
 
         // List<ClassDTO> classes = ClassController.GetAllClasses().GetAwaiter().GetResult(); 
         // for(int i = 0; i < classes.Count; i++) System.Console.WriteLine(classes[i]);
+
+        List<MonsterDTO> monsters= MonsterController.GetAllMonsters().GetAwaiter().GetResult(); 
+        for(int i = 0; i < monsters.Count; i++) System.Console.WriteLine(monsters[i]);
     }
 }

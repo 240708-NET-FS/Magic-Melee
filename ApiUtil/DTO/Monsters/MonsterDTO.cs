@@ -19,9 +19,17 @@ public class MonsterDTO(string index, string name, string hit_dice, List<ArmorCl
 
     public List<string> DamageVulnerabilities = damage_vulnerabilities; 
     public List<string> DamageImmunities = damage_immunities; 
-    public List<string> DamageResistances = damage_resistances; 
+    public List<string> DamageResistances = damage_resistances;
+
+    public override string ToString()
+    {
+        string damageVulnerabilities = DamageVulnerabilities.Count > 0? DamageVulnerabilities[0] : "N/A"; 
+        return $"Name : {Name} | Damage Vulnerabilities: {damageVulnerabilities}";
+    }
 }
 
 public class ArmorClassDTO(string type, string value){
+    public string Type = type; 
+    public string Value = value; 
 
 }
