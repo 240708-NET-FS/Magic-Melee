@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using ApiUtil.DTO;
 using ApiUtil.DTO.Races;
 using Newtonsoft.Json;  
@@ -19,7 +20,7 @@ public class RaceController : IDungeonController {
         using HttpResponseMessage response = await s_client.GetAsync(GetBaseURL()) ; 
         var responseString = await response.Content.ReadAsStringAsync(); 
         // deserialize 
-        ApiResponseDTO<RaceShellDTO> apiResponseDTO = JsonConvert.DeserializeObject<ApiResponseDTO<RaceShellDTO>>(responseString) ; 
+        ApiResponseDTO<RaceShellDTO> apiResponseDTO = JsonContent.DeserializeObject<ApiResponseDTO<RaceShellDTO>>(responseString) ; 
         List<RaceShellDTO> raceShellDTOs = apiResponseDTO.results; 
         List<RaceDTO> races = []; 
         foreach(RaceShellDTO raceShellDTO in raceShellDTOs) {

@@ -42,5 +42,10 @@ namespace Magic_Melee.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public string CreateToken(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
