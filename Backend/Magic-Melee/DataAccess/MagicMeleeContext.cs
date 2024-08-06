@@ -9,6 +9,10 @@ public class MagicMeleeContext : DbContext
     public DbSet<DndCharacter> DndCharacters { get; set; }
     public DbSet<Spell> Spells { get; set; }
     public DbSet<CharacterSpell> CharacterSpells { get; set; }
+    public DbSet<CharacterRace> CharacterRaces { get; set; }
+    public DbSet<CharacterClass> CharacterClasses { get; set; }
+    public DbSet<AbilityScoreArr> AbilityScoreArr { get; set; }
+    public DbSet<Skills> Skills { get; set; }
 
     public MagicMeleeContext(DbContextOptions<MagicMeleeContext> options) : base(options) { }
 
@@ -28,7 +32,29 @@ public class MagicMeleeContext : DbContext
             .WithMany(s => s.CharacterSpells)
             .HasForeignKey(cs => cs.SpellId);
 
-        // Additional configurations
+        // Configure one-to-many relationship between CharacterRace and DndCharacter
+        modelBuilder.Entity<DndCharacter>()
+            .HasOne(dc => dc.CharacterRace)
+            .WithOne(cr => cr.DndCharacter)
+            .HasForeignKey<DndCharacter>(dc => dc.CharacterRaceId);
+            
+        // Configure one-to-many relationship between CharacterClass and DndCharacter
+        modelBuilder.Entity<DndCharacter>()
+            .HasOne(dc => dc.CharacterClass)
+            .WithOne(cc => cc.DndCharacter)
+            .HasForeignKey<DndCharacter>(dc => dc.CharacterClassId);
+
+        // Configure one-to-one relationship between DndCharacter and AbilityScoreArr
+        modelBuilder.Entity<DndCharacter>()
+            .HasOne(dc => dc.AbilityScoreArr)
+            .WithOne(asa => asa.DndCharacter)
+            .HasForeignKey<DndCharacter>(dc => dc.AbilityScoreArrId);
+        
+        // One-to-One relationships for Skills
+        modelBuilder.Entity<DndCharacter>()
+            .HasOne(dc => dc.Skills)
+            .WithOne(s => s.DndCharacter)
+            .HasForeignKey<DndCharacter>(dc => dc.SkillsId);
     }
 
     internal async Task SaveChangesAsync()
