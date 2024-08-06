@@ -1,3 +1,6 @@
+using MagicMelee.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace MagicMelee.Data;
 
 public class UserRepo : IUserRepo
