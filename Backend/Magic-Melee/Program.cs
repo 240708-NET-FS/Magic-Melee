@@ -37,6 +37,7 @@ builder.Services.AddLogging();
 //and inject dependecies where needed
 builder.Services.AddScoped<IUserService, UserService>(); // Should be our services
 builder.Services.AddScoped<IDndCharacterService, DndCharacterService>();
+builder.Services.AddScoped<ICharacterClassService, CharacterClassService>();
 
 // Our Repos
 // builder.Services.AddScoped<ILoginRepo, LoginRepo>();
