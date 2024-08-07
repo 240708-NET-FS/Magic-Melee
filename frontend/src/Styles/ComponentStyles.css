@@ -14,19 +14,60 @@
 
 }
 
-.cardBase{
+.navbar-position{
+    position: absolute;
+    top: -25px;
+    left: 0;
+    margin: auto;
+    width: 100%;
+    /* margin: auto; */
+}
+.navbar-base{
+    background-color: #804c9c;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    display: flex;
 
+    /* background-color: #080011; */
+    /* height: 50px; */
 }
 
+.character-cardBase{
+    width: 300px;
+    height: 375px;
+    border-radius: 3px;
+    border-color: #90fcf9;
+    border: solid;
+    border-width: 2px;
+    padding: 5px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    /* background-color: red; */
+}
 .card-base2{
+    border-radius: 3px;
+    background-color: #63b4d1;
+    width: 100%;
+    /* width: 250px; */
+}
+
+.card-bottom{
+    /* justify-self: flex-end; */
+    width: 100%;
+    height: 125px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #355a68;
 
 }
 
 .class-bg{
 
+    border-radius: 3px;
+    height: 171px;
+    align-items: center;
+    
+    
 }
-
-.card-bottom{
-
-}
-
