@@ -3,9 +3,8 @@ import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import { test, expect, it, jest } from "@jest/globals";
 import "@testing-library/jest-dom";
-import NameAndStatusContainer, {
-  defaultCharacter,
-} from "../NameAndStatusContainer";
+import NameAndStatusContainer from "../NameAndStatusContainer";
+import { defaultCharacter } from "../../CharacterSheet";
 import userEvent from "@testing-library/user-event";
 
 describe("name display rendering ", () => {

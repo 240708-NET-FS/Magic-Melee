@@ -5,7 +5,7 @@ const NameSection = ({ Name, Race, Class, Level }) => {
       <h2 className="bold">{Name}</h2>
 
       <section id="charDescription">
-        Level {Level} <span className="italic"> {Race} </span> {Class}
+        Level {Level} {Race} {Class}
       </section>
     </section>
   );
