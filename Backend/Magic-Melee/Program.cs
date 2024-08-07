@@ -33,14 +33,21 @@ builder.Services.AddSwaggerGen();
 
 //Here we will register our dependencies (Services and DbContext, etc) so that we can satisfy our constructors
 //and inject dependecies where needed
-builder.Services.AddScoped<IPokemonService, PokemonService>();
-builder.Services.AddScoped<ITrainerService, TrainerService>();
+// builder.Services.AddScoped<IPokemonService, PokemonService>(); // Should be our services
+// builder.Services.AddScoped<ITrainerService, TrainerService>();
 
+// Our Repos
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IDndCharacterRepo, DndCharacterRepo>();
+builder.Services.AddScoped<ICharacterClassRepo, CharacterClassRepo>();
+builder.Services.AddScoped<ICharacterRaceRepo, CharacterRaceRepo>();
+builder.Services.AddScoped<IAbilityScoreArrRepo, AbilityScoreArrRepo>();
+builder.Services.AddScoped<ISkillsRepo, SkillsRepo>();
+builder.Services.AddScoped<ISpellRepo, SpellRepo>();
 
 
-builder.Services.AddDbContext<PokemonDBContext>(options => 
+builder.Services.AddDbContext<MagicMeleeContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -48,11 +55,24 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-// // Add services to the container.
-// // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+//CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS
+app.UseCors("CORS"); //<-USE CORS with your policy name
+//CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
 
 // var app = builder.Build();
 
