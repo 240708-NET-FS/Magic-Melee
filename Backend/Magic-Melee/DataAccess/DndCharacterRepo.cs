@@ -17,6 +17,13 @@ public class DndCharacterRepo : IDndCharacterRepo
         return await _context.DndCharacters.FindAsync(id);
     }
 
+    public async Task<IEnumerable<DndCharacter>> GetByUserId(int userId)
+    {
+        return await _context.DndCharacters
+                            .Where(c => c.UserId == userId)
+                            .ToListAsync();
+    }
+
     public async Task<IEnumerable<DndCharacter>> GetAllAsync()
     {
         return await _context.DndCharacters.ToListAsync();

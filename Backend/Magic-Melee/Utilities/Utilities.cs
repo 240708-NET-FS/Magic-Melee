@@ -54,3 +54,24 @@ public static class DndCharacterUtility
         };
     }
 }
+
+public static class CharacterClassUtility
+{
+    public static CharacterClass DTOToCharacterClass(CharacterClassDTO dto)
+    {
+        return new CharacterClass
+        {
+            CharacterClassId = dto.CharacterClassId,
+            Name = dto.Name
+        };
+    }
+
+    public static CharacterClassDTO CharacterClassToDTO(CharacterClass characterClass)
+    {
+        return new CharacterClassDTO
+        {
+            CharacterClassId = characterClass.CharacterClassId,
+            Name = characterClass.Name
+        };
+    }
+}

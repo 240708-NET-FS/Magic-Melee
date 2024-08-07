@@ -10,6 +10,12 @@ public class UserService : IUserService
     private readonly IUserRepo _userRepo;
     private readonly ILogger<UserService> _logger;
 
+    public UserService(IUserRepo userRepo, ILogger<UserService> logger)
+    {
+        _userRepo = userRepo;
+        _logger = logger;
+    }
+
     public async Task<UserDTO> GetByIdAsync(int id)
     {
         try

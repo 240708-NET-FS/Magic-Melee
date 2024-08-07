@@ -2,59 +2,41 @@ using MagicMelee.DTO;
 
 namespace MagicMelee.Services;
 
-public interface ILoginService
+public interface IRepositoryService<TDto>
+{
+    Task<TDto> GetByIdAsync(int id);
+    Task<IEnumerable<TDto>> GetAllAsync();
+    Task AddAsync(TDto dto);
+    Task UpdateAsync(TDto dto);
+    Task DeleteAsync(int id);
+}
+
+public interface ILoginService // Inherit from IRepositoryService when ready
 {
     Task<string> LoginAsync(LoginDTO userLogin);
-    // Task<LoginDTO> GetByIdAsync(int id);
-    // Task<IEnumerable<LoginDTO>> GetAllAsync();
-    // Task AddAsync(LoginDTO login);
-    // Task UpdateAsync(LoginDTO login);
-    // Task DeleteAsync(int id);
-    // Task<UserDTO> GetUserByUsernameAsync(string username);
-    // Task<bool> VerifyPasswordAsync(UserDTO user, string password);
 }
 
-public interface IUserService
+public interface IUserService : IRepositoryService<UserDTO>
 {
-    Task<UserDTO> GetByIdAsync(int id);
-    Task<IEnumerable<UserDTO>> GetAllAsync();
-    Task AddAsync(UserDTO user);
-    Task UpdateAsync(UserDTO user);
-    Task DeleteAsync(int id);
+    // Specific methods for user service
 }
 
-public interface ICharacterClassService
+public interface ICharacterClassService : IRepositoryService<CharacterClassDTO>
 {
-    Task<CharacterClassDTO> GetByIdAsync(int id);
-    Task<IEnumerable<CharacterClassDTO>> GetAllAsync();
-    Task AddAsync(CharacterClassDTO characterClass);
-    Task UpdateAsync(CharacterClassDTO characterClass);
-    Task DeleteAsync(int id);
+    // Specific methods for character class service
 }
 
-public interface IDndCharacterService
+public interface IDndCharacterService : IRepositoryService<DndCharacterDTO>
 {
-    Task<DndCharacterDTO> GetByIdAsync(int id);
-    Task<IEnumerable<DndCharacterDTO>> GetAllAsync();
-    Task AddAsync(DndCharacterDTO character);
-    Task UpdateAsync(DndCharacterDTO character);
-    Task DeleteAsync(int id);
+    Task<IEnumerable<DndCharacterDTO>> GetByUserIdAsync(int userId);
 }
 
-public interface ISpellService
+public interface ISpellService : IRepositoryService<SpellDTO>
 {
-    Task<SpellDTO> GetByIdAsync(int id);
-    Task<IEnumerable<SpellDTO>> GetAllAsync();
-    Task AddAsync(SpellDTO spell);
-    Task UpdateAsync(SpellDTO spell);
-    Task DeleteAsync(int id);
+    // Specific methods for spell service
 }
 
-public interface ISkillsService
+public interface ISkillsService : IRepositoryService<SkillsDTO>
 {
-    Task<SkillsDTO> GetByIdAsync(int id);
-    Task<IEnumerable<SkillsDTO>> GetAllAsync();
-    Task AddAsync(SkillsDTO skills);
-    Task UpdateAsync(SkillsDTO skills);
-    Task DeleteAsync(int id);
+    // Specific methods for skills service
 }

@@ -24,7 +24,7 @@ public interface IUserRepo : IRepository<User>
 
 public interface IDndCharacterRepo : IRepository<DndCharacter>
 {
-    // same
+    Task<IEnumerable<DndCharacter>> GetByUserId(int userId);
 }
 
 public interface ISpellRepo : IRepository<Spell>

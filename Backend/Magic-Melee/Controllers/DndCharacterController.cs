@@ -30,6 +30,25 @@ public class DndCharacterController : ControllerBase
         }
     }
 
+    // GET: api/DndCharacter/user/{userId}
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetCharactersByUserId(int userId)
+    {
+        try
+        {
+            var characters = await _dndCharacterService.GetByUserIdAsync(userId);
+            if (!characters.Any())
+            {
+                return NotFound($"No characters found for user ID {userId}.");
+            }
+            return Ok(characters);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     // GET: api/DndCharacter
     [HttpGet]
     public async Task<IActionResult> GetAll()

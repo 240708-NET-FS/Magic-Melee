@@ -35,6 +35,25 @@ public class DndCharacterService : IDndCharacterService
         }
     }
 
+    public async Task<IEnumerable<DndCharacterDTO>> GetByUserIdAsync(int userId)
+    {
+        try
+        {
+            var characters = await _characterRepo.GetByUserId(userId);
+            if (!characters.Any())
+            {
+                _logger.LogWarning("No DndCharacters found for User ID: {UserId}", userId);
+                return new List<DndCharacterDTO>();  // Return an empty list if no characters found
+            }
+            return characters.Select(c => DndCharacterUtility.DndCharacterToDTO(c)).ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to retrieve DndCharacters for User ID: {UserId}", userId);
+            throw new MagicMeleeException($"Error retrieving DndCharacters for User ID: {userId}", ex);
+        }
+    }
+
     public async Task<IEnumerable<DndCharacterDTO>> GetAllAsync()
     {
         try
@@ -53,6 +72,7 @@ public class DndCharacterService : IDndCharacterService
     {
         try
         {
+            // Here is where additional validation for character creation would go
             var character = DndCharacterUtility.DTOToDndCharacter(characterDTO);
             await _characterRepo.AddAsync(character);
         }
