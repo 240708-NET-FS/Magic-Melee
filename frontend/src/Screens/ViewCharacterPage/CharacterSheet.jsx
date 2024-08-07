@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NameAndStatusContainer from "./Containers/NameAndStatusContainer";
 import AbilityScoreContainer from "./Containers/AbilityScoreContainer";
 import ArmorClass from "./Components/ArmorClass";
+import SkillsContainer from "./Containers/SkillsContainer";
 // components :
 // NameAndStatusContainer
 // StatsContainer
@@ -18,6 +19,10 @@ const CharacterSheet = () => {
       <section className="flex flex-row justify-stretch">
         <AbilityScoreContainer />
         <ArmorClass value={10} />
+      </section>
+
+      <section className="flex flex-row">
+        <SkillsContainer />
       </section>
     </section>
   );

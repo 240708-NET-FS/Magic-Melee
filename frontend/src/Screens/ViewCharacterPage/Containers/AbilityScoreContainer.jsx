@@ -3,15 +3,33 @@ import AbilityScore from "../Components/AbilityScore";
 const AbilityScoreContainer = ({ charID }) => {
   // will need to use an effect hook to get ability scores
   const [scores, updateScores] = useState(defaultScores);
+
+  const handleChange = (name, val) => {
+    
+    const newScores = { ...scores };
+    newScores[name] = val;
+    updateScores(newScores);
+  };
+
   let scoreArr = scoreNameArr.map((name) => (
-    <AbilityScore scoreName={name} scoreVal={scores[name]} />
+    <AbilityScore
+      scoreName={name}
+      scoreVal={scores[name]}
+      handleChange={handleChange}
+    />
   ));
 
   useEffect(() => {
     scoreArr = scoreNameArr.map((name) => (
-      <AbilityScore scoreName={name} scoreVal={scores[name]} />
+      <AbilityScore
+        scoreName={name}
+        scoreVal={scores[name]}
+        handleChange={handleChange}
+      />
     ));
+    // TODO: #11 create updateAbilityScores API request and call here
   }, [scores]);
+
   return (
     <section className="basis:2/5 grow">
       <section className="flex flex-row justify-between  mr-20">
