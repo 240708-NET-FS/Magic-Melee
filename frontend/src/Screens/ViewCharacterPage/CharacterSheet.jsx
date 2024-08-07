@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import NameAndStatusContainer from "./Containers/NameAndStatusContainer";
+import AbilityScoreContainer from "./Containers/AbilityScoreContainer";
+import ArmorClass from "./Components/ArmorClass";
 // components :
 // NameAndStatusContainer
 // StatsContainer
@@ -13,6 +15,10 @@ const CharacterSheet = () => {
   return (
     <section className="bg-purple-900 flex flex-col justify-center w-full">
       <NameAndStatusContainer character={character} />
+      <section className="flex flex-row justify-stretch">
+        <AbilityScoreContainer />
+        <ArmorClass value={10} />
+      </section>
     </section>
   );
 };
