@@ -5,8 +5,20 @@ import CharacterCard from '../Components/HomeComps/CharacterCard';
 
 function Home() {
 
+    // get characters and things
+    // const navigate = useNavigation();
 
+
+    
     // map the cards
+
+    const charactersTemp = [1, 2, 3, 4, 5, 6, 7, 8]
+
+    const mapCharacters = charactersTemp.map((m, index)=> 
+        <CharacterCard />
+    );
+
+    
     return(
         <div className='home'>
             <NavBar />
@@ -15,10 +27,22 @@ function Home() {
                 <div className='user-charactersBox'>
                     <h2>My Characters</h2>
                 </div>
-                <div class="card-box">
-                    <CharacterCard />
+                <div>
+                    <div class="card-box">
+                    <div class="card-container">
+                        <div class="card">
+                            {mapCharacters}
+
+                        </div>
+
+
+
+                    </div>
+                  
 
                 </div>
+                </div>
+                
             </div>
            
         </div>
