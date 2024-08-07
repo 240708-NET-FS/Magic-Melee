@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MagicMelee.Models;
 
 public class Spell
 {
+    [Key]
     public int SpellId { get; set; }
     public string SpellName { get; set; } = string.Empty;
     public string SpellRange { get; set; } = string.Empty;

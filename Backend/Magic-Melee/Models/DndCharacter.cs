@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MagicMelee.Models;
 
 public class DndCharacter
 {
+    [Key]
     public int CharacterId { get; set; }
     public string CharacterName { get; set; } = string.Empty;
     public int HitPoints { get; set; }

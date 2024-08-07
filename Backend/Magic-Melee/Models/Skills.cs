@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MagicMelee.Models;
 
 public class Skills
 {
+    [Key]
     public int SkillsId { get; set; }
     public int Athletics { get; set; }
     public int Acrobatics { get; set; }

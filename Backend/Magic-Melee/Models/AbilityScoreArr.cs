@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MagicMelee.Models;
 
 public class AbilityScoreArr
 {
+    [Key]
     public int AbilityScoreArrId { get; set; }
     public int Str { get; set; }
     public int Dex { get; set; }
