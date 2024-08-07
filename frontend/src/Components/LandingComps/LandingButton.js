@@ -13,7 +13,8 @@ class LandingButton extends React.Component {
                                 bgcolor: this.props.color,
                                 width: this.props.size,
                                 borderColor: this.props.borderColor,
-                                border: this.props.borderWidth
+                                border: this.props.borderWidth,
+                                maxHeight: 50
                             }}
                             onClick={this.props.onPress}
 

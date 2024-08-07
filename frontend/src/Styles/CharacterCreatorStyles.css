@@ -1,0 +1,51 @@
+.main{
+    padding: 100px;
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+    margin: auto;
+    width: 100%;
+}
+
+.creator-bg{
+    background-color: #9475a5;
+}
+
+/* .bgImgWrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: auto;
+}
+
+.bgImg{
+
+} */
+
+.contentWrap{
+    width: inherit;
+    display: flex;
+    z-index: 1;
+    margin: auto;
+}
+
+.contentBoxWrap{
+    display: flex;
+    margin: auto;
+  
+    /* flex-wrap: wrap; */
+    width: 80%;
+    height: 75%;
+
+}
+.contentBox{
+    width: 100%;
+    background-color: rgba(8, 0, 17, .75);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.header{
+
+}
+
