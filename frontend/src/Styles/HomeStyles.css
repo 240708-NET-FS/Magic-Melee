@@ -8,7 +8,7 @@
     width: 500px;
     height: 55px;
     background-color: #9475a5;
-    padding: 5px;
+    border-radius: 5px;
     padding-left: 10px;
     align-items: center;
     display: flex;
@@ -16,7 +16,13 @@
 
 .card-box{
     padding-top: 25px;
-    /* width: 100%; */
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    border-radius: 10px;
+    /* border: solid; */
+    background-color: #9475a5;
+    /* text-align: start; */
 
 }
 
@@ -27,7 +33,19 @@
 }
 
 .card {
-    flex: 1 0;
-    flex-basis: 21%;
+    flex: 1;
+    /* flex-basis: 21%; */
     margin: 10px;
+}
+
+.bgImgWrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: auto;
+}
+
+.create-character{
+    justify-content: flex-end;
+    padding: 10;
 }

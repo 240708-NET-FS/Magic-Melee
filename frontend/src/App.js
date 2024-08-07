@@ -4,6 +4,7 @@ import React from 'react';
 import {BrowserRouter as Router, createBrowserRouter, Route, RouterProvider, Routes} from 'react-router-dom';
 import Landing from './Screens/Landing';
 import Home from "./Screens/Home";
+import CharacterCreator from "./Screens/CharacterCreator";
 import AppNavigator from "./AppNavigator";
 import {createRoot} from "react-dom/client";
 
@@ -42,7 +43,8 @@ function App() {
                 <Routes>
                     <Route exact path={"/"} element={<Landing />} />
                     <Route exact path={"/home"} element={<Home/>}/>
-                </Routes>
+                    <Route exact path={"/character-creator"} element={<CharacterCreator />} />
+                </Routes> 
             </Router>
         </div>
     </div>
