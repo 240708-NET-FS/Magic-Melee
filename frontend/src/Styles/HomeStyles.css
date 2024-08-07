@@ -1,0 +1,20 @@
+.home{
+    padding: 75px;
+}
+
+.user-charactersBox{
+    position: relative;
+    width: 500px;
+    height: 55px;
+    background-color: #9475a5;
+    padding: 5px;
+    padding-left: 10px;
+    align-items: center;
+    display: flex;
+}    /* opacity: 75%; */
+
+.card-box{
+    padding-top: 25px;
+    /* width: 100%; */
+
+}
