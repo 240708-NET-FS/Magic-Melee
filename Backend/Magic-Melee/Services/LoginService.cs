@@ -1,7 +1,6 @@
 using Magic_Melee.Services;
 using MagicMelee.DTO;
-using MagicMelee.Models;
-using Microsoft.AspNetCore.Identity;
+using MagicMelee.Data;
 
 namespace MagicMelee.Services
 {
@@ -36,32 +35,6 @@ namespace MagicMelee.Services
             }
 
             return _tokenService.CreateToken(user);
-        }
-    }
-
-    public interface ILoginRepo
-    {
-        Task<User> GetUserByUsernameAsync(string username);
-        Task<bool> VerifyPasswordAsync(User user, string password);
-    }
-
-    public class LoginRepo : ILoginRepo
-    {
-        private readonly UserManager<User> _userManager;
-
-        public LoginRepo(UserManager<User> userManager)
-        {
-            _userManager = userManager;
-        }
-
-        public async Task<User> GetUserByUsernameAsync(string username)
-        {
-            return await _userManager.FindByNameAsync(username);
-        }
-
-        public async Task<bool> VerifyPasswordAsync(User user, string password)
-        {
-            return await _userManager.CheckPasswordAsync(user, password);
         }
     }
 }

@@ -13,7 +13,8 @@ public interface IRepository<T> where T : class
 
 public interface ILoginRepo : IRepository<Login>
 {
-    //define methods specific to login if needed
+    Task<User> GetUserByUsernameAsync(string username);
+    Task<bool> VerifyPasswordAsync(User user, string password);
 }
 
 public interface IUserRepo : IRepository<User>
