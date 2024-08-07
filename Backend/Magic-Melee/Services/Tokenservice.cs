@@ -6,7 +6,7 @@ using MagicMelee.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Magic_Melee.Services
+namespace MagicMelee.Services
 {
     public interface ITokenService
     {

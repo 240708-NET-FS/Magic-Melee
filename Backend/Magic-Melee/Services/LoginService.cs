@@ -1,14 +1,8 @@
-using Magic_Melee.Services;
 using MagicMelee.DTO;
 using MagicMelee.Data;
 
 namespace MagicMelee.Services
 {
-    public interface ILoginService
-    {
-        Task<string> LoginAsync(LoginDTO userLogin);
-    }
-
     public class LoginService : ILoginService
     {
         private readonly ILoginRepo _loginRepo;

@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using Magic_Melee.Services;
+using MagicMelee.Services;
 using MagicMelee.Data;
 using MagicMelee.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +30,8 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddLogging();
 
 //Here we will register our dependencies (Services and DbContext, etc) so that we can satisfy our constructors
 //and inject dependecies where needed
