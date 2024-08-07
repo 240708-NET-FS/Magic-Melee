@@ -75,3 +75,30 @@ public static class CharacterClassUtility
         };
     }
 }
+
+public static class SpellUtility
+{
+    public static SpellDTO SpellToDTO(Spell spell)
+    {
+        return new SpellDTO
+        {
+            SpellId = spell.SpellId,
+            SpellName = spell.SpellName,
+            SpellRange = spell.SpellRange,
+            SpellLevel = spell.SpellLevel,
+            SpellDamageType = spell.SpellDamageType
+        };
+    }
+
+    public static Spell DTOToSpell(SpellDTO spellDto)
+    {
+        return new Spell
+        {
+            SpellId = spellDto.SpellId,
+            SpellName = spellDto.SpellName,
+            SpellRange = spellDto.SpellRange,
+            SpellLevel = spellDto.SpellLevel,
+            SpellDamageType = spellDto.SpellDamageType
+        };
+    }
+}
