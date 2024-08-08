@@ -143,8 +143,8 @@ app.Run();
                                             ValidateAudience = true,
                                             ValidateLifetime = true,
                                             ValidateIssuerSigningKey = true,
-                                            ValidIssuer = configuration["Jwt:Issuer"],
-                                            ValidAudience = configuration["Jwt:Audience"],
-                                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                                            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                                            ValidAudience = builder.Configuration["Jwt:Audience"],
+                                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                                      };
                                  });
