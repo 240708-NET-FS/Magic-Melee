@@ -70,6 +70,21 @@ builder.Services.AddDbContext<MagicMeleeContext>(options =>
     options.Password.RequiredUniqueChars = 1;
 });
 
+  builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                                         .AddJwtBearer(options =>
+                                         {  
+                                            options.TokenValidationParameters = new TokenValidationParameters
+                                            {
+                                            ValidateIssuer = true,
+                                            ValidateAudience = true,
+                                            ValidateLifetime = true,
+                                            ValidateIssuerSigningKey = true,
+                                            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                                            ValidAudience = builder.Configuration["Jwt:Audience"],
+                                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                                     };
+                                 });
+
 builder.Logging.AddConsole();
 
 
@@ -133,18 +148,3 @@ app.Run();
 // record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 // {
 //     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-// Need to implement Jwt injection
-                                 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                                         .AddJwtBearer(options =>
-                                         {  
-                                            options.TokenValidationParameters = new TokenValidationParameters
-                                            {
-                                            ValidateIssuer = true,
-                                            ValidateAudience = true,
-                                            ValidateLifetime = true,
-                                            ValidateIssuerSigningKey = true,
-                                            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                                            ValidAudience = builder.Configuration["Jwt:Audience"],
-                                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                                     };
-                                 });
