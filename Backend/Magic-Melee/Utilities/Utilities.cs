@@ -133,3 +133,58 @@ public static class AbilityScoreArrUtility
         };
     }
 }
+
+public static class SkillsUtility
+{
+    public static Skills DTOToSkills(SkillsDTO skillsDTO)
+    {
+        return new Skills
+        {
+            SkillsId = skillsDTO.SkillsId,
+            Athletics = skillsDTO.Athletics,
+            Acrobatics = skillsDTO.Acrobatics,
+            SleightOfHand = skillsDTO.SleightOfHand,
+            Stealth = skillsDTO.Stealth,
+            Deception = skillsDTO.Deception,
+            AnimalHandling = skillsDTO.AnimalHandling,
+            Survival = skillsDTO.Survival,
+            History = skillsDTO.History,
+            Religion = skillsDTO.Religion,
+            Medicine = skillsDTO.Medicine,
+            Perception = skillsDTO.Perception,
+            Insight = skillsDTO.Insight,
+            Performance = skillsDTO.Performance,
+            Intimidation = skillsDTO.Intimidation,
+            Persuasion = skillsDTO.Persuasion,
+            Arcana = skillsDTO.Arcana,
+            Investigation = skillsDTO.Investigation,
+            Nature = skillsDTO.Nature
+        };
+    }
+
+    public static SkillsDTO SkillsToDTO(Skills skills)
+    {
+        return new SkillsDTO
+        {
+            SkillsId = skills.SkillsId,
+            Athletics = skills.Athletics,
+            Acrobatics = skills.Acrobatics,
+            SleightOfHand = skills.SleightOfHand,
+            Stealth = skills.Stealth,
+            Deception = skills.Deception,
+            AnimalHandling = skills.AnimalHandling,
+            Survival = skills.Survival,
+            History = skills.History,
+            Religion = skills.Religion,
+            Medicine = skills.Medicine,
+            Perception = skills.Perception,
+            Insight = skills.Insight,
+            Performance = skills.Performance,
+            Intimidation = skills.Intimidation,
+            Persuasion = skills.Persuasion,
+            Arcana = skills.Arcana,
+            Investigation = skills.Investigation,
+            Nature = skills.Nature
+        };
+    }
+}

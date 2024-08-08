@@ -49,7 +49,7 @@ public interface IAbilityScoreArrRepo : IRepository<AbilityScoreArr>
 
 public interface ISkillsRepo : IRepository<Skills>
 {
-    // same   
+    Task<Skills> GetByCharacterIdAsync(int characterId);
 }
 
 // Add additional interfaces if needed

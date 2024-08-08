@@ -39,7 +39,7 @@ public interface ISpellService : IRepositoryService<SpellDTO>
 
 public interface ISkillsService : IRepositoryService<SkillsDTO>
 {
-    // Specific methods for skills service
+    Task<SkillsDTO> GetByCharacterIdAsync(int characterId);
 }
 
 public interface IAbilityScoreArrService : IRepositoryService<AbilityScoreArrDTO>

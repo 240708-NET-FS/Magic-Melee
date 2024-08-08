@@ -43,4 +43,11 @@ public class SkillsRepo : ISkillsRepo
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<Skills> GetByCharacterIdAsync(int characterId)
+    {
+        return await _context.Skills
+            .Include(s => s.DndCharacter)
+            .FirstOrDefaultAsync(s => s.DndCharacter.CharacterId == characterId);
+    }
 }
