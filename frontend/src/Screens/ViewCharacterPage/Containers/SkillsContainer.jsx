@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Skill from "../Components/Skill";
 import validateSkill from "../util/validateSkill";
 
@@ -27,6 +27,14 @@ const SkillsContainer = () => {
     }
   );
 
+  // effect hook to retrieve skills from daatbase
+  useEffect(() => {
+    setSkills((skills) => setRandomSkillValues(skills));
+  }, []);
+
+  // effect hook with api call to update will go here
+  useEffect(() => {}, [skills]);
+
   return (
     <section className="flex flex-col border-black border-2 rounded-md basis-1/2 items-stretch">
       {SkillComponentArr}
@@ -54,4 +62,12 @@ const defaultSkills = {
   Stealth: 0,
   Survival: 0,
 };
+
+function setRandomSkillValues(skills) {
+  const skillsCopy = { ...skills };
+  Object.getOwnPropertyNames(skills).forEach(
+    (name) => (skillsCopy[name] = Math.floor(Math.random() * 20))
+  );
+  return skillsCopy;
+}
 export default SkillsContainer;

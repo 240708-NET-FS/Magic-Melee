@@ -26,6 +26,11 @@ const AbilityScoreContainer = ({ charID }) => {
     );
   });
 
+  // API call to set values from database will go here
+  useEffect(() => {
+    setScores((scores) => setRandomAbilityValues(scores));
+  }, []);
+
   // API call to update will go here
   useEffect(() => {}, [scores]);
 
@@ -49,5 +54,13 @@ const defaultScores = {
 };
 
 const scoreNameArr = Object.getOwnPropertyNames(defaultScores);
+
+function setRandomAbilityValues(scores) {
+  const scoresCopy = { ...scores };
+  Object.getOwnPropertyNames(scores).forEach(
+    (name) => (scoresCopy[name] = Math.floor(Math.random() * 15))
+  );
+  return scoresCopy;
+}
 
 export default AbilityScoreContainer;
