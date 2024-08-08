@@ -1,5 +1,6 @@
 using MagicMelee.DTO;
 using MagicMelee.Data;
+using MagicMelee.Models;
 
 namespace MagicMelee.Services
 {
@@ -16,7 +17,7 @@ namespace MagicMelee.Services
 
         public async Task<string> LoginAsync(LoginDTO userLogin)
         {
-            var user = await _loginRepo.GetUserByUsernameAsync(userLogin.Username);
+            var user = await _loginRepo.GetUserByUserIdAsync(userLogin.Username);
             if (user == null)
             {
                 throw new Exception("Invalid login attempt");

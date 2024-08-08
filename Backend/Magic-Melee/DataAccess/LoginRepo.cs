@@ -1,34 +1,23 @@
+using System.Linq.Expressions;
 using MagicMelee.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using MagicMelee.DTO;
 namespace MagicMelee.Data;
 
 public class LoginRepo : ILoginRepo
 {
     private readonly MagicMeleeContext _context;
 
-    private readonly UserManager<User> _userManager;
-
-    public LoginRepo(MagicMeleeContext context, UserManager<User> userManager)
+    public LoginRepo(MagicMeleeContext context)
     {
         _context = context;
-        _userManager = userManager;
     }
 
     public async Task<Login> GetByIdAsync(int id)
     {
         return await _context.Logins.FindAsync(id);
-    }
-
-    public async Task<User> GetUserByUsernameAsync(string username)
-    {
-        return await _userManager.FindByNameAsync(username);
-    }
-
-    public async Task<bool> VerifyPasswordAsync(User user, string password)
-    {
-        return await _userManager.CheckPasswordAsync(user, password);
     }
 
     public async Task<IEnumerable<Login>> GetAllAsync()
@@ -56,5 +45,15 @@ public class LoginRepo : ILoginRepo
             _context.Logins.Remove(login);
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task<bool> VerifyPasswordAsync(User user, string password)
+    {
+         throw new NotImplementedException(); //note to self: figure out whether to hash password
+    }
+
+    Task<User> ILoginRepo.GetUserByUsernameAsync(string username)
+    {
+        throw new NotImplementedException(); //This is going to be redundant so will need to call GetUserByUserId because User does not have Username 
     }
 }

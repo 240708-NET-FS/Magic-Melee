@@ -13,6 +13,7 @@ public interface IRepository<T> where T : class
 
 public interface ILoginRepo : IRepository<Login>
 {
+    Task<User> GetUserByUserIdAsync(string username);
     Task<User> GetUserByUsernameAsync(string username);
     Task<bool> VerifyPasswordAsync(User user, string password);
 }
