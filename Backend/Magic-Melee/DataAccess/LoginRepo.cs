@@ -8,10 +8,12 @@ namespace MagicMelee.Data;
 
 public class LoginRepo : ILoginRepo
 {
+    private readonly UserManager<User> _userManager;
     private readonly MagicMeleeContext _context;
 
-    public LoginRepo(MagicMeleeContext context)
+    public LoginRepo(UserManager<User> userManager, MagicMeleeContext context)
     {
+        _userManager = userManager;
         _context = context;
     }
 
@@ -49,11 +51,16 @@ public class LoginRepo : ILoginRepo
 
     public async Task<bool> VerifyPasswordAsync(User user, string password)
     {
-         throw new NotImplementedException(); //note to self: figure out whether to hash password
+         return await _userManager.CheckPasswordAsync(user, password);
     }
 
-    Task<User> ILoginRepo.GetUserByUsernameAsync(string username)
+
+    public async Task<User> GetUserByUsernameAsync(string username)
     {
-        throw new NotImplementedException(); //This is going to be redundant so will need to call GetUserByUserId because User does not have Username 
+        var login = await _context.Logins
+            .Include(l => l.User)  // Ensure the User entity is loaded
+            .FirstOrDefaultAsync(l => l.Username == username);
+
+            return login?.User;
     }
 }

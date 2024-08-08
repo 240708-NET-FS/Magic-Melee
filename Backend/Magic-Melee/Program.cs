@@ -2,11 +2,13 @@ using System;
 using System.Text;
 using MagicMelee.Services;
 using MagicMelee.Data;
-using MagicMelee.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using MagicMelee.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +56,23 @@ builder.Services.AddDbContext<MagicMeleeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+    builder.Services.AddIdentity<User, IdentityRole>()
+        .AddEntityFrameworkStores<MagicMeleeContext>()
+        .AddDefaultTokenProviders();
+
+    builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = false;
+    options.Password.RequiredUniqueChars = 1;
+});
+
 builder.Logging.AddConsole();
+
+
 
 var app = builder.Build();
 
@@ -70,6 +88,8 @@ app.UseCors("CORS"); //<-USE CORS with your policy name
 //CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS CORS
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -113,36 +133,18 @@ app.Run();
 // record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 // {
 //     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-    
-//     //public void ConfigureServices(IServiceCollection services)
-//     //{
-//     //services.AddDbContext<AppContext>(options =>
-//        // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-//     //services.AddIdentity<User, IdentityRole>()
-//        // .AddEntityFrameworkStores<AppDbContext>()
-//         //.AddDefaultTokenProviders();
-
-//     //services.AddScoped<ILoginService, LoginService>();
-//    // services.AddScoped<ILoginRepo, LoginRepo>();
-//    // services.AddScoped<ITokenService, TokenService>();
-
-//    // services.AddControllers();
-
-//    // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//         //.AddJwtBearer(options =>
-//       //  {
-//       //      options.TokenValidationParameters = new TokenValidationParameters
-//            // {
-//             //    ValidateIssuer = true,
-//              //   ValidateAudience = true,
-//               //  ValidateLifetime = true,
-//              //   ValidateIssuerSigningKey = true,
-//               //  ValidIssuer = Configuration["Jwt:Issuer"],
-//                // ValidAudience = Configuration["Jwt:Audience"],
-//                // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-//            // };
-//        // }
-
-// }
+// Need to implement Jwt injection
+                                 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                                         .AddJwtBearer(options =>
+                                         {  
+                                            options.TokenValidationParameters = new TokenValidationParameters
+                                            {
+                                            ValidateIssuer = true,
+                                            ValidateAudience = true,
+                                            ValidateLifetime = true,
+                                            ValidateIssuerSigningKey = true,
+                                            ValidIssuer = configuration["Jwt:Issuer"],
+                                            ValidAudience = configuration["Jwt:Audience"],
+                                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                                     };
+                                 });

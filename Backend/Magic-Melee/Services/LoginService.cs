@@ -17,7 +17,7 @@ namespace MagicMelee.Services
 
         public async Task<string> LoginAsync(LoginDTO userLogin)
         {
-            var user = await _loginRepo.GetUserByUserIdAsync(userLogin.Username);
+            var user = await _loginRepo.GetUserByUsernameAsync(userLogin.Username);
             if (user == null)
             {
                 throw new Exception("Invalid login attempt");
