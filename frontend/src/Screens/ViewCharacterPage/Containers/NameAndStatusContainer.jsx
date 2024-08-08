@@ -12,7 +12,7 @@ import HitPointsDisplay from "../Components/HitPointsDisplay";
 
 const NameAndStatusContainer = ({ character }) => {
   return (
-    <section className="flex flex-row justify-around rounded-sm">
+    <section className="flex flex-row justify-around rounded-sm my-2">
       <NameSection
         Name={character ? character.Name : defaultCharacter.Name}
         Race={character ? character.Race : defaultCharacter.Race}

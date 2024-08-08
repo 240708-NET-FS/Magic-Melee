@@ -3,6 +3,7 @@ import NameAndStatusContainer from "./Containers/NameAndStatusContainer";
 import AbilityScoreContainer from "./Containers/AbilityScoreContainer";
 import ArmorClass from "./Components/ArmorClass";
 import SkillsContainer from "./Containers/SkillsContainer";
+import InventoryContainer from "./Containers/InventoryContainer";
 // components :
 // NameAndStatusContainer
 // StatsContainer
@@ -21,8 +22,9 @@ const CharacterSheet = () => {
         <ArmorClass value={10} />
       </section>
 
-      <section className="flex flex-row">
+      <section className="flex flex-row justify-stretch">
         <SkillsContainer />
+        <InventoryContainer />
       </section>
     </section>
   );

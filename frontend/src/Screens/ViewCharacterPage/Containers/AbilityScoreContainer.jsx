@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AbilityScore from "../Components/AbilityScore";
+import validateScore from "../util/validateScore";
+
 const AbilityScoreContainer = ({ charID }) => {
-  // will need to use an effect hook to get ability scores
-  const [scores, updateScores] = useState(defaultScores);
+  // TODO: will need to use an effect hook to get ability scores from backend API
+  const [scores, setScores] = useState(defaultScores);
 
   const handleChange = (name, val) => {
-    
     const newScores = { ...scores };
     newScores[name] = val;
-    updateScores(newScores);
+    setScores(newScores);
   };
 
-  let scoreArr = scoreNameArr.map((name) => (
-    <AbilityScore
-      scoreName={name}
-      scoreVal={scores[name]}
-      handleChange={handleChange}
-    />
-  ));
-
-  useEffect(() => {
-    scoreArr = scoreNameArr.map((name) => (
+  const scoreArr = scoreNameArr.map((name, index) => {
+    const textColor = validateScore(scores[name])
+      ? "text-white"
+      : "text-red-600";
+    return (
       <AbilityScore
         scoreName={name}
         scoreVal={scores[name]}
         handleChange={handleChange}
+        textColor={textColor}
       />
-    ));
-    // TODO: #11 create updateAbilityScores API request and call here
-  }, [scores]);
+    );
+  });
+
+  // API call to update will go here
+  useEffect(() => {}, [scores]);
 
   return (
     <section className="basis:2/5 grow">
       <section className="flex flex-row justify-between  mr-20">
-        {" "}
+        {/*Render ability score component list */}
         {scoreArr}{" "}
       </section>
     </section>
@@ -50,4 +49,5 @@ const defaultScores = {
 };
 
 const scoreNameArr = Object.getOwnPropertyNames(defaultScores);
+
 export default AbilityScoreContainer;

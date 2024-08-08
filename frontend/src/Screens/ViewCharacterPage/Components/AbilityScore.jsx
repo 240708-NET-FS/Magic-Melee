@@ -1,12 +1,11 @@
-import React from "react";
-// TODO: #10 add reactivity
-const AbilityScore = ({ scoreName, scoreVal, handleChange }) => {
+import React, { useState } from "react";
+const AbilityScore = ({ scoreName, scoreVal, handleChange, textColor }) => {
   return (
-    <section className="flex flex-col border-white border-2 rounded-md mr-5">
+    <section className={"flex flex-col rounded-md border-2 border-black mr-2"}>
       {" "}
-      <h2 className="border-black underline"> {scoreName} </h2>{" "}
+      <h2 className="underline"> {scoreName} </h2>{" "}
       <input
-        className="bg-transparent"
+        className={`self-center bg-transparent text-black text-center p-2 ${textColor}`}
         value={scoreVal}
         onChange={(e) => handleChange(scoreName, e.target.value)}
       />{" "}

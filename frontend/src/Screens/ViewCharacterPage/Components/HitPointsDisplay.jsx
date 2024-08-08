@@ -5,13 +5,13 @@ const HitPointsDisplay = ({ HitPoints, MaxHitPoints, UpdateHitPoints }) => {
     e.preventDefault();
     UpdateHitPoints(e.target.elements["HP"].value);
   };
-  const [HP, UpdateHP] = useState(HitPoints);
+  const [HP, SetHP] = useState(HitPoints);
 
   return (
-    <section className="border-white border-4 text-black bg-purple-300 flex flex-col basis-1/5">
+    <section className="border-black border-4 text-black bg-purple-300 flex flex-col basis-1/5 rounded-md">
       <h3 className="underline"> Hit Points</h3>
       <form className="flex flex-col" onSubmit={handleClick}>
-        <section className="flex flex-row items-stretch shrink">
+        <section className="flex flex-row items-stretch">
           {/* Section for HP input */}
           <section className="flex flex-col  basis-2/5">
             <label for="HP" className="text-sm">
@@ -22,15 +22,15 @@ const HitPointsDisplay = ({ HitPoints, MaxHitPoints, UpdateHitPoints }) => {
             {/* Input field for HP value */}
             <input
               type="text"
-              className="bg-transparent max-w-24"
+              className="bg-transparent max-w-24 text-center"
               value={HP}
-              onChange={(e) => UpdateHP(e.target.value)}
+              onChange={(e) => SetHP(e.target.value)}
               name="HP"
               id="HP"
             />
           </section>
 
-          <section className="basis-1/5 grow"> / </section>
+          <section className="basis-1/5 grow text-center"> / </section>
 
           {/* Max HP Section  */}
           <section className="basis-2/5">

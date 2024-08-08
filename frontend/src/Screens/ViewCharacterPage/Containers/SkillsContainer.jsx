@@ -1,38 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Skill from "../Components/Skill";
+import validateSkill from "../util/validateSkill";
 
 const SkillsContainer = () => {
-  const [skills, updateSkills] = useState(defaultSkills);
+  const [skills, setSkills] = useState(defaultSkills);
 
   const handleChange = (name, val) => {
     const newSkills = { ...skills };
     newSkills[name] = val;
-    updateSkills(newSkills);
+    setSkills(newSkills);
   };
 
-  let SkillComponentArr = Object.getOwnPropertyNames(defaultSkills).map(
-    (name) => (
-      <Skill
-        skillName={name}
-        skillVal={skills[name]}
-        handleChange={handleChange}
-      />
-    )
-  );
-  useEffect(() => {
-    SkillComponentArr = Object.getOwnPropertyNames(defaultSkills).map(
-      (name) => (
+  const SkillComponentArr = Object.getOwnPropertyNames(defaultSkills).map(
+    (name) => {
+      const textColor = validateSkill(skills[name])
+        ? "text-white"
+        : "text-red-600";
+      return (
         <Skill
           skillName={name}
           skillVal={skills[name]}
           handleChange={handleChange}
+          textColor={textColor}
         />
-      )
-    );
-  }, [skills]);
+      );
+    }
+  );
 
   return (
-    <section className="flex flex-col border-black border-2 rounded-md basis-1/2">
+    <section className="flex flex-col border-black border-2 rounded-md basis-1/2 items-stretch">
       {SkillComponentArr}
     </section>
   );
