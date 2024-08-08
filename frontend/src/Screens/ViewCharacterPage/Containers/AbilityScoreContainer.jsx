@@ -35,8 +35,8 @@ const AbilityScoreContainer = ({ charID }) => {
   useEffect(() => {}, [scores]);
 
   return (
-    <section className="basis:2/5 grow">
-      <section className="flex flex-row justify-between  mr-20">
+    <section className=" shrink">
+      <section className="flex flex-row justify-between">
         {/*Render ability score component list */}
         {scoreArr}{" "}
       </section>
