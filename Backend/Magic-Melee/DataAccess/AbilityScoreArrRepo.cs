@@ -14,33 +14,40 @@ public class AbilityScoreArrRepo : IAbilityScoreArrRepo
 
     public async Task<AbilityScoreArr> GetByIdAsync(int id)
     {
-        return await _context.AbilityScoreArr.FindAsync(id);
+        return await _context.AbilityScoreArrs.FindAsync(id);
     }
 
     public async Task<IEnumerable<AbilityScoreArr>> GetAllAsync()
     {
-        return await _context.AbilityScoreArr.ToListAsync();
+        return await _context.AbilityScoreArrs.ToListAsync();
     }
 
     public async Task AddAsync(AbilityScoreArr entity)
     {
-        await _context.AbilityScoreArr.AddAsync(entity);
+        await _context.AbilityScoreArrs.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(AbilityScoreArr entity)
     {
-        _context.AbilityScoreArr.Update(entity);
+        _context.AbilityScoreArrs.Update(entity);
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var abilityScoreArr = await _context.AbilityScoreArr.FindAsync(id);
+        var abilityScoreArr = await _context.AbilityScoreArrs.FindAsync(id);
         if (abilityScoreArr != null)
         {
-            _context.AbilityScoreArr.Remove(abilityScoreArr);
+            _context.AbilityScoreArrs.Remove(abilityScoreArr);
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task<AbilityScoreArr> GetByCharacterIdAsync(int characterId)
+    {
+        return await _context.AbilityScoreArrs
+            .Include(a => a.DndCharacter)
+            .FirstOrDefaultAsync(a => a.DndCharacter.CharacterId == characterId);
     }
 }

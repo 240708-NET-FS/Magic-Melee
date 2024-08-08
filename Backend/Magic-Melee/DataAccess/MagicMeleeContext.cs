@@ -12,7 +12,7 @@ namespace MagicMelee.Data
         public DbSet<CharacterSpell> CharacterSpells { get; set; }
         public DbSet<CharacterRace> CharacterRaces { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }
-        public DbSet<AbilityScoreArr> AbilityScoreArr { get; set; }
+        public DbSet<AbilityScoreArr> AbilityScoreArrs { get; set; }
         public DbSet<Skills> Skills { get; set; }
 
         public MagicMeleeContext(DbContextOptions<MagicMeleeContext> options) : base(options) { }

@@ -44,7 +44,7 @@ public interface ICharacterClassRepo : IRepository<CharacterClass>
 
 public interface IAbilityScoreArrRepo : IRepository<AbilityScoreArr>
 {
-    // same   
+    Task<AbilityScoreArr> GetByCharacterIdAsync(int characterId);   
 }
 
 public interface ISkillsRepo : IRepository<Skills>

@@ -1,4 +1,5 @@
 using MagicMelee.DTO;
+using MagicMelee.Models;
 
 namespace MagicMelee.Services;
 
@@ -39,4 +40,9 @@ public interface ISpellService : IRepositoryService<SpellDTO>
 public interface ISkillsService : IRepositoryService<SkillsDTO>
 {
     // Specific methods for skills service
+}
+
+public interface IAbilityScoreArrService : IRepositoryService<AbilityScoreArrDTO>
+{
+    Task<AbilityScoreArrDTO> GetByCharacterIdAsync(int characterId);
 }

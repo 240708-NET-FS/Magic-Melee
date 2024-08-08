@@ -102,3 +102,34 @@ public static class SpellUtility
         };
     }
 }
+
+public static class AbilityScoreArrUtility
+{
+    public static AbilityScoreArrDTO AbilityScoreArrToDTO(AbilityScoreArr abilityScoreArr)
+    {
+        return new AbilityScoreArrDTO
+        {
+            AbilityScoreArrId = abilityScoreArr.AbilityScoreArrId,
+            Str = abilityScoreArr.Str,
+            Dex = abilityScoreArr.Dex,
+            Con = abilityScoreArr.Con,
+            Int = abilityScoreArr.Int,
+            Wis = abilityScoreArr.Wis,
+            Cha = abilityScoreArr.Cha
+        };
+    }
+
+    public static AbilityScoreArr DTOToAbilityScoreArr(AbilityScoreArrDTO abilityScoreArrDto)
+    {
+        return new AbilityScoreArr
+        {
+            AbilityScoreArrId = abilityScoreArrDto.AbilityScoreArrId,
+            Str = abilityScoreArrDto.Str,
+            Dex = abilityScoreArrDto.Dex,
+            Con = abilityScoreArrDto.Con,
+            Int = abilityScoreArrDto.Int,
+            Wis = abilityScoreArrDto.Wis,
+            Cha = abilityScoreArrDto.Cha
+        };
+    }
+}
