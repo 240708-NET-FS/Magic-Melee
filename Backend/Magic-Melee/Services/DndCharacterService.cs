@@ -31,6 +31,10 @@ public class DndCharacterService : IDndCharacterService
             }
             return DndCharacterUtility.DndCharacterToDTO(character);
         }
+        catch (CharacterNotFoundException)
+        {
+            throw; 
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to retrieve DndCharacter by ID: {Id}", id);
