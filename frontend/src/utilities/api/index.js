@@ -8,6 +8,8 @@ import getClass from "./getClass";
 import getRace from "./getRace";
 import getAllClasses from "./getAllClasses";
 import getAllRaces from "./getAllRaces";
+import putAbilityScores from "./putAbilityScores";
+import putSkills from "./putSkills";
 
 export {
   getCharacter,
@@ -19,4 +21,6 @@ export {
   getClass,
   getAllClasses,
   getAllRaces,
+  putAbilityScores,
+  putSkills,
 };
