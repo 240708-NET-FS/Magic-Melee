@@ -99,4 +99,49 @@ public class DndCharacterController : ControllerBase
             return NotFound(ex.Message);
         }
     }
+
+    // GET: api/DndCharacter/{characterId}/spells
+    [HttpGet("{characterId}/spells")]
+    public async Task<IActionResult> GetCharacterSpells(int characterId)
+    {
+        try
+        {
+            var spells = await _dndCharacterService.GetCharacterSpellsAsync(characterId);
+            return Ok(spells);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+
+    // POST: api/DndCharacter/{characterId}/spells/{spellId}
+    [HttpPost("{characterId}/spells/{spellId}")]
+    public async Task<IActionResult> AddSpellToCharacter(int characterId, int spellId)
+    {
+        try
+        {
+            await _dndCharacterService.AddSpellToCharacterAsync(characterId, spellId);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+
+    // DELETE: api/DndCharacter/{characterId}/spells/{spellId}
+    [HttpDelete("{characterId}/spells/{spellId}")]
+    public async Task<IActionResult> RemoveSpellFromCharacter(int characterId, int spellId)
+    {
+        try
+        {
+            await _dndCharacterService.RemoveSpellFromCharacterAsync(characterId, spellId);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
 }

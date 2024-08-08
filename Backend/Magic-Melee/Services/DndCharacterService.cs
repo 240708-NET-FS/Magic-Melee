@@ -2,17 +2,20 @@ using MagicMelee.Data;
 using MagicMelee.DTO;
 using MagicMelee.Utilities;
 using MagicMelee.Exceptions;
+using MagicMelee.Models;
 
 namespace MagicMelee.Services;
 
 public class DndCharacterService : IDndCharacterService
 {
     private readonly IDndCharacterRepo _characterRepo;
+    private readonly ICharacterSpellRepo _characterSpellRepo;
     private readonly ILogger<DndCharacterService> _logger;
 
-    public DndCharacterService(IDndCharacterRepo characterRepo, ILogger<DndCharacterService> logger)
+    public DndCharacterService(IDndCharacterRepo characterRepo, ICharacterSpellRepo characterSpellRepo, ILogger<DndCharacterService> logger)
     {
         _characterRepo = characterRepo;
+        _characterSpellRepo = characterSpellRepo;
         _logger = logger;
     }
 
@@ -123,6 +126,52 @@ public class DndCharacterService : IDndCharacterService
         {
             _logger.LogError(ex, "Failed to delete DndCharacter by ID: {Id}", id);
             throw new MagicMeleeException("Error deleting DndCharacter", ex);
+        }
+    }
+
+    // SPELLS
+    public async Task<IEnumerable<SpellDTO>> GetCharacterSpellsAsync(int characterId)
+    {
+        try
+        {
+            var characterSpells = await _characterSpellRepo.GetAllAsync();
+            var spells = characterSpells
+                .Where(cs => cs.CharacterId == characterId)
+                .Select(cs => cs.Spell)
+                .ToList();
+            return spells.Select(SpellUtility.SpellToDTO).ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to retrieve spells for character: CharacterId = {CharacterId}", characterId);
+            throw new MagicMeleeException("Error retrieving spells for character", ex);
+        }
+    }
+
+    public async Task AddSpellToCharacterAsync(int characterId, int spellId)
+    {
+        try
+        {
+            var characterSpell = new CharacterSpell { CharacterId = characterId, SpellId = spellId };
+            await _characterSpellRepo.AddAsync(characterSpell);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to add spell to character: CharacterId = {CharacterId}, SpellId = {SpellId}", characterId, spellId);
+            throw new MagicMeleeException("Error adding spell to character", ex);
+        }
+    }
+
+    public async Task RemoveSpellFromCharacterAsync(int characterId, int spellId)
+    {
+        try
+        {
+            await _characterSpellRepo.DeleteAsync(characterId, spellId);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to remove spell from character: CharacterId = {CharacterId}, SpellId = {SpellId}", characterId, spellId);
+            throw new MagicMeleeException("Error removing spell from character", ex);
         }
     }
 }
