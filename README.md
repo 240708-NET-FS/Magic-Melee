@@ -8,13 +8,13 @@ Character Sheet Creator that allows users to save their characters.
 
 - User can log in and out
 - User can create view, update, and delete multiple characters of their own
-- User characters contain inventories and learned spell lists (stored in many to many relationship in database) 
+- User characters contain inventories and learned spell lists (stored in many to many relationship in database)
 
 # Entity Relationship Diagram
 
 - https://lucid.app/lucidchart/b2425a08-ef07-469b-a112-ff94317856d7/edit?invitationId=inv_d6d9c7e3-76bd-4e57-bcf3-68323d4a107f
 
-![image info](./Magic&Melee.png)
+![image info](./Magic&Melee.jpeg)
 
 # External API Used
 
