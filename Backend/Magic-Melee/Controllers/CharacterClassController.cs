@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MagicMelee.Services;
 using MagicMelee.DTO;
+using apiClassController=MagicMelee.ApiUtil.Controller.ClassController;
+using apiClassDTO=MagicMelee.ApiUtil.DTO.Classes.ClassDTO;
 
 namespace MagicMelee.Controllers;
 
@@ -51,12 +53,21 @@ public class CharacterClassController : ControllerBase
 
     // POST: api/CharacterClass
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CharacterClassDTO characterClassDto)
+    public async Task<IActionResult> Add()
     {
         try
         {
-            await _characterClassService.AddAsync(characterClassDto);
-            return CreatedAtAction(nameof(GetById), new { id = characterClassDto.CharacterClassId }, characterClassDto);
+            List<apiClassDTO> classDTOs = await apiClassController.GetAllClasses();
+            foreach(apiClassDTO classDTO in classDTOs) {
+                CharacterClassDTO characterClassDTO = new() {
+                    Name=classDTO.Name
+                };
+                await _characterClassService.AddAsync(characterClassDTO);
+            }
+
+            return Created(); // CreatedAtAction("created all classes", classDTOs);
+
+            
         }
         catch (Exception ex)
         {

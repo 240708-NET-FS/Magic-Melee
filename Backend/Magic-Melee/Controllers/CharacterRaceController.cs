@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MagicMelee.Services;
 using MagicMelee.DTO;
+using apiRaceController = MagicMelee.ApiUtil.Controller.RaceController; 
+using apiRaceDTO=MagicMelee.ApiUtil.DTO.Races.RaceDTO;
 
 namespace MagicMelee.Controllers;
 
@@ -69,13 +71,22 @@ public class CharacterRaceController : ControllerBase
     }
 
     // POST: api/CharacterRace
+    // add all races to DB 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CharacterRaceDTO characterRaceDto)
+    public async Task<IActionResult> Add()
     {
         try
         {
-            await _characterRaceService.AddAsync(characterRaceDto);
-            return CreatedAtAction(nameof(GetById), new { id = characterRaceDto.CharacterRaceId }, characterRaceDto);
+           List<apiRaceDTO> raceDTOs = await apiRaceController.GetAllRaces(); 
+           foreach(apiRaceDTO apiRace in raceDTOs) {
+            CharacterRaceDTO raceDTO = new(){
+                Name = apiRace.Name,
+                Speed = apiRace.Speed
+            }; 
+            await _characterRaceService.AddAsync(raceDTO);
+           }
+
+            return CreatedAtAction("created all races", raceDTOs);
         }
         catch (Exception ex)
         {

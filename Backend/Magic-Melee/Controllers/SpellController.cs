@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MagicMelee.Services;
 using MagicMelee.DTO;
 using apiSpellDTO=MagicMelee.ApiUtil.DTO.Spells.SpellEntityDTO;
-using MagicMelee.ApiUtil.DTO;
+
 
 namespace MagicMelee.Controllers;
 
@@ -70,7 +70,7 @@ public class SpellController : ControllerBase
                 };
                 await _spellService.AddAsync(spellDTO);
             }
-            List<SpellDTO> createdSpellList= (List<SpellDTO>) await _spellService.GetAllAsync(); // doesnt work? 
+            //List<SpellDTO> createdSpellList= (List<SpellDTO>) await _spellService.GetAllAsync(); // doesnt work? 
             return CreatedAtAction("Spells Created", spellDTOs );
         }
         catch (Exception ex)
