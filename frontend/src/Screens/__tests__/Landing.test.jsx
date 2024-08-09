@@ -26,7 +26,7 @@ describe("Landing page route", () => {
     expect(screen.getByText("Create Account")).toBeInTheDocument();
   });
 
-  test("Login button press calls onPressLogin", () => {
+  test("Create Account Button button press calls onPressCreate", () => {
     // arrange
     // render component
     render(router);
@@ -34,9 +34,9 @@ describe("Landing page route", () => {
     const consoleSpy = jest.spyOn(console, "log");
 
     // act: simulate user click for login button
-    userEvent.click(screen.getByText("Login"));
+    userEvent.click(screen.getByText("Create Account"));
 
     // assert: should log to console 'hello old user'
-    expect(consoleSpy).toHaveBeenCalledWith("hello old user");
+    expect(consoleSpy).toHaveBeenCalledWith("hello new user");
   });
 });
