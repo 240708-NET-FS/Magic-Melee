@@ -103,6 +103,27 @@ public static class SpellUtility
     }
 }
 
+public static class CharacterSpellUtility
+{
+    public static CharacterSpell DTOToCharacterSpell(CharacterSpellDTO dto)
+    {
+        return new CharacterSpell
+        {
+            CharacterId = dto.CharacterId,
+            SpellId = dto.SpellId
+        };
+    }
+
+    public static CharacterSpellDTO CharacterSpellToDTO(CharacterSpell characterSpell)
+    {
+        return new CharacterSpellDTO
+        {
+            CharacterId = characterSpell.CharacterId,
+            SpellId = characterSpell.SpellId
+        };
+    }
+}
+
 public static class AbilityScoreArrUtility
 {
     public static AbilityScoreArrDTO AbilityScoreArrToDTO(AbilityScoreArr abilityScoreArr)
@@ -185,6 +206,29 @@ public static class SkillsUtility
             Arcana = skills.Arcana,
             Investigation = skills.Investigation,
             Nature = skills.Nature
+        };
+    }
+}
+
+public static class CharacterRaceUtility
+{
+    public static CharacterRace DTOToCharacterRace(CharacterRaceDTO characterRaceDTO)
+    {
+        return new CharacterRace
+        {
+            CharacterRaceId = characterRaceDTO.CharacterRaceId,
+            Name = characterRaceDTO.Name,
+            Speed = characterRaceDTO.Speed
+        };
+    }
+
+    public static CharacterRaceDTO CharacterRaceToDTO(CharacterRace characterRace)
+    {
+        return new CharacterRaceDTO
+        {
+            CharacterRaceId = characterRace.CharacterRaceId,
+            Name = characterRace.Name,
+            Speed = characterRace.Speed
         };
     }
 }

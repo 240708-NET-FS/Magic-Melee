@@ -43,4 +43,11 @@ public class CharacterRaceRepo : ICharacterRaceRepo
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<CharacterRace> GetByCharacterIdAsync(int characterId)
+    {
+        return await _context.CharacterRaces
+            .Include(cr => cr.DndCharacter)
+            .FirstOrDefaultAsync(cr => cr.DndCharacter.CharacterId == characterId);
+    }
 }

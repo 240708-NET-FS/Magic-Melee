@@ -34,7 +34,7 @@ public interface ISpellRepo : IRepository<Spell>
 
 public interface ICharacterRaceRepo : IRepository<CharacterRace>
 {
-    // same   
+    Task<CharacterRace> GetByCharacterIdAsync(int characterId); 
 }
 
 public interface ICharacterClassRepo : IRepository<CharacterClass>
@@ -50,6 +50,15 @@ public interface IAbilityScoreArrRepo : IRepository<AbilityScoreArr>
 public interface ISkillsRepo : IRepository<Skills>
 {
     Task<Skills> GetByCharacterIdAsync(int characterId);
+}
+
+public interface ICharacterSpellRepo
+{
+    Task<CharacterSpell> GetByIdAsync(int characterId, int spellId);
+    Task<IEnumerable<CharacterSpell>> GetAllAsync();
+    Task AddAsync(CharacterSpell entity);
+    Task UpdateAsync(CharacterSpell entity);
+    Task DeleteAsync(int characterId, int spellId);
 }
 
 // Add additional interfaces if needed

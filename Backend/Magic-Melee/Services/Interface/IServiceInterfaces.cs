@@ -30,6 +30,9 @@ public interface ICharacterClassService : IRepositoryService<CharacterClassDTO>
 public interface IDndCharacterService : IRepositoryService<DndCharacterDTO>
 {
     Task<IEnumerable<DndCharacterDTO>> GetByUserIdAsync(int userId);
+    Task AddSpellToCharacterAsync(int characterId, int spellId);
+    Task RemoveSpellFromCharacterAsync(int characterId, int spellId);
+    Task<IEnumerable<SpellDTO>> GetCharacterSpellsAsync(int characterId);
 }
 
 public interface ISpellService : IRepositoryService<SpellDTO>
@@ -45,4 +48,9 @@ public interface ISkillsService : IRepositoryService<SkillsDTO>
 public interface IAbilityScoreArrService : IRepositoryService<AbilityScoreArrDTO>
 {
     Task<AbilityScoreArrDTO> GetByCharacterIdAsync(int characterId);
+}
+
+public interface ICharacterRaceService : IRepositoryService<CharacterRaceDTO>
+{
+    Task<CharacterRaceDTO> GetByCharacterIdAsync(int characterId);
 }

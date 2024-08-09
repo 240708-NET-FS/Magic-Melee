@@ -37,18 +37,24 @@ builder.Services.AddLogging();
 
 //Here we will register our dependencies (Services and DbContext, etc) so that we can satisfy our constructors
 //and inject dependecies where needed
-builder.Services.AddScoped<IUserService, UserService>(); // Should be our services
 builder.Services.AddScoped<IDndCharacterService, DndCharacterService>();
 builder.Services.AddScoped<ICharacterClassService, CharacterClassService>();
+builder.Services.AddScoped<ISpellService, SpellService>();
+builder.Services.AddScoped<ISkillsService, SkillsService>();
+builder.Services.AddScoped<IAbilityScoreArrService, AbilityScoreArrService>();
+builder.Services.AddScoped<ICharacterRaceService, CharacterRaceService>();
 
 // Our Repos
-// builder.Services.AddScoped<ILoginRepo, LoginRepo>();
+builder.Services.AddScoped<ILoginRepo, LoginRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IDndCharacterRepo, DndCharacterRepo>();
 builder.Services.AddScoped<ICharacterClassRepo, CharacterClassRepo>();
 builder.Services.AddScoped<ICharacterRaceRepo, CharacterRaceRepo>();
 builder.Services.AddScoped<IAbilityScoreArrRepo, AbilityScoreArrRepo>();
 builder.Services.AddScoped<ISkillsRepo, SkillsRepo>();
+builder.Services.AddScoped<ISpellRepo, SpellRepo>();
+builder.Services.AddScoped<ICharacterSpellRepo, CharacterSpellRepo>();
+
 // builder.Services.AddScoped<ISpellRepo, SpellRepo>();
 
 
