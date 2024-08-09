@@ -36,14 +36,23 @@ public class SpellController : ControllerBase
         }
     }
 
-    // GET: api/Spell
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
+    // GET: api/Spell/class/{name}
+    [HttpGet("class/{name}")]
+    public async Task<IActionResult> GetAll(string name )
     {
         try
         {
-            var spells = await _spellService.GetAllAsync();
-            return Ok(spells);
+            List<apiSpellDTO> spells = await MagicMelee.ApiUtil.Controller.SpellController.GetSpellsByClass(name);
+            List<SpellDTO> spellDTOs = []; 
+            foreach(apiSpellDTO spell in spells) {
+                spellDTOs.Add(new() {
+                    SpellName = spell.Name,
+                    SpellRange=spell.Range,
+                    SpellLevel =spell.Level,
+                    SpellDamageType=spell.DamageType
+                });
+            }
+            return Ok(spellDTOs);
         }
         catch (Exception ex)
         {
