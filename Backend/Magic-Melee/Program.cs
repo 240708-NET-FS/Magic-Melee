@@ -43,6 +43,8 @@ builder.Services.AddScoped<ISpellService, SpellService>();
 builder.Services.AddScoped<ISkillsService, SkillsService>();
 builder.Services.AddScoped<IAbilityScoreArrService, AbilityScoreArrService>();
 builder.Services.AddScoped<ICharacterRaceService, CharacterRaceService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Our Repos
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();
@@ -54,6 +56,7 @@ builder.Services.AddScoped<IAbilityScoreArrRepo, AbilityScoreArrRepo>();
 builder.Services.AddScoped<ISkillsRepo, SkillsRepo>();
 builder.Services.AddScoped<ISpellRepo, SpellRepo>();
 builder.Services.AddScoped<ICharacterSpellRepo, CharacterSpellRepo>();
+
 
 // builder.Services.AddScoped<ISpellRepo, SpellRepo>();
 
