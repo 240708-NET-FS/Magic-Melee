@@ -122,6 +122,28 @@ public class DndCharacterServiceTests
     }
 
     [Fact]
+    public async Task UpdateAsync_CharacterNotFound_ThrowsCharacterNotFoundException()
+    {
+        // Arrange
+        var characterId = 1;
+        var characterDto = new DndCharacterDTO { CharacterId = characterId, CharacterName = "Updated Character" };
+        _mockCharacterRepo.Setup(repo => repo.GetByIdAsync(characterId)).ReturnsAsync((DndCharacter?)null);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.UpdateAsync(characterDto));
+
+        // Assert
+        Assert.IsType<CharacterNotFoundException>(exception.InnerException);
+        _mockLogger.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("DndCharacter not found with ID")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)));
+    }
+
+    [Fact]
     public async Task DeleteAsync_CharacterExists_DeletesCharacter()
     {
         // Arrange
@@ -134,6 +156,27 @@ public class DndCharacterServiceTests
 
         // Assert
         _mockCharacterRepo.Verify(repo => repo.DeleteAsync(characterId), Times.Once);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_CharacterNotFound_ThrowsCharacterNotFoundException()
+    {
+        // Arrange
+        var characterId = 1;
+        _mockCharacterRepo.Setup(repo => repo.GetByIdAsync(characterId)).ReturnsAsync((DndCharacter?)null);
+
+        // Act
+        var exception = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.DeleteAsync(characterId));
+
+        // Assert
+        Assert.IsType<CharacterNotFoundException>(exception.InnerException);
+        _mockLogger.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("DndCharacter not found with ID")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)));
     }
 
     [Fact]
@@ -157,6 +200,29 @@ public class DndCharacterServiceTests
     }
 
     [Fact]
+    public async Task GetCharacterSpellsAsync_ExceptionThrown_ThrowsMagicMeleeException()
+    {
+        // Arrange
+        var characterId = 1;
+        _mockCharacterSpellRepo.Setup(repo => repo.GetAllAsync()).ThrowsAsync(new Exception("Test exception"));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.GetCharacterSpellsAsync(characterId));
+
+        Assert.Equal("Error retrieving spells for character", exception.Message);
+
+        // Verify that the logger was called with an error level
+        _mockLogger.Verify(
+            x => x.Log(
+                LogLevel.Error,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Failed to retrieve spells for character")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)));
+    }
+
+
+    [Fact]
     public async Task AddSpellToCharacterAsync_ValidSpell_AddsSpellToCharacter()
     {
         // Arrange
@@ -171,6 +237,29 @@ public class DndCharacterServiceTests
     }
 
     [Fact]
+    public async Task AddSpellToCharacterAsync_ExceptionThrown_ThrowsMagicMeleeException()
+    {
+        // Arrange
+        var characterId = 1;
+        var spellId = 1;
+        _mockCharacterSpellRepo.Setup(repo => repo.AddAsync(It.IsAny<CharacterSpell>())).ThrowsAsync(new Exception("Test exception"));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.AddSpellToCharacterAsync(characterId, spellId));
+
+        Assert.Equal("Error adding spell to character", exception.Message);
+
+        // Verify that the logger was called with an error level
+        _mockLogger.Verify(
+            x => x.Log(
+                LogLevel.Error,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Failed to add spell to character")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)));
+    }
+
+    [Fact]
     public async Task RemoveSpellFromCharacterAsync_ValidSpell_RemovesSpellFromCharacter()
     {
         // Arrange
@@ -182,5 +271,125 @@ public class DndCharacterServiceTests
 
         // Assert
         _mockCharacterSpellRepo.Verify(repo => repo.DeleteAsync(characterId, spellId), Times.Once);
+    }
+
+    [Fact]
+    public async Task RemoveSpellFromCharacterAsync_ExceptionThrown_ThrowsMagicMeleeException()
+    {
+        // Arrange
+        var characterId = 1;
+        var spellId = 1;
+        _mockCharacterSpellRepo.Setup(repo => repo.DeleteAsync(characterId, spellId)).ThrowsAsync(new Exception("Test exception"));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.RemoveSpellFromCharacterAsync(characterId, spellId));
+
+        Assert.Equal("Error removing spell from character", exception.Message);
+
+        // Verify that the logger was called with an error level
+        _mockLogger.Verify(
+            x => x.Log(
+                LogLevel.Error,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Failed to remove spell from character")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)));
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ThrowsMagicMeleeException_WhenExceptionOccurs()
+    {
+        // Arrange
+        var characterId = 1;
+        _mockCharacterRepo.Setup(repo => repo.GetByIdAsync(characterId)).ThrowsAsync(new Exception("Database error"));
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.GetByIdAsync(characterId));
+        Assert.Equal("Error retrieving DndCharacter", ex.Message);
+    }
+
+    [Fact]
+    public async Task GetByUserIdAsync_NoCharactersFound_ReturnsEmptyList()
+    {
+        // Arrange
+        var userId = 1;
+        _mockCharacterRepo.Setup(repo => repo.GetByUserId(userId)).ReturnsAsync(new List<DndCharacter>());
+
+        // Act
+        var result = await _characterService.GetByUserIdAsync(userId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Empty(result);
+
+        // Verify that the logger was called with a warning level
+        _mockLogger.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("No DndCharacters found for User ID")),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)));
+    }
+
+    [Fact]
+    public async Task GetByUserIdAsync_ThrowsMagicMeleeException_WhenExceptionOccurs()
+    {
+        // Arrange
+        var userId = 1;
+        _mockCharacterRepo.Setup(repo => repo.GetByUserId(userId)).ThrowsAsync(new Exception("Database error"));
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.GetByUserIdAsync(userId));
+        Assert.Equal($"Error retrieving DndCharacters for User ID: {userId}", ex.Message);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_ThrowsMagicMeleeException_WhenExceptionOccurs()
+    {
+        // Arrange
+        _mockCharacterRepo.Setup(repo => repo.GetAllAsync()).ThrowsAsync(new Exception("Database error"));
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.GetAllAsync());
+        Assert.Equal("Error retrieving all DndCharacters", ex.Message);
+    }
+
+    [Fact]
+    public async Task AddAsync_ThrowsMagicMeleeException_WhenExceptionOccurs()
+    {
+        // Arrange
+        var characterDto = new DndCharacterDTO { CharacterId = 1, CharacterName = "New Character" };
+        _mockCharacterRepo.Setup(repo => repo.AddAsync(It.IsAny<DndCharacter>())).ThrowsAsync(new Exception("Database error"));
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.AddAsync(characterDto));
+        Assert.Equal("Error adding DndCharacter", ex.Message);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ThrowsMagicMeleeException_WhenExceptionOccurs()
+    {
+        // Arrange
+        var characterDto = new DndCharacterDTO { CharacterId = 1, CharacterName = "Updated Character" };
+        _mockCharacterRepo.Setup(repo => repo.GetByIdAsync(characterDto.CharacterId)).ReturnsAsync(new DndCharacter());
+        _mockCharacterRepo.Setup(repo => repo.UpdateAsync(It.IsAny<DndCharacter>())).ThrowsAsync(new Exception("Database error"));
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.UpdateAsync(characterDto));
+        Assert.Equal("Error updating DndCharacter", ex.Message);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ThrowsMagicMeleeException_WhenExceptionOccurs()
+    {
+        // Arrange
+        var characterId = 1;
+        _mockCharacterRepo.Setup(repo => repo.GetByIdAsync(characterId)).ReturnsAsync(new DndCharacter());
+        _mockCharacterRepo.Setup(repo => repo.DeleteAsync(characterId)).ThrowsAsync(new Exception("Database error"));
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<MagicMeleeException>(() => _characterService.DeleteAsync(characterId));
+        Assert.Equal("Error deleting DndCharacter", ex.Message);
     }
 }
