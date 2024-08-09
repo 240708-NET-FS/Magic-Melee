@@ -19,7 +19,7 @@ namespace MagicMelee.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); // Ensure base method is called
+            base.OnModelCreating(modelBuilder); 
 
             // Configure many-to-many relationship between DndCharacter, CharacterSpell, and Spell.
             modelBuilder.Entity<CharacterSpell>()
@@ -55,6 +55,11 @@ namespace MagicMelee.Data
                 .HasOne(dc => dc.Skills)
                 .WithOne(s => s.DndCharacter)
                 .HasForeignKey<DndCharacter>(dc => dc.SkillsId);
+
+            modelBuilder.Entity<Login>()
+                .HasOne(l => l.Username)
+                .WithOne (l => l.Password)
+                .HasForeignKey<User>(u => u.UserId);
         }
     }
 }
