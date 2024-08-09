@@ -77,16 +77,17 @@ public class CharacterRaceController : ControllerBase
     {
         try
         {
-           List<apiRaceDTO> raceDTOs = await apiRaceController.GetAllRaces(); 
+           List<apiRaceDTO> raceDTOs = await apiRaceController.GetAllRaces();
+           int addedCount = 0;
            foreach(apiRaceDTO apiRace in raceDTOs) {
             CharacterRaceDTO raceDTO = new(){
                 Name = apiRace.Name,
                 Speed = apiRace.Speed
             }; 
             await _characterRaceService.AddAsync(raceDTO);
+            addedCount++;
            }
-
-            return CreatedAtAction("created all races", raceDTOs);
+            return Ok(new { message = $"{addedCount} character races added successfully." });
         }
         catch (Exception ex)
         {

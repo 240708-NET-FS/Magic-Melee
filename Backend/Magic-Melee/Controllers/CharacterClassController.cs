@@ -58,16 +58,16 @@ public class CharacterClassController : ControllerBase
         try
         {
             List<apiClassDTO> classDTOs = await apiClassController.GetAllClasses();
-            foreach(apiClassDTO classDTO in classDTOs) {
+            int addedCount = 0;
+            foreach(apiClassDTO classDTO in classDTOs)
+            {
                 CharacterClassDTO characterClassDTO = new() {
                     Name=classDTO.Name
                 };
                 await _characterClassService.AddAsync(characterClassDTO);
+                addedCount++;
             }
-
-            return Created(); // CreatedAtAction("created all classes", classDTOs);
-
-            
+            return Ok(new { message = $"{addedCount} character classes added successfully." });
         }
         catch (Exception ex)
         {
