@@ -1,10 +1,11 @@
 using MagicMelee.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MagicMelee.Data
 {
-    public class MagicMeleeContext : IdentityDbContext<User>
+    public class MagicMeleeContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Login> Logins { get; set; }
         public DbSet<DndCharacter> DndCharacters { get; set; }
@@ -59,7 +60,7 @@ namespace MagicMelee.Data
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Login)
                 .WithOne (l => l.User)
-                .HasForeignKey<Login>(u => u.UserId);
+                .HasForeignKey<Login>(l => l.UserId);
         }
     }
 }

@@ -45,6 +45,7 @@ builder.Services.AddScoped<IAbilityScoreArrService, AbilityScoreArrService>();
 builder.Services.AddScoped<ICharacterRaceService, CharacterRaceService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Our Repos
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();
@@ -58,14 +59,11 @@ builder.Services.AddScoped<ISpellRepo, SpellRepo>();
 builder.Services.AddScoped<ICharacterSpellRepo, CharacterSpellRepo>();
 
 
-// builder.Services.AddScoped<ISpellRepo, SpellRepo>();
-
-
 builder.Services.AddDbContext<MagicMeleeContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-    builder.Services.AddIdentity<User, IdentityRole>()
+    builder.Services.AddIdentity<User, IdentityRole<int>>()
         .AddEntityFrameworkStores<MagicMeleeContext>()
         .AddDefaultTokenProviders();
 
@@ -120,40 +118,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-// var app = builder.Build();
-
-// // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-
-// app.UseHttpsRedirection();
-
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
-
-// app.MapGet("/weatherforecast", () =>
-// {
-//     var forecast =  Enumerable.Range(1, 5).Select(index =>
-//         new WeatherForecast
-//         (
-//             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//             Random.Shared.Next(-20, 55),
-//             summaries[Random.Shared.Next(summaries.Length)]
-//         ))
-//         .ToArray();
-//     return forecast;
-// })
-// .WithName("GetWeatherForecast")
-// .WithOpenApi();
-
-// app.Run();
-
-// record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-// {
-//     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
