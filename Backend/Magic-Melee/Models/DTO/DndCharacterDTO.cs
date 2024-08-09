@@ -5,6 +5,7 @@ public class DndCharacterDTO
     public int CharacterId { get; set; }
     public string CharacterName { get; set; } = string.Empty;
     public int HitPoints { get; set; }
+    public int MaxHitPoints { get; set; }
 
     public int UserId { get; set; }
     public int CharacterRaceId { get; set; }
