@@ -107,3 +107,29 @@
     background-color: #080011;
     border-radius: 5px;
 }
+
+.asBox{
+    width: 115px;
+    height: 165px;
+    border: solid;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    /* border-color: #90fcf9; */
+    border:solid #90fcf9;
+    border-width: 2px;
+
+}
+
+.asTextBox{
+    font-size: larger;
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 4px;
+    /* display: flex; */
+
+
+}
