@@ -116,7 +116,7 @@ public class DndCharacterController : ControllerBase
     }
 
     // POST: api/DndCharacter/{characterId}/spells/{spellId}
-    [HttpPost("{characterId}/spells/{spellId}")]
+    [HttpPost("spells/{characterId}/{spellId}")]
     public async Task<IActionResult> AddSpellToCharacter(int characterId, int spellId)
     {
         try

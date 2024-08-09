@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Spell from "../Components/Spell";
+const SpellContainer = ({ userID }) => {
+  const [spells, setSpells] = useState([]);
 
-const InventoryContainer = () => {
   return (
     <section className="flex flex-col items-stretch border-2 ml-5 basis-2/5 rounded-md">
       <p className="basis-1/12 self-center">
@@ -10,4 +12,8 @@ const InventoryContainer = () => {
   );
 };
 
-export default InventoryContainer;
+
+const getUserSpells= () => {
+  
+}
+export default SpellContainer;
