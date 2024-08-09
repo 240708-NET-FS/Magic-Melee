@@ -56,10 +56,10 @@ namespace MagicMelee.Data
                 .WithOne(s => s.DndCharacter)
                 .HasForeignKey<DndCharacter>(dc => dc.SkillsId);
 
-            modelBuilder.Entity<Login>()
-                .HasOne(l => l.Username)
-                .WithOne (l => l.Password)
-                .HasForeignKey<User>(u => u.UserId);
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Login)
+                .WithOne (l => l.User)
+                .HasForeignKey<Login>(u => u.UserId);
         }
     }
 }
