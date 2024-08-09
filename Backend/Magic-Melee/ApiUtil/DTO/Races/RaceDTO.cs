@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO.Races; 
+namespace MagicMelee.ApiUtil.DTO.Races; 
 
 public class RaceDTO (string name, string url, int speed, List<AbilityBonusDTO> ability_bonuses) {
     public string Name = name ; 

@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 namespace MagicMelee.Models;
 
-public class User
+public class User : IdentityUser<int>
 {
+    [Key]
     public int UserId { get; set; }
+
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
 

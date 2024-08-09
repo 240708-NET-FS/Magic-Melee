@@ -6,7 +6,7 @@ using MagicMelee.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Magic_Melee.Services
+namespace MagicMelee.Services
 {
     public interface ITokenService
     {
@@ -45,7 +45,25 @@ namespace Magic_Melee.Services
 
         public string CreateToken(User user)
         {
-            throw new NotImplementedException();
+            var claims = new List<Claim>
+            {
+                new Claim("UserId", user.UserId.ToString()),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+             }
         }
     }
-}

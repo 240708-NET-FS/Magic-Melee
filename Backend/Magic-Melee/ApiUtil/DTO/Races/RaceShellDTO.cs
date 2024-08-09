@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO.Races; 
+namespace MagicMelee.ApiUtil.DTO.Races; 
 
 public class RaceShellDTO (string name, string url) {
     public string Name = name ; 

@@ -1,6 +1,6 @@
-namespace ApiUtil.DTO.Spells; 
+namespace MagicMelee.ApiUtil.DTO.Spells; 
 
-public class SpellShellInboundDTO(string name , int level, string url) {
+public class SpellShellInboundDTO( string name , int level, string url)  {
 
     public string Name = name ; 
     public int Level = level; 

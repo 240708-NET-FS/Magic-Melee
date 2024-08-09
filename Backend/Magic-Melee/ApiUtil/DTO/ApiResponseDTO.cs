@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO; 
+namespace MagicMelee.ApiUtil.DTO; 
 
 public class ApiResponseDTO<T> (List<T> results) {
 

@@ -1,64 +1,66 @@
 using MagicMelee.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-namespace MagicMelee.Data;
 
-public class MagicMeleeContext : DbContext
+namespace MagicMelee.Data
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Login> Logins { get; set; }
-    public DbSet<DndCharacter> DndCharacters { get; set; }
-    public DbSet<Spell> Spells { get; set; }
-    public DbSet<CharacterSpell> CharacterSpells { get; set; }
-    public DbSet<CharacterRace> CharacterRaces { get; set; }
-    public DbSet<CharacterClass> CharacterClasses { get; set; }
-    public DbSet<AbilityScoreArr> AbilityScoreArr { get; set; }
-    public DbSet<Skills> Skills { get; set; }
-
-    public MagicMeleeContext(DbContextOptions<MagicMeleeContext> options) : base(options) { }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class MagicMeleeContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        // Configure many-to-many relationship between DndCharacter, CharacterSpell, and Spell.
-        modelBuilder.Entity<CharacterSpell>()
-            .HasKey(cs => new { cs.CharacterId, cs.SpellId });
+        public DbSet<Login> Logins { get; set; }
+        public DbSet<DndCharacter> DndCharacters { get; set; }
+        public DbSet<Spell> Spells { get; set; }
+        public DbSet<CharacterSpell> CharacterSpells { get; set; }
+        public DbSet<CharacterRace> CharacterRaces { get; set; }
+        public DbSet<CharacterClass> CharacterClasses { get; set; }
+        public DbSet<AbilityScoreArr> AbilityScoreArrs { get; set; }
+        public DbSet<Skills> Skills { get; set; }
 
-        modelBuilder.Entity<CharacterSpell>()
-            .HasOne(cs => cs.DndCharacter)
-            .WithMany(dc => dc.CharacterSpells)
-            .HasForeignKey(cs => cs.CharacterId);
+        public MagicMeleeContext(DbContextOptions<MagicMeleeContext> options) : base(options) { }
 
-        modelBuilder.Entity<CharacterSpell>()
-            .HasOne(cs => cs.Spell)
-            .WithMany(s => s.CharacterSpells)
-            .HasForeignKey(cs => cs.SpellId);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder); 
 
-        // Configure one-to-many relationship between CharacterRace and DndCharacter
-        modelBuilder.Entity<DndCharacter>()
-            .HasOne(dc => dc.CharacterRace)
-            .WithOne(cr => cr.DndCharacter)
-            .HasForeignKey<DndCharacter>(dc => dc.CharacterRaceId);
-            
-        // Configure one-to-many relationship between CharacterClass and DndCharacter
-        modelBuilder.Entity<DndCharacter>()
-            .HasOne(dc => dc.CharacterClass)
-            .WithOne(cc => cc.DndCharacter)
-            .HasForeignKey<DndCharacter>(dc => dc.CharacterClassId);
+            // Configure many-to-many relationship between DndCharacter, CharacterSpell, and Spell.
+            modelBuilder.Entity<CharacterSpell>()
+                .HasKey(cs => new { cs.CharacterId, cs.SpellId });
 
-        // Configure one-to-one relationship between DndCharacter and AbilityScoreArr
-        modelBuilder.Entity<DndCharacter>()
-            .HasOne(dc => dc.AbilityScoreArr)
-            .WithOne(asa => asa.DndCharacter)
-            .HasForeignKey<DndCharacter>(dc => dc.AbilityScoreArrId);
-        
-        // One-to-One relationships for Skills
-        modelBuilder.Entity<DndCharacter>()
-            .HasOne(dc => dc.Skills)
-            .WithOne(s => s.DndCharacter)
-            .HasForeignKey<DndCharacter>(dc => dc.SkillsId);
-    }
+            modelBuilder.Entity<CharacterSpell>()
+                .HasOne(cs => cs.DndCharacter)
+                .WithMany(dc => dc.CharacterSpells)
+                .HasForeignKey(cs => cs.CharacterId);
 
-    internal async Task SaveChangesAsync()
-    {
-        throw new NotImplementedException();
+            modelBuilder.Entity<CharacterSpell>()
+                .HasOne(cs => cs.Spell)
+                .WithMany(s => s.CharacterSpells)
+                .HasForeignKey(cs => cs.SpellId);
+
+            // Configure one-to-one relationships
+            modelBuilder.Entity<DndCharacter>()
+                .HasOne(dc => dc.CharacterRace)
+                .WithOne(cr => cr.DndCharacter)
+                .HasForeignKey<DndCharacter>(dc => dc.CharacterRaceId);
+
+            modelBuilder.Entity<DndCharacter>()
+                .HasOne(dc => dc.CharacterClass)
+                .WithOne(cc => cc.DndCharacter)
+                .HasForeignKey<DndCharacter>(dc => dc.CharacterClassId);
+
+            modelBuilder.Entity<DndCharacter>()
+                .HasOne(dc => dc.AbilityScoreArr)
+                .WithOne(asa => asa.DndCharacter)
+                .HasForeignKey<DndCharacter>(dc => dc.AbilityScoreArrId);
+
+            modelBuilder.Entity<DndCharacter>()
+                .HasOne(dc => dc.Skills)
+                .WithOne(s => s.DndCharacter)
+                .HasForeignKey<DndCharacter>(dc => dc.SkillsId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Login)
+                .WithOne (l => l.User)
+                .HasForeignKey<Login>(l => l.UserId);
+        }
     }
 }

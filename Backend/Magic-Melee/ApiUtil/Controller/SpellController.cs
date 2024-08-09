@@ -1,7 +1,9 @@
-using ApiUtil.DTO;
-using ApiUtil.DTO.Spells;
+// SpellController.cs 
+// use this to get the list of all spells for entry into database. 
+using MagicMelee.ApiUtil.DTO;
+using MagicMelee.ApiUtil.DTO.Spells;
 using Newtonsoft.Json;  
-namespace ApiUtil.Controller; 
+namespace MagicMelee.ApiUtil.Controller; 
 
 
 class SpellController : IDungeonController {
@@ -44,7 +46,7 @@ class SpellController : IDungeonController {
         List<SpellShellInboundDTO> spellShells = [] ; 
         var streamResponse = await response.Content.ReadAsStringAsync();
         ApiResponseDTO<SpellShellInboundDTO> responseDTO = JsonConvert.DeserializeObject<ApiResponseDTO<SpellShellInboundDTO>>(streamResponse); 
-        spellShells = responseDTO.results; 
+        spellShells = responseDTO.Results; 
 
         List<SpellInboundDTO> spellInboundDTOs = [] ; 
         foreach(SpellShellInboundDTO spellShell in spellShells) {
@@ -56,7 +58,7 @@ class SpellController : IDungeonController {
 
     public static async Task<SpellInboundDTO?> GetSpellInboundDTO(SpellShellInboundDTO spellShell) 
     {
-        string spellURL = GetBaseURL() + spellShell.url[12..]; 
+        string spellURL = GetBaseURL() + spellShell.Url[12..]; 
         using HttpResponseMessage response = await s_client.GetAsync(spellURL); 
         
 
@@ -76,9 +78,9 @@ class SpellController : IDungeonController {
      public static SpellEntityDTO GetSpellEntityDTO(SpellInboundDTO spellInboundDTO) 
      {
         string damageType= "N/A"; 
-        if(spellInboundDTO.damage != null && spellInboundDTO.damage.damage_type !=null) damageType = spellInboundDTO.damage.damage_type.name; 
+        if(spellInboundDTO.DamageDTO!= null && spellInboundDTO.DamageDTO.DamageType !=null) damageType = spellInboundDTO.DamageDTO.DamageType.Name; 
 
-        return new SpellEntityDTO(spellInboundDTO.name, spellInboundDTO.range, spellInboundDTO.level, damageType);
+        return new SpellEntityDTO(spellInboundDTO.Name, spellInboundDTO.SpellRange, spellInboundDTO.Level, damageType);
      }
 
     public static async Task<List<SpellEntityDTO>> GetSpellsByClass(string className) {
@@ -98,8 +100,8 @@ class SpellController : IDungeonController {
     }
 
     public static bool ClassCanUseSpell(string className, SpellInboundDTO spell) {
-        foreach ( SpellClassesDTO spellClassesDTO in spell.classes) {
-            if(className.Equals(spellClassesDTO.name,StringComparison.CurrentCultureIgnoreCase)) return true; 
+        foreach ( SpellClassesDTO spellClassesDTO in spell.SpellClassesDTOs) {
+            if(className.Equals(spellClassesDTO.Name,StringComparison.CurrentCultureIgnoreCase)) return true; 
         }
         return false; 
     }

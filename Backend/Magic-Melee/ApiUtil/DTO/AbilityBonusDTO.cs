@@ -1,4 +1,4 @@
-namespace ApiUtil.DTO; 
+namespace MagicMelee.ApiUtil.DTO; 
 public class AbilityBonusDTO (int bonus, AbilityScoreDTO ability_score ) {
     public int Bonus = bonus; 
 
