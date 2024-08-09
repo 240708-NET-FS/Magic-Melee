@@ -69,6 +69,7 @@ public class SpellController : ControllerBase
         {
             
             List<apiSpellDTO> spellDTOs =  await MagicMelee.ApiUtil.Controller.SpellController.GetAllSpells();
+            int addedCount = 0;
             foreach (apiSpellDTO aSpellDTO in spellDTOs) {
                 SpellDTO spellDTO = new()
                 {
@@ -78,9 +79,9 @@ public class SpellController : ControllerBase
                     SpellRange = aSpellDTO.Range
                 };
                 await _spellService.AddAsync(spellDTO);
+                addedCount++;
             }
-            //List<SpellDTO> createdSpellList= (List<SpellDTO>) await _spellService.GetAllAsync(); // doesnt work? 
-            return CreatedAtAction("Spells Created", spellDTOs );
+            return Ok(new { message = $"{addedCount} spells added successfully." });
         }
         catch (Exception ex)
         {
