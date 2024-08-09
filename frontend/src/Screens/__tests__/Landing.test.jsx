@@ -39,4 +39,18 @@ describe("Landing page route", () => {
     // assert: should log to console 'hello old user'
     expect(consoleSpy).toHaveBeenCalledWith("hello new user");
   });
+
+  test("Create Account button press calls onPressCreate", () => {
+    // arrange
+    // render component
+    render(router);
+    // create jest spy for console.log
+    const consoleSpy = jest.spyOn(console, "log");
+
+    // act: simulate user click for login button
+    userEvent.click(screen.getByText("Create Account"));
+
+    // assert: should log to console 'hello old user'
+    expect(consoleSpy).toHaveBeenCalledWith("hello new user");
+  });
 });

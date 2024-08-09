@@ -1,2 +1,3 @@
-const server = "http://localhost:3000/";
+// contains server
+const server = "http://localhost:5010/";
 export default server;

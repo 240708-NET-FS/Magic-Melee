@@ -30,6 +30,7 @@ public static class DndCharacterUtility
     {
         return new DndCharacter
         {
+            CharacterId = characterDTO.CharacterId,
             CharacterName = characterDTO.CharacterName,
             CharacterRaceId = characterDTO.CharacterRaceId,
             CharacterClassId = characterDTO.CharacterClassId,
@@ -44,6 +45,7 @@ public static class DndCharacterUtility
     {
         return new DndCharacterDTO
         {
+            CharacterId = character.CharacterId,
             CharacterName = character.CharacterName,
             CharacterRaceId = character.CharacterRaceId,
             CharacterClassId = character.CharacterClassId,
