@@ -5,6 +5,7 @@ import ListItem from "../Components/CharacterCreatorComps/ListItem";
 import LandingButton from "../Components/LandingComps/LandingButton";
 import NavBar from "../Components/NavBar";
 import AbilityScore from "../Components/CharacterCreatorComps/AbilityScore";
+import { useNavigate } from "react-router-dom";
 
 
 function CharacterCreator(){
@@ -30,6 +31,8 @@ function CharacterCreator(){
     const [spells, setSpells] = useState([]);
     const [abilities, setAbilities] = useState(null);
 
+    const navigate = useNavigate();
+
 
     const handleNext = () => {
         if(buttonText !== "Submit" && pageIndex + 1 < types.length){
@@ -42,7 +45,9 @@ function CharacterCreator(){
 
     const handleSubmit = () => {
         if(abilities !== null){
+            navigate("/home/user/character/character-sheet");
             console.log("hell yeah!");
+            
         }
        
         // validate submission
@@ -91,7 +96,6 @@ function CharacterCreator(){
     // things 
     return(
         <div className="main">
-            <NavBar />
             <div className="bgImgWrapper">
                 <div className="bgImg">
                     <img src={bg2} />

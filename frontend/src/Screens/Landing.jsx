@@ -23,7 +23,7 @@ function Landing() {
   const onPressGuest = () => {
     //     navigate to Home as guest
     console.log("hello guest");
-    navigate("/home");
+    navigate("/home/user");
   };
 
   const onPressCreate = () => {
@@ -51,7 +51,7 @@ function Landing() {
       } else {
         setOpen(false);
         // route to actual user home
-        navigate("/home");
+        navigate("/home/user");
       }
     } else {
       // validate for new account!!

@@ -12,7 +12,7 @@ class CharacterCard extends React.Component{
 
         
                 }}
-                onClick={()=> {console.log("go to character sheet")}}
+                onClick={this.props.onPress}
                 
             >
                 <div className='cardBase'>

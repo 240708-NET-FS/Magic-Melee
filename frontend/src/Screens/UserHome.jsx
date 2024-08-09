@@ -16,17 +16,23 @@ function Home() {
     // TODO: replace with data for stuff
     const charactersTemp = [1, 2, 3, 4, 5, 6, 7, 8]
 
+    const toCharacterSheet = () => {
+        navigate("/home/user/character/character-sheet");
+    }
+
+
     const mapCharacters = charactersTemp.map((m, index)=> 
-        <CharacterCard />
+        <CharacterCard key={index} onPress={toCharacterSheet}/>
     );
 
     const onPressNavigate = () => {
         navigate("/character-creator");
     }
 
+
     return(
         <div className='home'>
-            <NavBar />
+            {/* <NavBar /> */}
             {/* <h1>Home</h1> */}
             <div style={{padding: 75}}>
                   
@@ -58,9 +64,9 @@ function Home() {
                     </div>
 
                     
-                    <div class="card-box">
-                    <div class="card-container">
-                        <div class="card">
+                    <div className="card-box">
+                    <div className="card-container">
+                        <div className="card">
                             {mapCharacters}
 
                         </div>

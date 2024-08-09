@@ -1,5 +1,10 @@
 .home{
     padding: 100px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    overflow-x: hidden;
  
 }
 
