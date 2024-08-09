@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MagicMelee.Services;
 using MagicMelee.DTO;
+using apiSpellDTO=MagicMelee.ApiUtil.DTO.Spells.SpellEntityDTO;
+using MagicMelee.ApiUtil.DTO;
 
 namespace MagicMelee.Controllers;
 
@@ -50,19 +52,33 @@ public class SpellController : ControllerBase
     }
 
     // POST: api/Spell
+    // this will now post all spells to the database. 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] SpellDTO spellDto)
+    public async Task<IActionResult> Add()
     {
         try
         {
-            await _spellService.AddAsync(spellDto);
-            return CreatedAtAction(nameof(GetById), new { id = spellDto.SpellId }, spellDto);
+            
+            List<apiSpellDTO> spellDTOs =  await MagicMelee.ApiUtil.Controller.SpellController.GetAllSpells();
+            foreach (apiSpellDTO aSpellDTO in spellDTOs) {
+                SpellDTO spellDTO = new()
+                {
+                    SpellLevel = aSpellDTO.Level,
+                    SpellDamageType = aSpellDTO.DamageType,
+                    SpellName = aSpellDTO.Name,
+                    SpellRange = aSpellDTO.Range
+                };
+                await _spellService.AddAsync(spellDTO);
+            }
+            List<SpellDTO> createdSpellList= (List<SpellDTO>) await _spellService.GetAllAsync(); // doesnt work? 
+            return CreatedAtAction("Spells Created", spellDTOs );
         }
         catch (Exception ex)
         {
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
+
 
     // PUT: api/Spell/{id}
     [HttpPut("{id}")]
