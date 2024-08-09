@@ -1,7 +1,7 @@
 // expects a list of characters tied to user to display
 import axios from "axios";
-const server = "http://localhost:3000/";
-const endpoint = "api/abilityscores?charid=";
+import server from "./server";
+const endpoint = "api/AbilityScoreArr/character/";
 const getAbilityScores = async (charID) => {
   const response = await axios.get(server + endpoint + charID);
   return response.data;
