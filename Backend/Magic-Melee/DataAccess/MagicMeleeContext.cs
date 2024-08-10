@@ -2,6 +2,9 @@ using MagicMelee.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+
 
 namespace MagicMelee.Data
 {
@@ -16,7 +19,9 @@ namespace MagicMelee.Data
         public DbSet<AbilityScoreArr> AbilityScoreArrs { get; set; }
         public DbSet<Skills> Skills { get; set; }
 
-        public MagicMeleeContext(DbContextOptions<MagicMeleeContext> options) : base(options) { }
+        public MagicMeleeContext(DbContextOptions<MagicMeleeContext> options) : base(options) {}
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

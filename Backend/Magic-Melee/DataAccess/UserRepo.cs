@@ -13,7 +13,10 @@ public class UserRepo : IUserRepo
     }
 
     public async Task<User> GetByIdAsync(int id)
+
     {
+        Console.WriteLine(id);
+
         return await _context.Users.FindAsync(id);
     }
 
