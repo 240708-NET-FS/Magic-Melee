@@ -31,6 +31,21 @@ namespace MagicMelee.Services
 
             return _tokenService.CreateToken(user);
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(model.Username);
+                if(user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    var token = GenerateJwtToken(user);
+
+                    return Ok(new {Token = token});
+                }
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt")
+            }
+        }
     }
 }
 

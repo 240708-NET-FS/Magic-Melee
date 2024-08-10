@@ -8,11 +8,13 @@ public class AccountController : Controller
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
+    private readonly ITokenService _tokenService;
 
     public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _tokenService = tokenService;
     }
 
     [HttpGet]
@@ -20,7 +22,7 @@ public class AccountController : Controller
     {
         return View();
     }
-[HttpPost]
+[HttpPost("login")]
 public async Task<IActionResult> Login(string username, string password)
 {
     if (ModelState.IsValid)
@@ -29,8 +31,11 @@ public async Task<IActionResult> Login(string username, string password)
 
         if (user != null && await _userManager.CheckPasswordAsync(user, password))
         {
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Index", "Home");
+           // Generate token
+            var token = GenerateJwtToken(user);
+
+            //Return token!
+            return Ok(new { Token = token });
         }
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
