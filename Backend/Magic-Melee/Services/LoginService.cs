@@ -43,7 +43,7 @@ namespace MagicMelee.Services
 
                     return Ok(new {Token = token});
                 }
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt")
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
         }
     }
