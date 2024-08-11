@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Skill from "../Components/Skill";
 import validateSkill from "../util/validateSkill";
+import { getSkills } from "../../../utilities/api";
 
-const SkillsContainer = () => {
+const SkillsContainer = ({ characterID }) => {
   const [skills, setSkills] = useState(defaultSkills);
 
   const handleChange = (name, val) => {
@@ -18,7 +19,7 @@ const SkillsContainer = () => {
         : "text-red-600";
       return (
         <Skill
-          skillName={name}
+          skillName={displayNames[name]}
           skillVal={skills[name]}
           handleChange={handleChange}
           textColor={textColor}
@@ -29,8 +30,13 @@ const SkillsContainer = () => {
 
   // effect hook to retrieve skills from daatbase
   useEffect(() => {
-    setSkills((skills) => setRandomSkillValues(skills));
-  }, []);
+    getSkills(characterID).then((skillObj) => {
+      console.log("skills: ", skillObj);
+      delete skillObj.skillsId;
+      setSkills(skillObj);
+    });
+    // setSkills((skills) => setRandomSkillValues(skills));
+  }, [characterID]);
 
   // effect hook with api call to update will go here
   useEffect(() => {}, [skills]);
@@ -43,24 +49,45 @@ const SkillsContainer = () => {
 };
 
 const defaultSkills = {
-  Acrobatics: 0,
-  "Animal Handling": 0,
-  Arcana: 0,
-  Athletics: 0,
-  Deception: 0,
-  History: 0,
-  Insight: 0,
-  Intimidation: 0,
-  Investigation: 0,
-  Medicine: 0,
-  Nature: 0,
-  Perception: 0,
-  Performance: 0,
-  Persuasion: 0,
-  Religion: 0,
-  "Sleight of Hand": 0,
-  Stealth: 0,
-  Survival: 0,
+  acrobatics: 0,
+  animalHandling: 0,
+  arcana: 0,
+  athletics: 0,
+  deception: 0,
+  history: 0,
+  insight: 0,
+  intimidation: 0,
+  investigation: 0,
+  medicine: 0,
+  nature: 0,
+  perception: 0,
+  performance: 0,
+  persuasion: 0,
+  religion: 0,
+  sleightOfHand: 0,
+  stealth: 0,
+  survival: 0,
+};
+
+const displayNames = {
+  acrobatics: "Acrobatics",
+  animalHandling: "Animal Handling",
+  arcana: "Arcana",
+  athletics: "Athletics",
+  deception: "Deception",
+  history: "History",
+  insight: "Insight",
+  intimidation: "Intimidation",
+  investigation: "Investigation",
+  medicine: "Medicine",
+  nature: "Nature",
+  perception: "Perception",
+  performance: "Performance",
+  persuasion: "Persuasion",
+  religion: "Religion",
+  sleightOfHand: "Sleight of Hand",
+  stealth: "Stealth",
+  survival: "Survival",
 };
 
 function setRandomSkillValues(skills) {
