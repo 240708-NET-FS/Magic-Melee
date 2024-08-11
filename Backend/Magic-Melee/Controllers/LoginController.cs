@@ -3,18 +3,19 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using MagicMelee.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MagicMelee.Services;
 
 public class AccountController : Controller
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
-    private readonly ITokenservice _tokenService;
+    private readonly TokenService _tokenService;
 
     public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _tokenService = tokenService;
+        _tokenService = TokenService;
     }
 
     [HttpGet]
