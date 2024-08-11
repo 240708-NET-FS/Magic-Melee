@@ -1,5 +1,5 @@
 .main{
-    padding: 100px;
+    padding: 50px;
     display: flex;
     /* align-items: center;
     justify-content: center; */
@@ -9,6 +9,8 @@
 
 .creator-bg{
     background-color: #9475a5;
+
+    /* background-color: #3f1b53; */
 }
 
 .contentWrap{
@@ -24,11 +26,13 @@
   
     /* flex-wrap: wrap; */
     width: 80%;
-    height: 75%;
+    height: 400px;
 
 }
 .contentBox{
     width: 100%;
+    border: solid;
+    overflow-y: scroll;
     background-color: rgba(8, 0, 17, .75);
     border-radius: 10px;
     padding: 20px;

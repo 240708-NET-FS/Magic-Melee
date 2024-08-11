@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import CharacterCreatorStyles from "../../Styles/CharacterCreatorStyles.css";
 import bg2 from "../../Assets/m&mbg2.jpg"
 import ListItem from "../../Components/CharacterCreatorComps/ListItem";
+import MultiSelectListItem from "../../Components/CharacterCreatorComps/MultiSelectListItem";
 import LandingButton from "../../Components/LandingComps/LandingButton";
 import NavBar from "../../Components/NavBar";
 import AbilityScore from "../../Components/CharacterCreatorComps/AbilityScore";
@@ -34,10 +35,13 @@ function CharacterCreator(){
     const [name, setName] = useState(null);
     const [race, setRace] = useState(null);
     const [charClass, setCharClass] = useState(null);
+    const [charSpells, setCharSpells] = useState([]);
+
     const [spells, setSpells] = useState([]);
     const [abilities, setAbilities] = useState(null);
 
-    const [picked, setPicked] = useState({id: null, name: null, type: null});
+    const [picked, setPicked] = useState(null);
+    const [pickedList, setPickedList] = useState([]);
 
     const [races, setRaces] = useState([]);
     const [classes, setClasses] = useState([]);
@@ -53,18 +57,21 @@ function CharacterCreator(){
 
 
     useEffect(()=> {
-        if(picked.type === "race"){
-            setRace({characterRaceId: picked.id, name: picked.name})
-        }else if(picked.type === "class"){
-            console.log(picked.name);
+        if(types[pageIndex] === "Race"){
+            setRace(picked);
+        }else if(types[pageIndex] === "Class"){
+            setCharClass(picked);
+        }else{
+            setCharSpells(picked);
         }
+        // setPicked(null);
 
     }, [picked])
+
 
     const fetchRaces = async () => {
         try{
             let r = await getAllRaces();
-            console.log(races);
             setRaces(r);
         }catch(error){
             console.error(error);
@@ -75,7 +82,6 @@ function CharacterCreator(){
     const fetchClasses = async () => {
         try{
             let c = await getAllClasses();
-            console.log(classes);
             setClasses(c);
 
         }catch(error){
@@ -83,11 +89,6 @@ function CharacterCreator(){
         }
        
     }
-
-
-    // }
-
-
     const handleNext = () => {
         if(buttonText !== "Submit" && pageIndex + 1 < types.length){
             setPageIndex(pageIndex + 1);
@@ -100,22 +101,14 @@ function CharacterCreator(){
     const handleSubmit = () => {
         if(abilities !== null){
             navigate("/home/user/character/character-sheet");
-            console.log("hell yeah!");
-            
-        }
-       
+            console.log("hell yeah!");   
+        } 
         // validate submission
-
-
         console.log("to character sheet");
         // parse new character to db for user 
         // post
-        
-
-        
     }
 
-  
 
     const handleBack = () => {
         if(pageIndex > 0){
@@ -127,35 +120,60 @@ function CharacterCreator(){
         setType(types[pageIndex]);
         if(pageIndex === types.length - 1 ){
             setButtonText("Submit");
-            // setShowNext(false);
         }else if(pageIndex > 0){
             setShowBack(true);
             setShowNext(true);
             setButtonText("Next");
-
         }
         else{
             setShowNext(true);
             setButtonText("Next");
             setShowBack(false);
         }
-
-
     }, [pageIndex])
+
+
+    useEffect(()=> {
+        if(type ==="Spells" && charClass){
+            fetchSpells(charClass.characterClassId);  
+        }
+    }, [type, charClass])
+
+    const fetchSpells = async(className) => {
+        try{
+            let res = await getAllSpells(className);
+            setSpells(res);
+        }catch(error){
+            console.log(error);
+        }
+
+
+    }
 
     const mapRaces = races.map((r, index) => (
         <div style={{paddingBottom: 7}}>
-            <ListItem id={r.characterRaceId} type={"race"} name={r.name} picked={picked} setPicked={setPicked}/>
-
+            <ListItem 
+                id={r.characterRaceId} 
+                type={"race"} 
+                name={r.name} 
+                object={r}
+                picked={picked} 
+                setPicked={setPicked}/>
         </div>
     ))
    
     const mapClasses = classes.map((c, index) => (
-        <ListItem id={c.characterClassId} type={"class"} name={c.name} picked={picked} setPicked={setPicked} />
+        <div style={{paddingBottom: 7}}>
+            <ListItem id={c.characterClassId} type={"class"} name={c.name} object={c} picked={picked} setPicked={setPicked} />
+        </div>
     ))
 
-    const mapSpells = () => null;
+    const mapSpells = spells.map((s, index) =>(
+        <div style={{paddingBottom: 7}}>
+            <MultiSelectListItem id={s.spellId} type={"spell"} name={s.name} object={s} picked={pickedList} setPicked={setPickedList} />
+        </div>
 
+    ));
 
     // pagination
     // things 
@@ -182,21 +200,17 @@ function CharacterCreator(){
                         <div>
                             <div>
                                 <h3>Pick {types[pageIndex]}</h3>
-                            </div>
+                            </div> 
                         </div>
-                        <div style={{paddingTop: 25, display: 'flex'}}>
-                            <div style={{width: '100%', alignItems: 'center', justifyContent: "center"}}>
-                                {/* for race, class, and spells */}
+                        <div style={{paddingTop: 25, display: 'flex' }}>
+                            <div style={{width: '100%',alignItems: 'center', justifyContent: 'center'}}>
+                                <div>
+                                    {type === "Race" ? mapRaces
+                                    : type === "Class" ? mapClasses
 
-                                {type === "Race" ? 
-                                <div style={{justifySelf: 'center'}}>
-                                    {mapRaces}
+                                    :type === "Spells" ? mapSpells
+                                    :  <AbilityScore abilities={abilities} setAbilities={setAbilities} />  }
                                 </div>
-                                : type === "Class" ? mapClasses
-
-                                :type === "Spells" ? mapSpells
-                                :  <AbilityScore abilities={abilities} setAbilities={setAbilities} />  }
-
 
                             </div>
 

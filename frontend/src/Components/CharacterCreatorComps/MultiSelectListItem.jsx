@@ -3,18 +3,18 @@ import ComponentStyles from "../../Styles/ComponentStyles.css";
 
 
 
-const ListItem = ({id, type, name, object, picked,setPicked}) => {
+const MultiSelectListItem = ({id, type, name, object, picked,setPicked}) => {
 
     const [focus, setFocus] = useState(false);
 
-    useEffect(()=> {
-        if(picked){
-            picked.name === name ? setFocus(true) : setFocus(false);
-        }
-    }, [picked])
+    // useEffect(()=> {
+    //     if(picked){
+    //         picked.name === name ? setFocus(true) : setFocus(false);
+    //     }
+    // }, [picked])
 
     const handlePress = () => {
-        setPicked(object);
+        setPicked([...picked, object]);
     }
 
     return(
@@ -36,4 +36,4 @@ const ListItem = ({id, type, name, object, picked,setPicked}) => {
 
 }
 
-export default ListItem;
+export default MultiSelectListItem;

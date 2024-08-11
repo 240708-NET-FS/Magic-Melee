@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ComponentStyles from "../Styles/ComponentStyles.css";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { UserContext } from '../App';
 
 
 
@@ -9,23 +10,31 @@ function NavBar(){
     const location = useLocation();
     const {hash, pathname, search} = location;
 
+    const {user, setUser} = useContext(UserContext);
+
     const [current, setCurrent] = useState(location);
     const [showNav, setShowNav] = useState(true);
 
-    
-    
-    const onPressNavigate = (element) => {
+    const navigate = useNavigate();
 
-    }
+    
+    useEffect(()=> {
+        console.log(user);
+    }, [user])
 
     useEffect(()=> {
-        console.log(location.pathname)
         if(location.pathname === "/"){
             setShowNav(false);
         }else{
             setShowNav(true);
         }
     }, [location])
+
+
+    const logout = () => {
+        setUser(null);
+        navigate("/");
+    }
 
 
     return(
@@ -40,16 +49,24 @@ function NavBar(){
 
                         <ul style={{display: 'inline-flex', justifyContent: 'space-between', flexBasis: '30%', flexWrap: 'wrap'}}>
                             <div id={'navlink1'} className='navlink' >         
-                                <div onClick={()=> onPressNavigate()}>
+                                <div onClick={()=> navigate(`/character-creator`)}>
                                     <li style={{padding: 10}}>Create Character</li>
                                 </div>                   
                             </div>
-                            <div id={'navlink2'} className='navlink'>
+                            {/* <div id={'navlink2'} className='navlink'>
                                 <li style={{padding: 10}}>View Characters</li>
+                            </div> */}
+
+                            {user ? 
+                            <div style={{flexDirection: 'row', display: 'inline-flex'}}>
+                                <div id={'navlink3'} className='navlink'  onClick={()=> navigate(`/home/${user.firstName}`)}>
+                                    <li style={{padding: 10}}>Home</li>
+                                </div>
+                                <div id={'navlink4'} className='navlink'  onClick={logout}>
+                                    <li style={{padding: 10}}>Logout</li>
+                                </div>
                             </div>
-                            <div id={'navlink3'} className='navlink'>
-                                <li style={{padding: 10}}>Home</li>
-                            </div>
+                            : null}
                             
                         </ul>
                        
