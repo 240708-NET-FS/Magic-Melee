@@ -1,6 +1,9 @@
 using MagicMelee.DTO;
 using MagicMelee.Data;
 using MagicMelee.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace MagicMelee.Services
 {
@@ -31,6 +34,7 @@ namespace MagicMelee.Services
 
             return _tokenService.CreateToken(user);
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -43,7 +47,7 @@ namespace MagicMelee.Services
 
                     return Ok(new {Token = token});
                 }
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt")
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
         }
     }
