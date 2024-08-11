@@ -4,8 +4,11 @@ namespace MagicMelee.Models;
 
 public class User : IdentityUser<int>
 {
-    [Key]
-    public int UserId { get; set; }
+    public new int UserId
+    {
+        get => Id;
+        set => Id = value;
+    }
 
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
