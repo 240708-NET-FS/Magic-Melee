@@ -82,6 +82,12 @@ public class DndCharacterService : IDndCharacterService
             // Here is where additional validation for character creation would go
             var character = DndCharacterUtility.DTOToDndCharacter(characterDTO);
             await _characterRepo.AddAsync(character);
+
+            // Associate spells with the character using AddSpellToCharacterAsync
+            foreach (var spellId in characterDTO.SpellIds)
+            {
+                await AddSpellToCharacterAsync(character.CharacterId, spellId);
+            }
         }
         catch (Exception ex)
         {
@@ -139,10 +145,18 @@ public class DndCharacterService : IDndCharacterService
         try
         {
             var characterSpells = await _characterSpellRepo.GetAllAsync();
+
             var spells = characterSpells
                 .Where(cs => cs.CharacterId == characterId)
                 .Select(cs => cs.Spell)
+                .Where(spell => spell != null)
                 .ToList();
+            
+            if (!spells.Any())
+            {
+                _logger.LogWarning("No spells found for character with ID: {CharacterId}", characterId);
+            }
+
             return spells.Select(SpellUtility.SpellToDTO).ToList();
         }
         catch (Exception ex)
@@ -156,6 +170,15 @@ public class DndCharacterService : IDndCharacterService
     {
         try
         {
+            // Check if the spell is already associated with the character
+            var existingCharacterSpell = await _characterSpellRepo.GetByIdAsync(characterId, spellId);
+            if (existingCharacterSpell != null)
+            {
+                _logger.LogWarning("Character with ID {CharacterId} already has the spell with ID {SpellId}", characterId, spellId);
+                return; // If the spell is already associated, skip adding
+            }
+
+            // Add the new spell to the character
             var characterSpell = new CharacterSpell { CharacterId = characterId, SpellId = spellId };
             await _characterSpellRepo.AddAsync(characterSpell);
         }

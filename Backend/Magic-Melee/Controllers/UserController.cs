@@ -55,7 +55,7 @@ public class UserController : ControllerBase
         try
         {
             await _userService.AddAsync(userDto);
-            return CreatedAtAction(nameof(GetById), new { id = userDto.UserId }, userDto);
+            return CreatedAtAction(nameof(GetById), new { id = userDto.Id }, userDto);
         }
         catch (Exception ex)
         {
@@ -67,7 +67,7 @@ public class UserController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] UserDTO userDto)
     {
-        if (id != userDto.UserId)
+        if (id != userDto.Id)
         {
             return BadRequest("ID mismatch");
         }
