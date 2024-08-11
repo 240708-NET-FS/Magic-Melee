@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import getUsers from "../../../utilities/api/getUsers";
 import { Alert } from 'react-native-web';
 import { UserContext } from '../../../App';
-
+import postLogin from "../../../utilities/api/postLogin";
 
 const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLoginCreds}) => {
 
@@ -36,7 +36,9 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
     const handleLogin = async() => {
         // validation, unfortunately, through first name and last name for now
         if(validateCredentials()){
+            // var u = login();
             var u = getUser();
+
             setUser(u);
             navigate(`/home/${u.firstName}`);
         }else{
@@ -52,6 +54,16 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
         }else{
             return users.filter(u => u.firstName === loginCreds.username).length > 0;
         }
+    }
+
+    const login = async() => {
+        try{
+            var res = await postLogin(loginCreds.username, loginCreds.password);
+            return res;
+        }catch(error){
+            console.error(error);
+        }
+
     }
 
     const getUser = () =>{

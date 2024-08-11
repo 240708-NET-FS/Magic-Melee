@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import CharacterCreatorStyles from "../../Styles/CharacterCreatorStyles.css";
 import bg2 from "../../Assets/m&mbg2.jpg"
 import ListItem from "../../Components/CharacterCreatorComps/ListItem";
-import MultiSelectListItem from "../../Components/CharacterCreatorComps/MultiSelectListItem";
+import MultiSelectListItem from "./components/MultiSelectListItem";
 import LandingButton from "../../Components/LandingComps/LandingButton";
 import NavBar from "../../Components/NavBar";
 import AbilityScore from "../../Components/CharacterCreatorComps/AbilityScore";
@@ -13,6 +13,7 @@ import getAllClasses from "../../utilities/api/getAllClasses";
 import getAllSpells from "../../utilities/api/getAllSpells";
 
 import { useNavigate } from "react-router-dom";
+import getClassSpells from "../../utilities/api/getClassSpells";
 
 
 function CharacterCreator(){
@@ -33,6 +34,7 @@ function CharacterCreator(){
 
 
     const [name, setName] = useState(null);
+    const [level, setLevel] = useState(1);
     const [race, setRace] = useState(null);
     const [charClass, setCharClass] = useState(null);
     const [charSpells, setCharSpells] = useState([]);
@@ -47,7 +49,6 @@ function CharacterCreator(){
     const [classes, setClasses] = useState([]);
 
     const navigate = useNavigate();
-
 
     useEffect(()=> {
         fetchRaces();
@@ -64,7 +65,6 @@ function CharacterCreator(){
         }else{
             setCharSpells(picked);
         }
-        // setPicked(null);
 
     }, [picked])
 
@@ -75,7 +75,6 @@ function CharacterCreator(){
             setRaces(r);
         }catch(error){
             console.error(error);
-
         }
     }
 
@@ -100,6 +99,7 @@ function CharacterCreator(){
 
     const handleSubmit = () => {
         if(abilities !== null){
+            console.log(name);
             navigate("/home/user/character/character-sheet");
             console.log("hell yeah!");   
         } 
@@ -135,14 +135,17 @@ function CharacterCreator(){
 
     useEffect(()=> {
         if(type ==="Spells" && charClass){
-            fetchSpells(charClass.characterClassId);  
+
+            fetchSpells(charClass.name);  
         }
     }, [type, charClass])
 
+
     const fetchSpells = async(className) => {
         try{
-            let res = await getAllSpells(className);
+            let res = await getClassSpells(className);
             setSpells(res);
+            console.log(spells[0])
         }catch(error){
             console.log(error);
         }
@@ -170,10 +173,21 @@ function CharacterCreator(){
 
     const mapSpells = spells.map((s, index) =>(
         <div style={{paddingBottom: 7}}>
-            <MultiSelectListItem id={s.spellId} type={"spell"} name={s.name} object={s} picked={pickedList} setPicked={setPickedList} />
+            <MultiSelectListItem id={s.spellId} type={"spell"} name={s.spellName} object={s} picked={pickedList} setPicked={setPickedList} />
         </div>
 
     ));
+
+    useEffect(()=> {
+        if(level && !loading){
+            if(level < 1 || level > 20){
+                document.getElementById("level").style.color = 'red';
+            }else{
+                document.getElementById("level").style.color = 'black';
+            }
+        }
+      
+    }, [level])
 
     // pagination
     // things 
@@ -192,9 +206,22 @@ function CharacterCreator(){
                             <h1 className="header">Character Creator</h1>    
                         </div>
                         <div>
-                            <div>
+                            <div style={{paddingTop: 20}}>
                                 {/* users character */}
-                                <h3>Your Character</h3>
+                                {/* <h3>Your Character</h3> */}
+                                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', }}>
+                                    
+                                    <div>
+                                        <input id="name" type="text" className="textBox" placeholder="Enter Character Name:" style={{color: 'black'}} onChange={e => setName(e.target.value)}/>
+                                    </div>
+                                    <div>
+                                        <label for="level">Level #:</label>
+                                        <input id="level" type="number" className="asTextBox" min={1} max={20} onChange={e => setLevel(e.target.value)} value={level} style={{color: 'black'}}/> 
+                                    </div>
+                                </div>
+                                
+                            
+                               
                             </div>
                         </div>
                         <div>

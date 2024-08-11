@@ -42,7 +42,7 @@ function NavBar(){
         <div className="navbar-position">
             <div className="navbar-base">
                 <div className='navbar-contentWrap'>
-                    <div style={{justifySelf: 'left', padding: 10}}>
+                    <div className='navlink' style={{justifySelf: 'left', padding: 10}} onClick={()=> navigate("/")}>
                         <h2 style={{fontWeight: 'bold', color: 'white', fontSize: "100%"}}>Magic & Melee</h2>
                     </div>
                     <div style={{flexDirection: 'row', position: 'absolute', right: 0}}>

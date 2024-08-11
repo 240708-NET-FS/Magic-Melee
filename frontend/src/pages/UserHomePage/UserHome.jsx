@@ -18,14 +18,14 @@ function Home() {
     useEffect(()=> {
         fetchCharacters();
 
-
-
     }, [])
 
     const fetchCharacters = async() => {
         try{
-            var res = await getCharacters();
+            var res = await getCharacters(user.userId);
+            setCharacters(res);
         }catch(error){
+            console.error(error);
 
         }
     }
@@ -47,6 +47,7 @@ function Home() {
     const onPressNavigate = () => {
         navigate("/character-creator");
     }
+
 
 
     return(
@@ -82,11 +83,15 @@ function Home() {
                         
                     </div>
 
-                    
                     <div className="card-box">
                     <div className="card-container">
                         <div className="card">
-                            {mapCharacters}
+                            {characters.length > 0 ? mapCharacters: 
+                            <div style={{justifySelf: 'center'}}>
+                                <h1>No characters made yet! Create one today!</h1>
+                            </div>
+                            
+                            }
 
                         </div>
                     </div>
