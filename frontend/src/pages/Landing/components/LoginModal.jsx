@@ -40,14 +40,15 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
             setUser(u);
             navigate(`/home/${u.firstName}`);
         }else{
-            console.error("User not found!");
+            alert("User not found!");
+            // console.error("User not found!");
             
         }
     };
     
     const validateCredentials = () => {
         if(loginCreds.username.length < 1 || loginCreds.password.length < 1){
-            console.error("Invalid input!");
+            alert("Invalid input!");
         }else{
             return users.filter(u => u.firstName === loginCreds.username).length > 0;
         }
