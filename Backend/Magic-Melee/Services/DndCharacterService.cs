@@ -139,10 +139,18 @@ public class DndCharacterService : IDndCharacterService
         try
         {
             var characterSpells = await _characterSpellRepo.GetAllAsync();
+
             var spells = characterSpells
                 .Where(cs => cs.CharacterId == characterId)
                 .Select(cs => cs.Spell)
+                .Where(spell => spell != null)
                 .ToList();
+            
+            if (!spells.Any())
+            {
+                _logger.LogWarning("No spells found for character with ID: {CharacterId}", characterId);
+            }
+            
             return spells.Select(SpellUtility.SpellToDTO).ToList();
         }
         catch (Exception ex)

@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 namespace MagicMelee.Models;
 
 public class User : IdentityUser<int>
 {
-    public new int UserId
+    [NotMapped]
+    public int UserId
     {
         get => Id;
         set => Id = value;

@@ -67,11 +67,11 @@ public class UserService : IUserService
     {
         try
         {
-            var user = await _userRepo.GetByIdAsync(userDto.UserId);
+            var user = await _userRepo.GetByIdAsync(userDto.Id);
             if (user == null)
             {
-                _logger.LogWarning("User not found with ID: {Id}", userDto.UserId);
-                throw new UserNotFoundException($"User not found with ID: {userDto.UserId}");
+                _logger.LogWarning("User not found with ID: {Id}", userDto.Id);
+                throw new UserNotFoundException($"User not found with ID: {userDto.Id}");
             }
 
             user.FirstName = userDto.FirstName;
