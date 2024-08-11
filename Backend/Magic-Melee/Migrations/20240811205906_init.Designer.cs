@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Magic_Melee.Migrations
 {
     [DbContext(typeof(MagicMeleeContext))]
-    [Migration("20240809203222_init")]
+    [Migration("20240811205906_init")]
     partial class init
     {
         /// <inheritdoc />

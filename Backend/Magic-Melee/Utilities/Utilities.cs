@@ -9,6 +9,7 @@ public static User DTOToUser(UserDTO userDTO)
     {
         return new User
         {
+            Id = userDTO.Id,
             FirstName = userDTO.FirstName,
             LastName = userDTO.LastName
         };
@@ -18,6 +19,7 @@ public static User DTOToUser(UserDTO userDTO)
     {
         return new UserDTO
         {
+            Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName
         };
@@ -37,7 +39,13 @@ public static class DndCharacterUtility
             AbilityScoreArrId = characterDTO.AbilityScoreArrId,
             SkillsId = characterDTO.SkillsId,
             HitPoints = characterDTO.HitPoints,
-            UserId = characterDTO.UserId
+            MaxHitPoints = characterDTO.MaxHitPoints,
+            UserId = characterDTO.UserId,
+            CharacterSpells = characterDTO.SpellIds.Select(spellId => new CharacterSpell 
+            { 
+                SpellId = spellId, 
+                CharacterId = characterDTO.CharacterId 
+            }).ToList()
         };
     }
 
@@ -52,7 +60,9 @@ public static class DndCharacterUtility
             AbilityScoreArrId = character.AbilityScoreArrId,
             SkillsId = character.SkillsId,
             HitPoints = character.HitPoints,
-            UserId = character.UserId
+            MaxHitPoints = character.MaxHitPoints,
+            UserId = character.UserId,
+            SpellIds = character.CharacterSpells?.Select(cs => cs.SpellId).ToList() ?? new List<int>()
         };
     }
 }
