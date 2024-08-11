@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using MagicMelee.Models;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 public class AccountController : Controller
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
-    private readonly ITokenService _tokenService;
+    private readonly ITokenservice _tokenService;
 
     public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
     {

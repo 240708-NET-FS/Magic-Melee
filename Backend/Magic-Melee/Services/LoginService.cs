@@ -1,6 +1,7 @@
 using MagicMelee.DTO;
 using MagicMelee.Data;
 using MagicMelee.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace MagicMelee.Services
 {
