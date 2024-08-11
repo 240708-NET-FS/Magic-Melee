@@ -1,10 +1,11 @@
 import React from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 const SpellDelete = ({ handleClick }) => {
   return (
-    <button className="bg-red-400" onClick={handleClick}>
+    <button className="bg-purple-400 rounded-md p-1" onClick={handleClick}>
       {" "}
-      Delete{" "}
+      <FontAwesomeIcon icon={faTrash} color="black" />{" "}
     </button>
   );
 };
