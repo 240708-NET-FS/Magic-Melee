@@ -1,47 +1,46 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MagicMelee.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MagicMelee.Services;
 
-public class AccountController : Controller
+namespace MagicMelee.Controllers
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
-    private readonly TokenService _tokenService;
-
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+    [ApiController]
+    [Route("[controller]")]
+    public class LoginController : ControllerBase
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _tokenService = TokenService;
-    }
+        private readonly LoginService _loginService;
 
-    [HttpGet]
-    public IActionResult Login()
-    {
-        return View();
-    }
-[HttpPost("login")]
-public async Task<IActionResult> Login(string Username, string Password)
-{
-    if (ModelState.IsValid)
-    {
-        var user = await _userManager.FindByNameAsync(username);
-
-        if (user != null && await _userManager.CheckPasswordAsync(user, Password))
+        public LoginController(LoginService loginService)
         {
-           // Generate token
-            var token = GenerateJwtToken(user);
-
-            //Return token!
-            return Ok(new { Token = token });
+            _loginService = loginService;
         }
 
-        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
+        {
+            var result = await _loginService.LoginAsync(loginModel.Username, loginModel.Password);
+
+            if (result.GetType() == typeof(System.Dynamic.ExpandoObject))
+            {
+                var expando = (dynamic)result;
+                if (expando.Token != null)
+                {
+                    return Ok(new { Token = expando.Token });
+                }
+                else
+                {
+                    return BadRequest(new { Error = expando.Error });
+                }
+            }
+
+            return StatusCode(500, "Unexpected error");
+        }
     }
 
-    return View();
-}
+    public class LoginModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
 }

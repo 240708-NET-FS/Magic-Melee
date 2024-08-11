@@ -1,19 +1,15 @@
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Text;
-using MagicMelee.Models;
-using MagicMelee.DTO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MagicMelee.Models;
 
 namespace MagicMelee.Services
 {
-    public interface ITokenService
-    {
-        string CreateToken(User user);
-    }
-
-    public class TokenService : ITokenService
+    public class TokenService
     {
         private readonly IConfiguration _config;
 
@@ -22,11 +18,11 @@ namespace MagicMelee.Services
             _config = config;
         }
 
-        public string CreateToken(Login login)
+        public string GenerateJwtToken(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, login.Username),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -41,29 +37,6 @@ namespace MagicMelee.Services
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public string CreateToken(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim("UserId", user.UserId.ToString()),
-                new Claim("FirstName", user.FirstName),
-                new Claim("LastName", user.LastName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddDays(7),
-                signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-             }
         }
     }
+}
