@@ -84,15 +84,7 @@ function CharacterCreator(){
        
     }
 
-    // const fetchSpells = async () => {
-    //     try{
-    //         let s = await getAllSpells();
-    //         setSpells(s);
 
-    //     }catch(error){
-    //         console.error(error);
-    //     }
-        
     // }
 
 

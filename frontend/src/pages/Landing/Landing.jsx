@@ -58,7 +58,7 @@ function Landing() {
       } else {
         setOpen(false);
         // route to actual user home
-        navigate("/home/user");
+        // navigate("/home/user");
       }
     } else {
       // validate for new account!!
@@ -118,13 +118,13 @@ function Landing() {
           open={open}
           setOpen={setOpen}
           handleClose={handleClose}
-          handleSubmit={handleSubmit}
+          // handleSubmit={handleSubmit}
           content={content}
           loginCreds={loginCreds}
           setLoginCreds={setLoginCreds}
           newAcc={newAcc}
           setNewAcc={setNewAcc}
-        />
+        /> 
       </div>
     </div>
    

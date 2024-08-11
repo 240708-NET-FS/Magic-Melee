@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Modal} from "@mui/material";
 import Box from "@mui/material/Box";
 import LandingButton from "../../../Components/LandingComps/LandingButton";
@@ -6,17 +6,20 @@ import ComponentStyles from "../../../Styles/ComponentStyles.css";
 import { useAuth } from '../../../provider/authProvider';
 import { useNavigate } from 'react-router-dom';
 import getUsers from "../../../utilities/api/getUsers";
+import { Alert } from 'react-native-web';
+import { UserContext } from '../../../App';
+
 
 const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLoginCreds}) => {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
 
+    const {user, setUser} = useContext(UserContext);
+
 
     useEffect(()=> {
         fetchUsers();
-    
-        
     }, [])
 
 
@@ -31,12 +34,29 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
 
 
     const handleLogin = async() => {
-        console.log(loginCreds);
-
-
-        // setToken("this is a test token");
-        navigate("/home/user");
+        // validation, unfortunately, through first name and last name for now
+        if(validateCredentials()){
+            var u = getUser();
+            setUser(u);
+            navigate(`/home/${u.firstName}`);
+        }else{
+            console.error("User not found!");
+            
+        }
     };
+    
+    const validateCredentials = () => {
+        if(loginCreds.username.length < 1 || loginCreds.password.length < 1){
+            console.error("Invalid input!");
+        }else{
+            return users.filter(u => u.firstName === loginCreds.username).length > 0;
+        }
+    }
+
+    const getUser = () =>{
+        return users.filter(u => u.firstName === loginCreds.username)[0];
+
+    }
 
 
 
@@ -44,7 +64,7 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
         return(
             <Modal
                 open={open}
-                onClose={handleClose}
+                // onClose={handleClose}
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -64,6 +84,7 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
                     }}
                 >
                     <div>
+                        
                         <h2>{content}</h2>
                         {content === "Login"
                             ?
@@ -71,12 +92,12 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
                                 <form onSubmit={handleSubmit}>
                                     <div style={{paddingBottom: 10}}>
 
-                                        <input className="textBox" type="text" placeholder={"Enter Username"} value={loginCreds.username} onChange={e => setLoginCreds({...loginCreds, username: e.target.value})}/>
+                                        <input id="uTextBox" className="textBox" type="text" placeholder={"Enter Username"} value={loginCreds.username} onChange={e => setLoginCreds({...loginCreds, username: e.target.value})}/>
                                     </div>
 
                                     <div>
 
-                                        <input className="textBox" type="text" placeholder={"Enter Password"} value={loginCreds.password} onChange={e => setLoginCreds({...loginCreds, password: e.target.value})}/>
+                                        <input id="pTextBox" className="textBox" type="text" placeholder={"Enter Password"} value={loginCreds.password} onChange={e => setLoginCreds({...loginCreds, password: e.target.value})}/>
                                     </div>
 
                                 </form>

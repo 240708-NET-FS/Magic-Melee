@@ -1,15 +1,34 @@
-import React from 'react';
-import HomeStyles from "../Styles/HomeStyles.css"
-import NavBar from '../Components/NavBar';
-import CharacterCard from '../Components/HomeComps/CharacterCard';
-import LandingButton from "../Components/LandingComps/LandingButton";
+import React, { useContext, useEffect, useState } from 'react';
+import HomeStyles from "../../Styles/HomeStyles.css"
+// import NavBar from '../Components/NavBar';
+import CharacterCard from '../../Components/HomeComps/CharacterCard';
+import LandingButton from "../../Components/LandingComps/LandingButton";
 import { useNavigate, useParams } from 'react-router-dom';
+import getCharacters from '../../utilities/api/getCharacters';
+import { UserContext } from '../../App';
 
 function Home() {
-
-
     // get characters and things
     const navigate = useNavigate();
+
+    const [characters, setCharacters] = useState([]);
+    const {user, setUser} = useContext(UserContext);
+
+
+    useEffect(()=> {
+        fetchCharacters();
+
+
+
+    }, [])
+
+    const fetchCharacters = async() => {
+        try{
+            var res = await getCharacters();
+        }catch(error){
+
+        }
+    }
     
 
 
