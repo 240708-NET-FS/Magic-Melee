@@ -22,29 +22,25 @@ builder.Services.AddCors(co => {
 });
 // CORS CORS CORS
 
-// Add services to the container
-//The below add json options adds an option to let the json serializer to ignore cycles
 builder.Services.AddControllers()
 .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddLogging();
 
-//Here we will register our dependencies (Services and DbContext, etc) so that we can satisfy our constructors
-//and inject dependecies where needed
 builder.Services.AddScoped<IDndCharacterService, DndCharacterService>();
 builder.Services.AddScoped<ICharacterClassService, CharacterClassService>();
 builder.Services.AddScoped<ISpellService, SpellService>();
 builder.Services.AddScoped<ISkillsService, SkillsService>();
 builder.Services.AddScoped<IAbilityScoreArrService, AbilityScoreArrService>();
 builder.Services.AddScoped<ICharacterRaceService, CharacterRaceService>();
-builder.Services.AddScoped<LoginService, LoginService>();
+builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<TokenService, TokenService>();
 
@@ -62,6 +58,10 @@ builder.Services.AddScoped<ICharacterSpellRepo, CharacterSpellRepo>();
 
 builder.Services.AddDbContext<MagicMeleeContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<User, IdentityRole<int>>()
+    .AddEntityFrameworkStores<MagicMeleeContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
