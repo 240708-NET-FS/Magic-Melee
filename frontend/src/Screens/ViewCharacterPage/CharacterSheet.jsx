@@ -18,12 +18,12 @@ const CharacterSheet = () => {
     <section className="bg-purple-900 flex flex-col justify-center w-full">
       <NameAndStatusContainer character={character} />
       <section className="flex flex-row justify-stretch">
-        <AbilityScoreContainer />
+        <AbilityScoreContainer characterID={3} />
         <ArmorClass value={10} />
       </section>
 
       <section className="flex flex-row justify-stretch">
-        <SkillsContainer />
+        <SkillsContainer characterID={3} />
         <SpellContainer characterID={3} />
       </section>
     </section>

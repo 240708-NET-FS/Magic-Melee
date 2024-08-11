@@ -24,9 +24,9 @@ const SpellContainer = ({ characterID }) => {
   });
   // once on mount, get all char spells
   useEffect(() => {
-    getSpells(characterID).then((spellList) => {
-      setSpells(spellList);
-    });
+    // getSpells(characterID).then((spellList) => {
+    //   setSpells(spellList);
+    // });
   }, [characterID]);
 
   return (
