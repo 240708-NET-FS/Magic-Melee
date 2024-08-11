@@ -1,38 +1,34 @@
-using MagicMelee.DTO;
-using MagicMelee.Data;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using MagicMelee.Models;
+using MagicMelee.Services;
 
 namespace MagicMelee.Services
 {
-    public class LoginService : ILoginService
+    public class LoginService
     {
-        private readonly ILoginRepo _loginRepo;
-        private readonly ITokenService _tokenService;
+        private readonly UserManager<User> _userManager;
+        private readonly TokenService _tokenService;
 
-        public LoginService(ILoginRepo loginRepo, ITokenService tokenService)
+        public LoginService(UserManager<User> userManager, TokenService tokenService)
         {
-            _loginRepo = loginRepo ?? throw new ArgumentNullException(nameof(loginRepo));
-            _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
+            _userManager = userManager;
+            _tokenService = tokenService;
         }
 
-        public async Task<string> LoginAsync(LoginDTO userLogin)
+        public async Task<object> LoginAsync(string username, string password)
         {
-            var user = await _loginRepo.GetUserByUsernameAsync(userLogin.Username);
-            if (user == null)
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, password))
             {
-                throw new Exception("Invalid login attempt");
+                var token = _tokenService.GenerateJwtToken(user);
+                return new { Token = token };
             }
 
-            var isPasswordValid = await _loginRepo.VerifyPasswordAsync(user, userLogin.Password);
-            if (!isPasswordValid)
-            {
-                throw new Exception("Invalid login attempt");
-            }
-
-            return _tokenService.CreateToken(user);
+            return new { Error = "Invalid login attempt." };
         }
     }
 }
-
 
     
