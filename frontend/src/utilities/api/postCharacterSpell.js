@@ -1,10 +1,12 @@
 // get all spells that a specific class can use
 import axios from "axios";
 import server from "./server";
-const endpoint = "api/Spell/class/";
-const getAllSpells = async (CharacterClassName) => {
-  const response = await axios.get(server + endpoint + CharacterClassName);
+const endpoint = "api/DndCharacter/spells/";
+const postCharacterSpell = async (CharacterID, SpellID) => {
+  const response = await axios.post(
+    server + endpoint + CharacterID + "/" + SpellID
+  );
   return response.data;
 };
-export default getAllSpells;
+export default postCharacterSpell;
 // TODO: #9  if there's time , may pass this request straight to API without passing through our backend first.

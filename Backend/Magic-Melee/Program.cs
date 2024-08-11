@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using MagicMelee.Models;
+using MagicMelee.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,9 +44,9 @@ builder.Services.AddScoped<ISpellService, SpellService>();
 builder.Services.AddScoped<ISkillsService, SkillsService>();
 builder.Services.AddScoped<IAbilityScoreArrService, AbilityScoreArrService>();
 builder.Services.AddScoped<ICharacterRaceService, CharacterRaceService>();
-builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<LoginService, LoginService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<TokenService, TokenService>();
 
 // Our Repos
 builder.Services.AddScoped<ILoginRepo, LoginRepo>();
@@ -62,12 +63,7 @@ builder.Services.AddScoped<ICharacterSpellRepo, CharacterSpellRepo>();
 builder.Services.AddDbContext<MagicMeleeContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-    builder.Services.AddIdentity<User, IdentityRole<int>>()
-        .AddEntityFrameworkStores<MagicMeleeContext>()
-        .AddDefaultTokenProviders();
-
-    builder.Services.Configure<IdentityOptions>(options =>
+builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequiredLength = 8;
@@ -77,20 +73,21 @@ builder.Services.AddDbContext<MagicMeleeContext>(options =>
     options.Password.RequiredUniqueChars = 1;
 });
 
-  builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                                         .AddJwtBearer(options =>
-                                         {  
-                                            options.TokenValidationParameters = new TokenValidationParameters
-                                            {
-                                            ValidateIssuer = true,
-                                            ValidateAudience = true,
-                                            ValidateLifetime = true,
-                                            ValidateIssuerSigningKey = true,
-                                            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                                            ValidAudience = builder.Configuration["Jwt:Audience"],
-                                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                                     };
-                                 });
+// JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
 
 builder.Logging.AddConsole();
 
