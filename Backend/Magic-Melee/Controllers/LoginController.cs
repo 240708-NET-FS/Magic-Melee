@@ -24,13 +24,13 @@ public class AccountController : Controller
         return View();
     }
 [HttpPost("login")]
-public async Task<IActionResult> Login(string username, string password)
+public async Task<IActionResult> Login(string Username, string Password)
 {
     if (ModelState.IsValid)
     {
         var user = await _userManager.FindByNameAsync(username);
 
-        if (user != null && await _userManager.CheckPasswordAsync(user, password))
+        if (user != null && await _userManager.CheckPasswordAsync(user, Password))
         {
            // Generate token
             var token = GenerateJwtToken(user);

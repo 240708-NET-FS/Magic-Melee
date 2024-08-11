@@ -36,12 +36,12 @@ namespace MagicMelee.Services
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(string Username, string Password)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Username);
-                if(user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+                var user = await _userManager.FindByNameAsync(Username);
+                if(user != null && await _userManager.CheckPasswordAsync(user, Password))
                 {
                     var token = GenerateJwtToken(user);
 
