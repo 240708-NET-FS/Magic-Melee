@@ -61,7 +61,8 @@ public class DndCharacterController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] DndCharacterDTO characterDTO)
     {
-        await _dndCharacterService.AddAsync(characterDTO);
+        int ID = await _dndCharacterService.AddAsync(characterDTO);
+        characterDTO.characterId = ID; 
         return CreatedAtAction(nameof(GetById), new { id = characterDTO.CharacterId }, characterDTO);
     }
 

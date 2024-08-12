@@ -22,10 +22,11 @@ public class CharacterRaceRepo : ICharacterRaceRepo
         return await _context.CharacterRaces.ToListAsync();
     }
 
-    public async Task AddAsync(CharacterRace entity)
+    public async Task<int> AddAsync(CharacterRace entity)
     {
         await _context.CharacterRaces.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.CharacterRaceId;
     }
 
     public async Task UpdateAsync(CharacterRace entity)

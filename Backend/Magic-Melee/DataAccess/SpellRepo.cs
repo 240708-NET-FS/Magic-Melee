@@ -26,10 +26,11 @@ public class SpellRepo : ISpellRepo
         return await _context.Spells.ToListAsync();
     }
 
-    public async Task AddAsync(Spell entity)
+    public async Task<int> AddAsync(Spell entity)
     {
         await _context.Spells.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.SpellId;
     }
 
     public async Task UpdateAsync(Spell entity)

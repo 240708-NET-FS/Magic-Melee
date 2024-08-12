@@ -34,6 +34,7 @@ public class CharacterSpellRepo : ICharacterSpellRepo
     {
         await _context.CharacterSpells.AddAsync(entity);
         await _context.SaveChangesAsync();
+        //return entity.CharacterId;
     }
 
     public async Task UpdateAsync(CharacterSpell entity)

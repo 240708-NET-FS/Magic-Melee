@@ -49,12 +49,12 @@ public class AbilityScoreArrService : IAbilityScoreArrService
         }
     }
 
-    public async Task AddAsync(AbilityScoreArrDTO abilityScoreArrDto)
+    public async Task<int> AddAsync(AbilityScoreArrDTO abilityScoreArrDto)
     {
         try
         {
             var abilityScoreArr = AbilityScoreArrUtility.DTOToAbilityScoreArr(abilityScoreArrDto);
-            await _abilityScoreArrRepo.AddAsync(abilityScoreArr);
+            return (await _abilityScoreArrRepo.AddAsync(abilityScoreArr));
         }
         catch (Exception ex)
         {

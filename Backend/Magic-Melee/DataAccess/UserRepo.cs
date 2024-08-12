@@ -25,10 +25,11 @@ public class UserRepo : IUserRepo
         return await _context.Users.ToListAsync();
     }
 
-    public async Task AddAsync(User entity)
+    public async Task<int> AddAsync(User entity)
     {
         await _context.Users.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.UserId;
     }
 
     public async Task UpdateAsync(User entity)

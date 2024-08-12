@@ -49,12 +49,12 @@ public class SkillsService : ISkillsService
         }
     }
 
-    public async Task AddAsync(SkillsDTO skillsDto)
+    public async Task<int> AddAsync(SkillsDTO skillsDto)
     {
         try
         {
             var skills = SkillsUtility.DTOToSkills(skillsDto);
-            await _skillsRepo.AddAsync(skills);
+            return await _skillsRepo.AddAsync(skills);
         }
         catch (Exception ex)
         {

@@ -74,8 +74,9 @@ public class AbilityScoreArrController : ControllerBase
     {
         try
         {
-            await _abilityScoreArrService.AddAsync(abilityScoreArrDto);
-            return CreatedAtAction(nameof(GetById), new { id = abilityScoreArrDto.AbilityScoreArrId }, abilityScoreArrDto);
+            int ID = await _abilityScoreArrService.AddAsync(abilityScoreArrDto);
+            abilityScoreArrDto.AbilityScoreArrId = ID; 
+            return CreatedAtAction(nameof(GetById), new { id = ID }, abilityScoreArrDto);
         }
         catch (Exception ex)
         {

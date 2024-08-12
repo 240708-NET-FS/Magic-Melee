@@ -49,12 +49,12 @@ public class CharacterClassService : ICharacterClassService
         }
     }
 
-    public async Task AddAsync(CharacterClassDTO characterClassDto)
+    public async Task<int> AddAsync(CharacterClassDTO characterClassDto)
     {
         try
         {
             var characterClass = CharacterClassUtility.DTOToCharacterClass(characterClassDto);
-            await _characterClassRepo.AddAsync(characterClass);
+            return await _characterClassRepo.AddAsync(characterClass);
         }
         catch (Exception ex)
         {

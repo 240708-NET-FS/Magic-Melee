@@ -22,10 +22,11 @@ public class SkillsRepo : ISkillsRepo
         return await _context.Skills.ToListAsync();
     }
 
-    public async Task AddAsync(Skills entity)
+    public async Task<int> AddAsync(Skills entity)
     {
         await _context.Skills.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.SkillsId;
     }
 
     public async Task UpdateAsync(Skills entity)
