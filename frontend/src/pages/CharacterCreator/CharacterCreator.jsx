@@ -10,10 +10,10 @@ import AbilityScore from "../../Components/CharacterCreatorComps/AbilityScore";
 
 import getAllRaces from "../../utilities/api/getAllRaces";
 import getAllClasses from "../../utilities/api/getAllClasses";
-import getAllSpells from "../../utilities/api/getAllSpells";
+import getClassSpells from "../../utilities/api/getAllSpells";
 
 import { useNavigate } from "react-router-dom";
-import getClassSpells from "../../utilities/api/getClassSpells";
+//import getClassSpells from "../../utilities/api/getClassSpells";
 
 
 function CharacterCreator(){

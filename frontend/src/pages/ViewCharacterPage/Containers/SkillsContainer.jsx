@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Skill from "../Components/Skill";
 import validateSkill from "../util/validateSkill";
-import { getSkills } from "../../../utilities/api";
+import { getSkills, putSkills } from "../../../utilities/api";
 
-const SkillsContainer = ({ characterID }) => {
+const SkillsContainer = ({ characterID, skillsID }) => {
   const [skills, setSkills] = useState(defaultSkills);
 
   const handleChange = (name, val) => {
@@ -39,7 +39,21 @@ const SkillsContainer = ({ characterID }) => {
   }, [characterID]);
 
   // effect hook with api call to update will go here
-  useEffect(() => {}, [skills]);
+  useEffect(() => {
+    let skillsAreValid = true;
+    for (let skill in Object.values(skills)) {
+      skillsAreValid &= validateSkill(skill);
+    }
+
+    if (skillsAreValid) {
+      // if scores are valid then update database
+      const skillsObj = {
+        skillsId: skillsID,
+        ...skills,
+      };
+      //putSkills(skillsObj);
+    }
+  }, [skills, skillsID]);
 
   return (
     <section className="flex flex-col border-black border-2 rounded-md basis-1/2 items-stretch">
@@ -90,11 +104,11 @@ const displayNames = {
   survival: "Survival",
 };
 
-function setRandomSkillValues(skills) {
-  const skillsCopy = { ...skills };
-  Object.getOwnPropertyNames(skills).forEach(
-    (name) => (skillsCopy[name] = Math.floor(Math.random() * 20))
-  );
-  return skillsCopy;
-}
+// function setRandomSkillValues(skills) {
+//   const skillsCopy = { ...skills };
+//   Object.getOwnPropertyNames(skills).forEach(
+//     (name) => (skillsCopy[name] = Math.floor(Math.random() * 20))
+//   );
+//   return skillsCopy;
+// }
 export default SkillsContainer;

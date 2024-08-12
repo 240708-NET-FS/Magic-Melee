@@ -5,7 +5,7 @@ const AbilityScore = ({ scoreName, scoreVal, handleChange, textColor }) => {
       className={"flex flex-col rounded-md border-2 border-black mr-2 shrink"}
     >
       {" "}
-      <h2 className="underline"> {scoreName} </h2>{" "}
+      <h2 className="underline"> {scoreNames[scoreName]} </h2>{" "}
       <input
         className={`self-center bg-transparent text-black text-center ${textColor}`}
         value={scoreVal}
@@ -13,6 +13,15 @@ const AbilityScore = ({ scoreName, scoreVal, handleChange, textColor }) => {
       />{" "}
     </section>
   );
+};
+
+const scoreNames = {
+  str: "Strength",
+  dex: "Dexterity",
+  con: "Constitution",
+  int: "Intelligence",
+  wis: "Wisdom",
+  cha: "Charisma",
 };
 
 export default AbilityScore;

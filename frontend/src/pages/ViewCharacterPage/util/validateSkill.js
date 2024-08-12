@@ -1,4 +1,4 @@
 function validateSkill(skillScore) {
-  return skillScore <= 30;
+  return skillScore >= 0 && skillScore <= 30;
 }
 export default validateSkill;

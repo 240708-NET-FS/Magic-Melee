@@ -74,7 +74,13 @@ public class AbilityScoreArrService : IAbilityScoreArrService
                 throw new CharacterNotFoundException($"Ability score array not found with ID: {abilityScoreArrDto.AbilityScoreArrId}");
             }
 
-            abilityScoreArr = AbilityScoreArrUtility.DTOToAbilityScoreArr(abilityScoreArrDto); // Updating fields from DTO
+            //abilityScoreArr = AbilityScoreArrUtility.DTOToAbilityScoreArr(abilityScoreArrDto); // Updating fields from DTO
+            abilityScoreArr.Str = abilityScoreArrDto.Str;
+            abilityScoreArr.Dex = abilityScoreArrDto.Dex;
+            abilityScoreArr.Con = abilityScoreArrDto.Con;
+            abilityScoreArr.Int = abilityScoreArrDto.Int;
+            abilityScoreArr.Wis = abilityScoreArrDto.Wis;
+            abilityScoreArr.Cha = abilityScoreArrDto.Cha;
             await _abilityScoreArrRepo.UpdateAsync(abilityScoreArr);
         }
         catch (Exception ex)

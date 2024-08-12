@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import AbilityScore from "../Components/AbilityScore";
 import validateScore from "../util/validateScore";
-import { getAbilityScores } from "../../../utilities/api";
+import { getAbilityScores, putAbilityScores } from "../../../utilities/api";
 
-const AbilityScoreContainer = ({ characterID }) => {
+const AbilityScoreContainer = ({ characterID, abilityScoreID }) => {
   // TODO: will need to use an effect hook to get ability scores from backend API
   const [scores, setScores] = useState(defaultScores);
 
-  const handleChange = (name, val) => {
+  const handleChange = async (name, val) => {
     const newScores = { ...scores };
     newScores[name] = val;
     setScores(newScores);
@@ -19,7 +19,7 @@ const AbilityScoreContainer = ({ characterID }) => {
       : "text-red-600";
     return (
       <AbilityScore
-        scoreName={scoreNames[name]}
+        scoreName={name}
         scoreVal={scores[name]}
         handleChange={handleChange}
         textColor={textColor}
@@ -35,10 +35,19 @@ const AbilityScoreContainer = ({ characterID }) => {
       setScores(scoreObj);
     });
     //setScores((scores) => setRandomAbilityValues(scores));
-  }, []);
+  }, [characterID]);
 
-  // API call to update will go here
-  useEffect(() => {}, [scores]);
+  useEffect(() => {
+    let scoresAreValid = true;
+    for (let score in Object.values(scores)) {
+      scoresAreValid &= validateScore(score);
+    }
+
+    if (scoresAreValid) {
+      // if scores are valid then update database
+      putAbilityScores(abilityScoreID, scores);
+    }
+  }, [scores, abilityScoreID]);
 
   return (
     <section className=" shrink">
@@ -58,23 +67,15 @@ const defaultScores = {
   wis: 1,
   cha: 1,
 };
-const scoreNames = {
-  str: "Strength",
-  dex: "Dexterity",
-  con: "Constitution",
-  int: "Intelligence",
-  wis: "Wisdom",
-  cha: "Charisma",
-};
 
 const scoreNameArr = Object.getOwnPropertyNames(defaultScores);
 
-function setRandomAbilityValues(scores) {
-  const scoresCopy = { ...scores };
-  Object.getOwnPropertyNames(scores).forEach(
-    (name) => (scoresCopy[name] = Math.floor(Math.random() * 15))
-  );
-  return scoresCopy;
-}
+// function setRandomAbilityValues(scores) {
+//   const scoresCopy = { ...scores };
+//   Object.getOwnPropertyNames(scores).forEach(
+//     (name) => (scoresCopy[name] = Math.floor(Math.random() * 15))
+//   );
+//   return scoresCopy;
+// }
 
 export default AbilityScoreContainer;
