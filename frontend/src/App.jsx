@@ -27,32 +27,6 @@ function App() {
 
 
 
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: (
-  //         <div>
-  //           <h1>Landing</h1>
-  //         </div>
-  //     ),
-  //
-  //   },
-  //   {
-  //     path: "home",
-  //     element: (
-  //         <div>
-  //           <h1>Home</h1>
-  //         </div>
-  //     )
-  //   }
-  //
-  // ]);
-  //
-  // createRoot(document.getElementById("root")).render(
-  //     <RouterProvider router={router} />
-  // );
-
-  
 
 
   return (

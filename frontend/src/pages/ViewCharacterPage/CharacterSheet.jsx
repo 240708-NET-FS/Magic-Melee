@@ -4,6 +4,7 @@ import AbilityScoreContainer from "./Containers/AbilityScoreContainer";
 import ArmorClass from "./Components/ArmorClass";
 import SkillsContainer from "./Containers/SkillsContainer";
 import InventoryContainer from "./Containers/InventoryContainer";
+import SpellContainer from "./Containers/SpellContainer";
 // components :
 // NameAndStatusContainer
 // StatsContainer
