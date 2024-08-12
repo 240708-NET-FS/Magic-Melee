@@ -10,19 +10,13 @@ import AbilityScore from "../../Components/CharacterCreatorComps/AbilityScore";
 
 import getAllRaces from "../../utilities/api/getAllRaces";
 import getAllClasses from "../../utilities/api/getAllClasses";
-<<<<<<< HEAD
+// import getClassSpells from "../../utilities/api/getAllSpells";
 import getAllSpells from "../../utilities/api/getAllSpells";
 import postCharacter from "../../utilities/api/postCharacter";
 import postAbilityScores from "../../utilities/api/postAbilityScore";
 
 import { useNavigate } from "react-router-dom";
 // import getClassSpells from "../../utilities/api/getClassSpells";
-=======
-import getClassSpells from "../../utilities/api/getAllSpells";
-
-import { useNavigate } from "react-router-dom";
-//import getClassSpells from "../../utilities/api/getClassSpells";
->>>>>>> viewformatting
 
 
 function CharacterCreator(){
@@ -110,9 +104,8 @@ function CharacterCreator(){
 
     const handleSubmit = () => {
         if(abilities !== null){
-            postAbilityScores(abilities);
+            // postAbilityScores(abilities);
 
-        //    navigate("/home/user/character/character-sheet");
         //     console.log("hell yeah!");   
         } 
         // validate submission
