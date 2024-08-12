@@ -38,6 +38,7 @@ public interface IDndCharacterService : IRepositoryService<DndCharacterDTO>
 public interface ISpellService : IRepositoryService<SpellDTO>
 {
     // Specific methods for spell service
+    Task<SpellDTO> GetByNameAsync(string name);
 }
 
 public interface ISkillsService : IRepositoryService<SkillsDTO>

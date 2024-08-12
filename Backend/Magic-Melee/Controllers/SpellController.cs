@@ -46,6 +46,7 @@ public class SpellController : ControllerBase
             List<SpellDTO> spellDTOs = []; 
             foreach(apiSpellDTO spell in spells) {
                 spellDTOs.Add(new() {
+                    SpellId= (await _spellService.GetByNameAsync(spell.Name)).SpellId,
                     SpellName = spell.Name,
                     SpellRange=spell.Range,
                     SpellLevel =spell.Level,

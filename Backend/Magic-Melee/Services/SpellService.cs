@@ -34,6 +34,24 @@ public class SpellService : ISpellService
             throw new MagicMeleeException("Error retrieving spell", ex);
         }
     }
+    public async Task<SpellDTO> GetByNameAsync(string name)
+    {
+        try
+        {
+            var spell = await _spellRepo.GetByNameAsync(name);
+            if (spell == null)
+            {
+                _logger.LogWarning("Spell not found with Name: {name}", name);
+                throw new CharacterNotFoundException($"Spell not found with ID: {name}");
+            }
+            return SpellUtility.SpellToDTO(spell);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to retrieve spell by ID: {Id}", name);
+            throw new MagicMeleeException("Error retrieving spell", ex);
+        }
+    }
 
     public async Task<IEnumerable<SpellDTO>> GetAllAsync()
     {

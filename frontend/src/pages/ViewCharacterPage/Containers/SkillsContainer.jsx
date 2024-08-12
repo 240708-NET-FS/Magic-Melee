@@ -19,7 +19,7 @@ const SkillsContainer = ({ characterID, skillsID }) => {
         : "text-red-600";
       return (
         <Skill
-          skillName={displayNames[name]}
+          skillName={name}
           skillVal={skills[name]}
           handleChange={handleChange}
           textColor={textColor}
@@ -81,27 +81,6 @@ const defaultSkills = {
   sleightOfHand: 0,
   stealth: 0,
   survival: 0,
-};
-
-const displayNames = {
-  acrobatics: "Acrobatics",
-  animalHandling: "Animal Handling",
-  arcana: "Arcana",
-  athletics: "Athletics",
-  deception: "Deception",
-  history: "History",
-  insight: "Insight",
-  intimidation: "Intimidation",
-  investigation: "Investigation",
-  medicine: "Medicine",
-  nature: "Nature",
-  perception: "Perception",
-  performance: "Performance",
-  persuasion: "Persuasion",
-  religion: "Religion",
-  sleightOfHand: "Sleight of Hand",
-  stealth: "Stealth",
-  survival: "Survival",
 };
 
 // function setRandomSkillValues(skills) {
