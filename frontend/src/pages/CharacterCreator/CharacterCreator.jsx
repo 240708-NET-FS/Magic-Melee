@@ -119,8 +119,6 @@ function CharacterCreator(){
     
     const handleSubmit = () => {
         if(abilities !== null){
-            console.log(abilities);
-
             navigate(`/home/${user.firstName}/character-sheet/${name}`)
         } 
         // validate submission
