@@ -15,26 +15,12 @@ import NavBar from './Components/NavBar';
 export const UserContext = React.createContext(null);
 
 function App() {
-  const [showNav, setShowNav] = useState(false);
-
 
   const [user, setUser] = useState(null);
 
-
-  useEffect(()=> {
-    
-  }, [])
-
-
-
-
-
   return (
     <div className="App">
-       
-       
         <div >
-        
             <Router>
               <UserContext.Provider value={{user: user, setUser: setUser}}>
                   <div>
@@ -42,7 +28,7 @@ function App() {
                 </div>
                   <Routes>
                       <Route exact path={"/"} element={<Landing />} />
-                      <Route exact path={"/home/user/character/character-sheet"} element={<CharacterSheet />}/>
+                      <Route exact path={user ? `/home/${user.firstName}/character-sheet/:characterName`: null} element={<CharacterSheet/>} />
                       <Route exact path={user ? `/home/${user.firstName}` : "/home"} element={<UserHome />} />
                       <Route exact path={"/character-creator"} element={<CharacterCreator />} />
                   </Routes> 

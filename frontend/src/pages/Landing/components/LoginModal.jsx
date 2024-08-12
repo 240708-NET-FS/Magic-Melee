@@ -3,8 +3,12 @@ import { Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import LandingButton from "../../../Components/LandingComps/LandingButton";
 import ComponentStyles from "../../../Styles/ComponentStyles.css";
+<<<<<<< HEAD
+import { useNavigate } from 'react-router-dom';
+=======
 //import { useAuth } from '../../../provider/authProvider';
 import { useNavigate } from "react-router-dom";
+>>>>>>> viewformatting
 import getUsers from "../../../utilities/api/getUsers";
 import { Alert } from "react-native-web";
 import { UserContext } from "../../../App";
@@ -141,6 +145,58 @@ const LoginModal = ({
                     position: "relative",
                   }}
                 >
+<<<<<<< HEAD
+                    <div>
+                        
+                        <h2>{content}</h2>
+                        {content === "Login"
+                            ?
+                            <div>
+                                <form onSubmit={handleSubmit}>
+                                    <div style={{paddingBottom: 10}}>
+
+                                        <input id="uTextBox" className="textBox" type="text" placeholder={"Enter Username"} value={loginCreds.username} onChange={e => setLoginCreds({...loginCreds, username: e.target.value})}/>
+                                    </div>
+
+                                    <div>
+
+                                        <input id="pTextBox" className="textBox" type="password" placeholder={"Enter Password"} value={loginCreds.password} onChange={e => setLoginCreds({...loginCreds, password: e.target.value})}/>
+                                    </div>
+
+                                </form>
+
+
+                            </div> :
+                            <div>
+                                <form onSubmit={handleSubmit}>
+                                    <div style={{
+                                        backgroundColor: '#241b31',
+                                        opacity: .5,
+                                        borderRadius: 15,
+                                        padding: 20,
+                                        alignItems: 'center',
+                                        position: "relative"
+                                    }}>
+                                        <div style={{paddingBottom: 10}}>
+                                            <input className="textBox" type="text" placeholder={"Enter Username"}/>
+                                        </div>
+                                        <div style={{paddingBottom: 10}}>
+                                            <input className="textBox" type="text" placeholder={"Enter Password"}/>
+                                        </div>
+                                    </div>
+
+                                    <div style={{paddingTop: 10}}>
+                                        <div style={{
+                                            backgroundColor: '#241b31',
+                                            opacity: .5,
+                                            borderRadius: 15,
+                                            padding: 20,
+                                            alignItems: 'center',
+                                            position: "relative"
+                                        }}>
+
+                                            {/* <div style={{paddingBottom: 10}}>
+=======
                   <div style={{ paddingBottom: 10 }}>
                     <input
                       className="textBox"
@@ -169,6 +225,7 @@ const LoginModal = ({
                     }}
                   >
                     {/* <div style={{paddingBottom: 10}}>
+>>>>>>> viewformatting
                                                 <input className="textBox" type="text" placeholder={"Enter Username"} value={loginCreds.username} onChange={e => this.props.setLoginCreds({username: e.target.value, password: null})}/>
                                             </div>
 

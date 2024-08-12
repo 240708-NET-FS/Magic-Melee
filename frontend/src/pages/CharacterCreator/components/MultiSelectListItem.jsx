@@ -3,11 +3,13 @@ import ComponentStyles from "../../../Styles/ComponentStyles.css";
 
 
 
-const MultiSelectListItem = ({id, type, name, object, picked,setPicked}) => {
+const MultiSelectListItem = ({id, type, name, object, picked, setPicked}) => {
 
     const [focus, setFocus] = useState(false);
 
-    // useEffect()
+    useEffect(()=> {
+        console.log(object);
+    }, [])
 
 
     const handlePress = () => {
@@ -17,10 +19,13 @@ const MultiSelectListItem = ({id, type, name, object, picked,setPicked}) => {
 
     const handleSpellList = () => {
         if(picked){
-            if(picked.filter(p => p.spellName === name).length === 0){
-                setPicked([...picked, object]);
+            if(picked.filter(p => p === id).length === 0){
+                let temp = picked.splice();
+                temp.push(id);
+                setPicked(temp);
+
             }else{
-                setPicked(picked.filter(p=> p.spellName !== name));
+                setPicked(picked.filter(p=> p !== id));
             }
         }
 

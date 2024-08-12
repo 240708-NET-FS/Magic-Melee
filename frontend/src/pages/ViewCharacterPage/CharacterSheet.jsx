@@ -5,6 +5,7 @@ import AbilityScoreContainer from "./Containers/AbilityScoreContainer";
 import SkillsContainer from "./Containers/SkillsContainer";
 
 import SpellContainer from "./Containers/SpellContainer";
+import { useParams } from "react-router-dom";
 // components :
 // NameAndStatusContainer
 // StatsContainer
@@ -35,7 +36,6 @@ const CharacterSheet = ({ character }) => {
     </section>
   );
 };
-
 export default CharacterSheet;
 
 const defaultCharacter = {

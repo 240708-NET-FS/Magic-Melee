@@ -90,7 +90,7 @@ function Landing() {
                   size={250}
                   onPress={onPressLogin}
                 />
-                <LandingButton
+                {/* <LandingButton
                   radius={4}
                   color={"black"}
                   text={"Create Account"}
@@ -98,7 +98,7 @@ function Landing() {
                   borderWidth={2}
                   size={250}
                   onPress={onPressCreate}
-                />
+                /> */}
                 <LandingButton
                   radius={4}
                   color={"black"}
