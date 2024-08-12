@@ -3,7 +3,7 @@ import AbilityScoreBox from "./AbilityScoreBox";
 
 
 const AbilityScore = (props) => {
-    const abilities = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+    const abilities = ["str", "dex", "con", "int", "wis", "cha"]
 
     const scoreOpts = [8, 10, 12, 13, 14, 15]
     const [options, setOptions] = useState([8, 10, 12, 13, 14, 15]);
@@ -31,27 +31,27 @@ const AbilityScore = (props) => {
             // console.log("hell yeah");
             props.setAbilities([
                 {
-                    name: 'STR',
+                    name: 'str',
                     score: strPicked
                 },
                 {
-                    name: 'DEX',
+                    name: 'dex',
                     score: dexPicked
                 },
                 {
-                    name: 'CON',
+                    name: 'con',
                     score: conPicked
                 },
                 {
-                    name: 'INT',
+                    name: 'int',
                     score: intPicked
                 },
                 {
-                    name: 'WIS',
+                    name: 'wis',
                     score: wisPicked
                 },
                 {
-                    name: 'CHA',
+                    name: 'cha',
                     score: chaPicked
                 }
             ])

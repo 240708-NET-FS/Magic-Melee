@@ -12,6 +12,7 @@ import getAllRaces from "../../utilities/api/getAllRaces";
 import getAllClasses from "../../utilities/api/getAllClasses";
 import getAllSpells from "../../utilities/api/getAllSpells";
 import postCharacter from "../../utilities/api/postCharacter";
+import postAbilityScores from "../../utilities/api/postAbilityScore";
 
 import { useNavigate } from "react-router-dom";
 // import getClassSpells from "../../utilities/api/getClassSpells";
@@ -102,7 +103,7 @@ function CharacterCreator(){
 
     const handleSubmit = () => {
         if(abilities !== null){
-            console.log(abilities);
+            postAbilityScores(abilities);
 
         //    navigate("/home/user/character/character-sheet");
         //     console.log("hell yeah!");   
@@ -152,8 +153,6 @@ function CharacterCreator(){
         }catch(error){
             console.log(error);
         }
-
-
     }
 
     const mapRaces = races.map((r, index) => (
@@ -174,12 +173,12 @@ function CharacterCreator(){
         </div>
     ))
 
-    const mapSpells = spells.length > 0 ? spells.map((s, index) =>(
+    const mapSpells = spells.map((s, index) =>(
         <div style={{paddingBottom: 7}}>
             <MultiSelectListItem id={s.spellId} type={"spell"} name={s.spellName} object={s} picked={pickedList} setPicked={setPickedList} />
         </div>  
 
-    )) : null;
+    ));
 
     useEffect(()=> {
         if(level && !loading){
@@ -192,8 +191,6 @@ function CharacterCreator(){
       
     }, [level])
 
-    // pagination
-    // things 
     return(
         loading ? null :
         <div className="main">
@@ -210,8 +207,6 @@ function CharacterCreator(){
                         </div>
                         <div>
                             <div style={{paddingTop: 20}}>
-                                {/* users character */}
-                                {/* <h3>Your Character</h3> */}
                                 <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', }}>
                                     
                                     <div>
@@ -238,7 +233,7 @@ function CharacterCreator(){
                                     {type === "Race" ? mapRaces
                                     : type === "Class" ? mapClasses
 
-                                    : type === "Spells" ? mapSpells
+                                    : type === "Spells"? mapSpells
                                     :  <AbilityScore abilities={abilities} setAbilities={setAbilities} />  }
                                 </div>
 

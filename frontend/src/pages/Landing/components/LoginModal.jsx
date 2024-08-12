@@ -127,10 +127,10 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
                                         position: "relative"
                                     }}>
                                         <div style={{paddingBottom: 10}}>
-                                            <input className="textBox" type="text" placeholder={"Enter First Name"}/>
+                                            <input className="textBox" type="text" placeholder={"Enter Username"}/>
                                         </div>
                                         <div style={{paddingBottom: 10}}>
-                                            <input className="textBox" type="text" placeholder={"Enter Last Name"}/>
+                                            <input className="textBox" type="text" placeholder={"Enter Password"}/>
                                         </div>
                                     </div>
 
