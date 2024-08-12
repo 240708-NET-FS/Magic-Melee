@@ -49,12 +49,12 @@ public class SkillsService : ISkillsService
         }
     }
 
-    public async Task AddAsync(SkillsDTO skillsDto)
+    public async Task<int> AddAsync(SkillsDTO skillsDto)
     {
         try
         {
             var skills = SkillsUtility.DTOToSkills(skillsDto);
-            await _skillsRepo.AddAsync(skills);
+            return await _skillsRepo.AddAsync(skills);
         }
         catch (Exception ex)
         {
@@ -74,7 +74,25 @@ public class SkillsService : ISkillsService
                 throw new CharacterNotFoundException($"Skills not found with ID: {skillsDto.SkillsId}");
             }
 
-            skills = SkillsUtility.DTOToSkills(skillsDto); // Updating fields from DTO
+            //skills = SkillsUtility.DTOToSkills(skillsDto); // Updating fields from DTO
+            skills.Athletics = skillsDto.Athletics;
+            skills.Acrobatics = skillsDto.Acrobatics;
+            skills.SleightOfHand = skillsDto.SleightOfHand;
+            skills.Stealth = skillsDto.Stealth;
+            skills.Deception = skillsDto.Deception;
+            skills.AnimalHandling = skillsDto.AnimalHandling;
+            skills.Survival = skillsDto.Survival;
+            skills.History = skillsDto.History;
+            skills.Religion = skillsDto.Religion;
+            skills.Medicine = skillsDto.Medicine;
+            skills.Perception = skillsDto.Perception;
+            skills.Insight = skillsDto.Insight;
+            skills.Performance = skillsDto.Performance;
+            skills.Intimidation = skillsDto.Intimidation;
+            skills.Persuasion = skillsDto.Persuasion;
+            skills.Arcana = skillsDto.Arcana;
+            skills.Investigation = skillsDto.Investigation;
+            skills.Nature = skillsDto.Nature;
             await _skillsRepo.UpdateAsync(skills);
         }
         catch (Exception ex)

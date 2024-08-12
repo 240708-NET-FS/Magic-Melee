@@ -31,7 +31,6 @@ const SkillsContainer = ({ characterID, skillsID }) => {
   // effect hook to retrieve skills from daatbase
   useEffect(() => {
     getSkills(characterID).then((skillObj) => {
-      console.log("skills: ", skillObj);
       delete skillObj.skillsId;
       setSkills(skillObj);
     });
@@ -40,18 +39,25 @@ const SkillsContainer = ({ characterID, skillsID }) => {
 
   // effect hook with api call to update will go here
   useEffect(() => {
-    let skillsAreValid = true;
-    for (let skill in Object.values(skills)) {
-      skillsAreValid &= validateSkill(skill);
-    }
+    let skillNums = {};
+    Object.keys(skills).forEach(
+      (name) => (skillNums[name] = Number(skills[name]))
+    );
 
-    if (skillsAreValid) {
+    let skillsAreValid = true;
+    Object.values(skillNums).forEach((skill) => {
+      //console.log("skill: ", skill, validateSkill(skill));
+      skillsAreValid = skillsAreValid && validateSkill(skill);
+    });
+    if (!skillsAreValid) return;
+
+    if (!(JSON.stringify(skills) === JSON.stringify(defaultSkills))) {
       // if scores are valid then update database
       const skillsObj = {
         skillsId: skillsID,
-        ...skills,
+        ...skillNums,
       };
-      //putSkills(skillsObj);
+      putSkills(skillsObj);
     }
   }, [skills, skillsID]);
 
@@ -91,3 +97,4 @@ const defaultSkills = {
 //   return skillsCopy;
 // }
 export default SkillsContainer;
+export { defaultSkills };

@@ -22,10 +22,11 @@ public class AbilityScoreArrRepo : IAbilityScoreArrRepo
         return await _context.AbilityScoreArrs.ToListAsync();
     }
 
-    public async Task AddAsync(AbilityScoreArr entity)
+    public async Task<int> AddAsync(AbilityScoreArr entity)
     {
         await _context.AbilityScoreArrs.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.AbilityScoreArrId;
     }
 
     public async Task UpdateAsync(AbilityScoreArr entity)

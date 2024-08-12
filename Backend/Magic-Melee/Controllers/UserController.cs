@@ -55,7 +55,8 @@ public class UserController : ControllerBase
     {
         try
         {
-            await _userService.AddAsync(userDto);
+            int ID = await _userService.AddAsync(userDto);
+            userDto.UserId = ID; 
             return CreatedAtAction(nameof(GetById), new { id = userDto.Id }, userDto);
         }
         catch (Exception ex)

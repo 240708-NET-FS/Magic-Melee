@@ -49,12 +49,12 @@ public class CharacterRaceService : ICharacterRaceService
         }
     }
 
-    public async Task AddAsync(CharacterRaceDTO characterRaceDto)
+    public async Task<int> AddAsync(CharacterRaceDTO characterRaceDto)
     {
         try
         {
             var characterRace = CharacterRaceUtility.DTOToCharacterRace(characterRaceDto);
-            await _characterRaceRepo.AddAsync(characterRace);
+            return await _characterRaceRepo.AddAsync(characterRace);
         }
         catch (Exception ex)
         {

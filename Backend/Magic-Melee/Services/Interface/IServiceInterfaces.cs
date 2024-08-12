@@ -7,7 +7,7 @@ public interface IRepositoryService<TDto>
 {
     Task<TDto> GetByIdAsync(int id);
     Task<IEnumerable<TDto>> GetAllAsync();
-    Task AddAsync(TDto dto);
+    Task<int> AddAsync(TDto dto);
     Task UpdateAsync(TDto dto);
     Task DeleteAsync(int id);
 }

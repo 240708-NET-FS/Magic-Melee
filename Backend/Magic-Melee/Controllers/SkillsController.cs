@@ -74,8 +74,9 @@ public class SkillsController : ControllerBase
     {
         try
         {
-            await _skillsService.AddAsync(skillsDto);
-            return CreatedAtAction(nameof(GetById), new { id = skillsDto.SkillsId }, skillsDto);
+            int ID = await _skillsService.AddAsync(skillsDto);
+            skillsDto.skillsId = ID; 
+            return CreatedAtAction(nameof(GetById), new { id = ID }, skillsDto);
         }
         catch (Exception ex)
         {
@@ -94,6 +95,7 @@ public class SkillsController : ControllerBase
 
         try
         {
+            
             await _skillsService.UpdateAsync(skillsDto);
             return NoContent();
         }

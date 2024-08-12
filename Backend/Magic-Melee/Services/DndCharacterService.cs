@@ -75,19 +75,21 @@ public class DndCharacterService : IDndCharacterService
         }
     }
 
-    public async Task AddAsync(DndCharacterDTO characterDTO)
+    public async Task<int> AddAsync(DndCharacterDTO characterDTO)
     {
         try
         {
             // Here is where additional validation for character creation would go
             var character = DndCharacterUtility.DTOToDndCharacter(characterDTO);
-            await _characterRepo.AddAsync(character);
+            int charId = await _characterRepo.AddAsync(character);
 
             // Associate spells with the character using AddSpellToCharacterAsync
             foreach (var spellId in characterDTO.SpellIds)
             {
                 await AddSpellToCharacterAsync(character.CharacterId, spellId);
             }
+
+            return charId; 
         }
         catch (Exception ex)
         {

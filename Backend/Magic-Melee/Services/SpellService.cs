@@ -67,12 +67,12 @@ public class SpellService : ISpellService
         }
     }
 
-    public async Task AddAsync(SpellDTO spellDto)
+    public async Task<int> AddAsync(SpellDTO spellDto)
     {
         try
         {
             var spell = SpellUtility.DTOToSpell(spellDto);
-            await _spellRepo.AddAsync(spell);
+            return await _spellRepo.AddAsync(spell);
         }
         catch (Exception ex)
         {

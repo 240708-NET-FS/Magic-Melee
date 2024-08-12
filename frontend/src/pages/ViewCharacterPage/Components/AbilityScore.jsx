@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 const AbilityScore = ({ scoreName, scoreVal, handleChange, textColor }) => {
   return (
-    <section
-      className={"flex flex-col rounded-md border-2 border-black mr-2 shrink"}
+    <div
+      className={
+        "flex flex-col rounded-md border-2 border-black p-0 mx-2 min-w-0"
+      }
     >
       {" "}
-      <h2 className="underline"> {scoreNames[scoreName]} </h2>{" "}
+      <p className="underline text-md"> {scoreNames[scoreName]} </p>{" "}
       <input
         className={`self-center bg-transparent text-black text-center ${textColor}`}
         value={scoreVal}
         onChange={(e) => handleChange(scoreName, e.target.value)}
       />{" "}
-    </section>
+    </div>
   );
 };
 
@@ -25,3 +27,4 @@ const scoreNames = {
 };
 
 export default AbilityScore;
+export { scoreNames };

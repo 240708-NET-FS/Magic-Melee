@@ -49,12 +49,12 @@ public class UserService : IUserService
         }
     }
 
-    public async Task AddAsync(UserDTO userDto)
+    public async Task<int> AddAsync(UserDTO userDto)
     {
         try
         {
             var user = UserUtility.DTOToUser(userDto);
-            await _userRepo.AddAsync(user);
+            return await _userRepo.AddAsync(user);
         }
         catch (Exception ex)
         {

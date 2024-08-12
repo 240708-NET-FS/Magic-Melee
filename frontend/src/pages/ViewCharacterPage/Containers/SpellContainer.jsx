@@ -12,7 +12,7 @@ const SpellContainer = ({ characterID }) => {
       await deleteCharacterSpell(characterID, spell.SpellID);
       getSpells(characterID).then((spellList) => setSpells(spellList));
     };
-    console.log("spell: ", spell);
+
     return (
       <Spell
         handleDelete={handleDelete}
@@ -26,7 +26,6 @@ const SpellContainer = ({ characterID }) => {
   // once on mount, get all char spells
   useEffect(() => {
     getSpells(characterID).then((spellList) => {
-      console.log("spells: ", spellList);
       setSpells(spellList);
     });
   }, [characterID]);

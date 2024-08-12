@@ -2,11 +2,9 @@
 import axios from "axios";
 import server from "./server";
 const endpoint = "api/skills/";
-const putSkills = async (skills) => {
-  const response = await axios.put(server + endpoint + skills.skillsId, {
-    ...skills,
-  });
+const postSkills = async (skills) => {
+  const response = await axios.post(server + endpoint, skills);
   return response.data;
 };
 
-export default putSkills;
+export default postSkills;

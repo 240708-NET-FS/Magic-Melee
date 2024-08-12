@@ -27,10 +27,11 @@ public class LoginRepo : ILoginRepo
         return await _context.Logins.ToListAsync();
     }
 
-    public async Task AddAsync(Login entity)
+    public async Task<int> AddAsync(Login entity)
     {
         await _context.Logins.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.LoginId;
     }
 
     public async Task UpdateAsync(Login entity)

@@ -1,5 +1,6 @@
 function validateScore(score) {
-  return score > 0 && score <= 20;
+  if (isNaN(score)) return false;
+  return typeof Number(score) == "number" && score > 0 && score <= 20;
 }
 
 export default validateScore;

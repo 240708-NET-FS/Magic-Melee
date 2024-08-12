@@ -14,7 +14,7 @@ const HitPointsDisplay = ({ HitPoints, MaxHitPoints, UpdateHitPoints }) => {
         <section className="flex flex-row items-stretch">
           {/* Section for HP input */}
           <section className="flex flex-col  basis-2/5">
-            <label for="HP" className="text-sm">
+            <label htmlFor="HP" className="text-sm">
               {" "}
               Current Hit Points
             </label>
@@ -35,7 +35,7 @@ const HitPointsDisplay = ({ HitPoints, MaxHitPoints, UpdateHitPoints }) => {
           {/* Max HP Section  */}
           <section className="basis-2/5">
             {" "}
-            <label for="MaxHP" className="text-sm">
+            <label htmlFor="MaxHP" className="text-sm">
               {" "}
               Max Hit Points{" "}
             </label>{" "}

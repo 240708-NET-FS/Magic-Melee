@@ -29,10 +29,11 @@ public class DndCharacterRepo : IDndCharacterRepo
         return await _context.DndCharacters.ToListAsync();
     }
 
-    public async Task AddAsync(DndCharacter entity)
+    public async Task<int> AddAsync(DndCharacter entity)
     {
         await _context.DndCharacters.AddAsync(entity);
         await _context.SaveChangesAsync();
+        return entity.CharacterId;
     }
 
     public async Task UpdateAsync(DndCharacter entity)
