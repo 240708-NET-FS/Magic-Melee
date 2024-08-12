@@ -19,7 +19,8 @@ describe("Skills Container rendering", () => {
     );
     // act
     render(<SkillsContainer characterID={3} skillsID={1} />);
-
+    
+    // assert
     Object.values(skillDisplayNames).forEach((name) =>
       expect(screen.getByText(name)).toBeInTheDocument()
     );

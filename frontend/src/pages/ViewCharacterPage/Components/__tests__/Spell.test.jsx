@@ -7,7 +7,7 @@ import Spell from "../Spell";
 import userEvent from "@testing-library/user-event";
 
 describe("Spell Delete Button", () => {
-  it("renders", () => {
+  it("renders and calls the delete handler", () => {
     const mockHandler = jest.fn();
     render(
       <Spell
@@ -15,11 +15,11 @@ describe("Spell Delete Button", () => {
         SpellDamageType="fake"
         SpellLevel={2}
         SpellRange="1"
-        handleDelete={{ mockHandler }}
+        handleDelete={mockHandler}
       />
     );
     expect(screen.getByRole("button")).toBeInTheDocument();
-    //userEvent.click(screen.getByRole("button"));
-    //expect(mockHandler).toHaveBeenCalled();
+    userEvent.click(screen.getByRole("button"));
+    expect(mockHandler).toHaveBeenCalled();
   });
 });
