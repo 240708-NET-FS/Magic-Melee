@@ -3,12 +3,8 @@ import { Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import LandingButton from "../../../Components/LandingComps/LandingButton";
 import ComponentStyles from "../../../Styles/ComponentStyles.css";
-<<<<<<< HEAD
-import { useNavigate } from 'react-router-dom';
-=======
 //import { useAuth } from '../../../provider/authProvider';
 import { useNavigate } from "react-router-dom";
->>>>>>> viewformatting
 import getUsers from "../../../utilities/api/getUsers";
 import { Alert } from "react-native-web";
 import { UserContext } from "../../../App";
