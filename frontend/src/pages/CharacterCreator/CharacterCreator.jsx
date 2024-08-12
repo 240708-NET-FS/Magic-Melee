@@ -65,7 +65,7 @@ function CharacterCreator(){
     }, [])
 
     useEffect(()=> {
-        console.log(abilities);
+
     }, [abilities])
 
 
@@ -103,15 +103,14 @@ function CharacterCreator(){
         }
     }
     const handleNext = () => {
+        console.log("next button");
         if(buttonText !== "Submit" && pageIndex + 1 < types.length){
             setPageIndex(pageIndex + 1);
         }else if(types[pageIndex] === "Spells" && abilities){
-            console.log("Hello");
-        }
-        else{
             handleSubmit();
 
         }
+       
     }
 
 
@@ -120,10 +119,11 @@ function CharacterCreator(){
     
     const handleSubmit = () => {
         if(abilities !== null){
+            console.log(abilities);
+
             navigate(`/home/${user.firstName}/character-sheet/${name}`)
         } 
         // validate submission
-        console.log("to character sheet");
     
     }
 
