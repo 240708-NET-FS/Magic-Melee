@@ -31,7 +31,6 @@ const AbilityScoreContainer = ({ characterID, abilityScoreID }) => {
   useEffect(() => {
     getAbilityScores(characterID).then((scoreObj) => {
       delete scoreObj.abilityScoreArrId;
-      console.log("scores", scoreObj);
       setScores(scoreObj);
     });
     //setScores((scores) => setRandomAbilityValues(scores));
@@ -39,22 +38,27 @@ const AbilityScoreContainer = ({ characterID, abilityScoreID }) => {
 
   useEffect(() => {
     let scoresAreValid = true;
-    for (let score in Object.values(scores)) {
-      scoresAreValid &= validateScore(score);
-    }
 
-    if (scoresAreValid) {
+    const scoreNums = {};
+
+    Object.keys(scores).forEach((scoreName) => {
+      scoreNums[scoreName] = Number(scores[scoreName]);
+      scoresAreValid = scoresAreValid && validateScore(scoreNums[scoreName]);
+    });
+
+    if (
+      scoresAreValid &&
+      JSON.stringify(scores) !== JSON.stringify(defaultScores)
+    ) {
       // if scores are valid then update database
       putAbilityScores(abilityScoreID, scores);
     }
   }, [scores, abilityScoreID]);
 
   return (
-    <section className=" shrink">
-      <section className="flex flex-row justify-between">
-        {/*Render ability score component list */}
-        {scoreArr}
-      </section>
+    <section className="flex flex-row justify-bwtween basis-1/12 grow-0 max-w-full">
+      {/*Render ability score component list */}
+      {scoreArr}
     </section>
   );
 };

@@ -17,7 +17,7 @@ const CharacterSheet = ({ character }) => {
   return (
     <section className="bg-purple-900 flex flex-col justify-center w-full">
       <NameAndStatusContainer character={character} />
-      <section className="flex flex-row justify-stretch">
+      <section className="flex flex-row justify-between">
         <AbilityScoreContainer
           characterID={character ? character.characterId : 3}
           abilityScoreID={character ? character.abilityScoreArrId : 1}

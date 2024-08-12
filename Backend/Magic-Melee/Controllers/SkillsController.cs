@@ -94,6 +94,7 @@ public class SkillsController : ControllerBase
 
         try
         {
+            
             await _skillsService.UpdateAsync(skillsDto);
             return NoContent();
         }
