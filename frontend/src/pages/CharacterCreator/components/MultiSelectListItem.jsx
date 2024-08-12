@@ -25,24 +25,19 @@ const MultiSelectListItem = ({id, type, name, object, picked, setPicked}) => {
 
     const handleSpellList = () => {
         if(picked){
-            if(picked.filter(p => p=== id).length == 0){
-                try{
-                    postCharacterSpell()
-                }catch(error){
-                    console.error(error)
-                }
+            if(picked.filter(p => p=== id).length === 0){
+                let temp = picked.slice();
+                console.log(temp);
+                temp.push(id);
+                setPicked(temp);
             }
+            console.log(picked);
 
-            // if(picked.filter(p => p === id).length === 0){
-            //     let temp = picked.slice();
-            //     temp.push(id);
-            //     setPicked(temp);
-
+                
             // }else{
-            //     setPicked(picked.filter(p=> p !== id));
+            //     setPicked(picked.filter(p => p ==id));
             // }
         }
-        // console.log(picked);
     }
 
     return(

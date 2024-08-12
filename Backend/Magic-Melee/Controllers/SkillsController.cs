@@ -75,7 +75,7 @@ public class SkillsController : ControllerBase
         try
         {
             int ID = await _skillsService.AddAsync(skillsDto);
-            skillsDto.skillsId = ID; 
+            skillsDto.SkillsId = ID; 
             return CreatedAtAction(nameof(GetById), new { id = ID }, skillsDto);
         }
         catch (Exception ex)

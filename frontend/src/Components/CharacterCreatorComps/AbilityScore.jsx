@@ -38,22 +38,42 @@ const AbilityScore = (props) => {
                 wis: parseInt(wisPicked),
                 cha: parseInt(chaPicked)
                 
-        })
-            try{
-                
-                postAbilityScores(props.abilities).then(x => props.setAbilities(x));
-                console.log(props.abilities);
-                
-            }catch(error){
-                console.error(error);
-            }
-
+            })
+            
            
         }else{
             console.log("Oh no!");
         }
       
     }, [strPicked, dexPicked, conPicked, intPicked, wisPicked, chaPicked])
+
+    useEffect(()=> {
+        if(validateScores()){
+            try{
+                postFetchAS();
+                    
+            }catch(error){
+                console.error(error);
+            }
+    
+
+        }
+        
+
+    }, [props.abilities])
+
+
+    const postFetchAS = async() => {
+        try{
+            var res = await postAbilityScores(props.abilities);
+            props.setAbilities(res);
+
+        }catch(error){
+            console.error(error);
+        }
+       
+
+    }
     
 
     const validateScores = () => {

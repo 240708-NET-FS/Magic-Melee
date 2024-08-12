@@ -62,7 +62,7 @@ public class DndCharacterController : ControllerBase
     public async Task<IActionResult> Add([FromBody] DndCharacterDTO characterDTO)
     {
         int ID = await _dndCharacterService.AddAsync(characterDTO);
-        characterDTO.characterId = ID; 
+        characterDTO.CharacterId = ID; 
         return CreatedAtAction(nameof(GetById), new { id = characterDTO.CharacterId }, characterDTO);
     }
 
