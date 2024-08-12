@@ -20,7 +20,9 @@ public class CharacterSpellRepo : ICharacterSpellRepo
 
     public async Task<IEnumerable<CharacterSpell>> GetAllAsync()
     {
-        return await _context.CharacterSpells.ToListAsync();
+        return await _context.CharacterSpells
+                .Include(cs => cs.Spell)
+                .ToListAsync();
     }
 
     public async Task AddAsync(CharacterSpell entity)
