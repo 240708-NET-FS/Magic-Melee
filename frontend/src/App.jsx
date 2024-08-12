@@ -16,6 +16,8 @@ export const UserContext = React.createContext(null);
 
 function App() {
 
+  const [user, setUser] = useState(null);
+
 
 
   return (
