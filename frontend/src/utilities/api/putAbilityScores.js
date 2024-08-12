@@ -3,11 +3,17 @@ import axios from "axios";
 import server from "./server";
 const endpoint = "api/AbilityScoreArr/";
 const putAbilityScores = async (abilityScoreArrId, abilityScores) => {
-  const response = await axios.put(server + endpoint + abilityScoreArrId, {
-    abilityScoreArrId: abilityScoreArrId,
-    ...abilityScores,
-  });
-  return response.data;
+  try{
+    const response = await axios.put(server + endpoint + abilityScoreArrId, {
+      abilityScoreArrId: abilityScoreArrId,
+      ...abilityScores,
+    });
+    return response.data;
+
+  }catch(error){
+    console.error(error);
+  }
+
 };
 
 export default putAbilityScores;
