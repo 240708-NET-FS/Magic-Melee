@@ -3,7 +3,6 @@ import {Modal} from "@mui/material";
 import Box from "@mui/material/Box";
 import LandingButton from "../../../Components/LandingComps/LandingButton";
 import ComponentStyles from "../../../Styles/ComponentStyles.css";
-import { useAuth } from '../../../provider/authProvider';
 import { useNavigate } from 'react-router-dom';
 import getUsers from "../../../utilities/api/getUsers";
 import { Alert } from 'react-native-web';
@@ -110,7 +109,7 @@ const LoginModal = ({open,handleClose, handleSubmit,content, loginCreds, setLogi
 
                                     <div>
 
-                                        <input id="pTextBox" className="textBox" type="text" placeholder={"Enter Password"} value={loginCreds.password} onChange={e => setLoginCreds({...loginCreds, password: e.target.value})}/>
+                                        <input id="pTextBox" className="textBox" type="password" placeholder={"Enter Password"} value={loginCreds.password} onChange={e => setLoginCreds({...loginCreds, password: e.target.value})}/>
                                     </div>
 
                                 </form>

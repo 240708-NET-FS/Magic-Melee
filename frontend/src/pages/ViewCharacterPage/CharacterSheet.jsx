@@ -5,6 +5,7 @@ import ArmorClass from "./Components/ArmorClass";
 import SkillsContainer from "./Containers/SkillsContainer";
 import InventoryContainer from "./Containers/InventoryContainer";
 import SpellContainer from "./Containers/SpellContainer";
+import { useParams } from "react-router-dom";
 // components :
 // NameAndStatusContainer
 // StatsContainer
@@ -12,6 +13,8 @@ import SpellContainer from "./Containers/SpellContainer";
 // InventoryContainer
 
 const CharacterSheet = () => {
+
+
   // default character is hoisted from below
   const [character, updateCharacter] = useState(defaultCharacter);
 
@@ -30,7 +33,6 @@ const CharacterSheet = () => {
     </section>
   );
 };
-
 export default CharacterSheet;
 
 const defaultCharacter = {

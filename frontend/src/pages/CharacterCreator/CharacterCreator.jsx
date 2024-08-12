@@ -11,9 +11,10 @@ import AbilityScore from "../../Components/CharacterCreatorComps/AbilityScore";
 import getAllRaces from "../../utilities/api/getAllRaces";
 import getAllClasses from "../../utilities/api/getAllClasses";
 import getAllSpells from "../../utilities/api/getAllSpells";
+import postCharacter from "../../utilities/api/postCharacter";
 
 import { useNavigate } from "react-router-dom";
-import getClassSpells from "../../utilities/api/getClassSpells";
+// import getClassSpells from "../../utilities/api/getClassSpells";
 
 
 function CharacterCreator(){
@@ -50,6 +51,8 @@ function CharacterCreator(){
 
     const navigate = useNavigate();
 
+
+
     useEffect(()=> {
         fetchRaces();
         fetchClasses();
@@ -73,6 +76,7 @@ function CharacterCreator(){
         try{
             let r = await getAllRaces();
             setRaces(r);
+
         }catch(error){
             console.error(error);
         }
@@ -86,7 +90,6 @@ function CharacterCreator(){
         }catch(error){
             console.error(error);
         }
-       
     }
     const handleNext = () => {
         if(buttonText !== "Submit" && pageIndex + 1 < types.length){
@@ -99,9 +102,10 @@ function CharacterCreator(){
 
     const handleSubmit = () => {
         if(abilities !== null){
-            console.log(name);
-            navigate("/home/user/character/character-sheet");
-            console.log("hell yeah!");   
+            console.log(abilities);
+
+        //    navigate("/home/user/character/character-sheet");
+        //     console.log("hell yeah!");   
         } 
         // validate submission
         console.log("to character sheet");
@@ -135,7 +139,6 @@ function CharacterCreator(){
 
     useEffect(()=> {
         if(type ==="Spells" && charClass){
-
             fetchSpells(charClass.name);  
         }
     }, [type, charClass])
@@ -143,9 +146,9 @@ function CharacterCreator(){
 
     const fetchSpells = async(className) => {
         try{
-            let res = await getClassSpells(className);
+            let res = await getAllSpells(className);
             setSpells(res);
-            console.log(spells[0])
+            console.log(spells)
         }catch(error){
             console.log(error);
         }
@@ -171,12 +174,12 @@ function CharacterCreator(){
         </div>
     ))
 
-    const mapSpells = spells.map((s, index) =>(
+    const mapSpells = spells.length > 0 ? spells.map((s, index) =>(
         <div style={{paddingBottom: 7}}>
             <MultiSelectListItem id={s.spellId} type={"spell"} name={s.spellName} object={s} picked={pickedList} setPicked={setPickedList} />
-        </div>
+        </div>  
 
-    ));
+    )) : null;
 
     useEffect(()=> {
         if(level && !loading){
@@ -235,7 +238,7 @@ function CharacterCreator(){
                                     {type === "Race" ? mapRaces
                                     : type === "Class" ? mapClasses
 
-                                    :type === "Spells" ? mapSpells
+                                    : type === "Spells" ? mapSpells
                                     :  <AbilityScore abilities={abilities} setAbilities={setAbilities} />  }
                                 </div>
 

@@ -17,13 +17,13 @@ function Home() {
 
     useEffect(()=> {
         fetchCharacters();
-
     }, [])
 
     const fetchCharacters = async() => {
         try{
-            var res = await getCharacters(user.userId);
+            var res = await getCharacters(user.id);
             setCharacters(res);
+
         }catch(error){
             console.error(error);
 
@@ -31,17 +31,14 @@ function Home() {
     }
     
 
-
     // TODO: replace with data for stuff
-    const charactersTemp = [1, 2, 3, 4, 5, 6, 7, 8]
-
-    const toCharacterSheet = () => {
-        navigate("/home/user/character/character-sheet");
+    const toCharacterSheet = (c) => {
+        navigate(`/home/${user.firstName}/character-sheet/${c}`);
     }
 
 
-    const mapCharacters = charactersTemp.map((m, index)=> 
-        <CharacterCard key={index} onPress={toCharacterSheet}/>
+    const mapCharacters = characters.map((c, index)=> 
+        <CharacterCard key={index} onPress={toCharacterSheet} dndCharacter={c}/>
     );
 
     const onPressNavigate = () => {

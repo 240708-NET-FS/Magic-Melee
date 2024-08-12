@@ -2,7 +2,7 @@
 import axios from "axios";
 import server from "./server";
 
-const endpoint = "api/Dndcharacter/user/";
+const endpoint = "api/DndCharacter/user/";
 const getCharacters = async (userID) => {
   const response = await axios.get(server + endpoint + userID);
   return response.data;
