@@ -83,3 +83,4 @@ const scoreNameArr = Object.getOwnPropertyNames(defaultScores);
 // }
 
 export default AbilityScoreContainer;
+export { defaultScores };

@@ -27,3 +27,4 @@ const scoreNames = {
 };
 
 export default AbilityScore;
+export { scoreNames };

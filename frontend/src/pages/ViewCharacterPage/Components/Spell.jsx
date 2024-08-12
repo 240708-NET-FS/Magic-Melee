@@ -16,7 +16,7 @@ const Spell = ({
       <td> {SpellDamageType} </td>
       <td>
         {" "}
-        <SpellDelete />
+        <SpellDelete handleClick={handleDelete} />
       </td>
     </tr>
   );

@@ -4,7 +4,7 @@ const Skill = ({ skillName, skillVal, handleChange, textColor }) => {
   return (
     <section className="flex flex-row justify-between border-white border-2 rounded-md">
       {" "}
-      <h2 className=""> {displayNames[skillName]} </h2>{" "}
+      <h2 className=""> {skillDisplayNames[skillName]} </h2>{" "}
       <input
         className={`bg-transparent justify-self-end ${textColor}`}
         value={skillVal}
@@ -14,7 +14,7 @@ const Skill = ({ skillName, skillVal, handleChange, textColor }) => {
   );
 };
 
-const displayNames = {
+const skillDisplayNames = {
   acrobatics: "Acrobatics",
   animalHandling: "Animal Handling",
   arcana: "Arcana",
@@ -35,3 +35,4 @@ const displayNames = {
   survival: "Survival",
 };
 export default Skill;
+export { skillDisplayNames };

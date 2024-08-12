@@ -97,3 +97,4 @@ const defaultSkills = {
 //   return skillsCopy;
 // }
 export default SkillsContainer;
+export { defaultSkills };

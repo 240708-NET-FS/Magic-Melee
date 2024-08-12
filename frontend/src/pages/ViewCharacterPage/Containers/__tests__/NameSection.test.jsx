@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 
 import { render, screen } from "@testing-library/react";
 import { test, expect, it, jest } from "@jest/globals";
@@ -7,6 +8,7 @@ import NameAndStatusContainer from "../NameAndStatusContainer";
 import { defaultCharacter } from "../../CharacterSheet";
 import userEvent from "@testing-library/user-event";
 
+jest.mock("axios");
 describe("name display rendering ", () => {
   it("renders with default info if no API data provided", () => {
     // Arrange
