@@ -30,6 +30,7 @@ public interface IDndCharacterRepo : IRepository<DndCharacter>
 public interface ISpellRepo : IRepository<Spell>
 {
     // same
+    Task<Spell> GetByNameAsync(string name);
 }
 
 public interface ICharacterRaceRepo : IRepository<CharacterRace>
@@ -50,6 +51,7 @@ public interface IAbilityScoreArrRepo : IRepository<AbilityScoreArr>
 public interface ISkillsRepo : IRepository<Skills>
 {
     Task<Skills> GetByCharacterIdAsync(int characterId);
+  
 }
 
 public interface ICharacterSpellRepo

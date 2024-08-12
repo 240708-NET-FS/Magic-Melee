@@ -1,5 +1,5 @@
 function validateScore(score) {
-  return score <= 20;
+  return score > 0 && score <= 20;
 }
 
 export default validateScore;

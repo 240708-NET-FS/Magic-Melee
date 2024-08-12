@@ -17,6 +17,11 @@ public class CharacterSpellRepo : ICharacterSpellRepo
         return await _context.CharacterSpells
             .FirstOrDefaultAsync(cs => cs.CharacterId == characterId && cs.SpellId == spellId);
     }
+    public async Task<CharacterSpell> GetByNameAsync(string name) 
+    {
+        return await _context.CharacterSpells
+            .FirstOrDefaultAsync( cs => cs.Spell.SpellName == name);
+    }
 
     public async Task<IEnumerable<CharacterSpell>> GetAllAsync()
     {

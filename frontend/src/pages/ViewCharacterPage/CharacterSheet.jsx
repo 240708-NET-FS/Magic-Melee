@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import NameAndStatusContainer from "./Containers/NameAndStatusContainer";
 import AbilityScoreContainer from "./Containers/AbilityScoreContainer";
-import ArmorClass from "./Components/ArmorClass";
+//import ArmorClass from "./Components/ArmorClass";
 import SkillsContainer from "./Containers/SkillsContainer";
-import InventoryContainer from "./Containers/InventoryContainer";
+
 import SpellContainer from "./Containers/SpellContainer";
 import { useParams } from "react-router-dom";
 // components :
@@ -12,23 +12,26 @@ import { useParams } from "react-router-dom";
 // SkillsContainer
 // InventoryContainer
 
-const CharacterSheet = () => {
-
-
+const CharacterSheet = ({ character }) => {
   // default character is hoisted from below
-  const [character, updateCharacter] = useState(defaultCharacter);
 
   return (
     <section className="bg-purple-900 flex flex-col justify-center w-full">
       <NameAndStatusContainer character={character} />
       <section className="flex flex-row justify-stretch">
-        <AbilityScoreContainer characterID={3} />
-        <ArmorClass value={10} />
+        <AbilityScoreContainer
+          characterID={character ? character.characterId : 3}
+          abilityScoreID={character ? character.abilityScoreArrId : 1}
+        />
+        {/* <ArmorClass value={char? } /> */}
       </section>
 
       <section className="flex flex-row justify-stretch">
-        <SkillsContainer characterID={3} />
-        <SpellContainer characterID={3} />
+        <SkillsContainer
+          characterID={character ? character.characterId : 3}
+          skillsID={character ? character.skillsID : 1}
+        />
+        <SpellContainer characterID={character ? character.characterId : 3} />
       </section>
     </section>
   );

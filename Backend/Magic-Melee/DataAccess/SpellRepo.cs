@@ -16,6 +16,10 @@ public class SpellRepo : ISpellRepo
     {
         return await _context.Spells.FindAsync(id);
     }
+    public async Task<Spell> GetByNameAsync(string name)
+    {
+        return await _context.Spells.FirstOrDefaultAsync(s => s.SpellName == name);
+    }
 
     public async Task<IEnumerable<Spell>> GetAllAsync()
     {
