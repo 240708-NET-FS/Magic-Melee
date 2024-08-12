@@ -13,6 +13,10 @@ const MultiSelectListItem = ({id, type, name, object, picked,setPicked}) => {
     //     }
     // }, [picked])
 
+    useEffect(()=> {
+
+    }, [picked])
+
     const handlePress = () => {
         setPicked([...picked, object]);
     }

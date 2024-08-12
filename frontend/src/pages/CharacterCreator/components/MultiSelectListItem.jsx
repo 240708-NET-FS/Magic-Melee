@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 import ComponentStyles from "../../../Styles/ComponentStyles.css";
+import { postCharacterSpell } from "../../../utilities/api";
+import deleteCharacterSpell from "../../../utilities/api";
 
 
 
@@ -7,29 +9,40 @@ const MultiSelectListItem = ({id, type, name, object, picked, setPicked}) => {
 
     const [focus, setFocus] = useState(false);
 
+    // useEffect(()=> {
+    //     console.log(object);
+    // }, [])
+
+
     useEffect(()=> {
-        console.log(object);
-    }, [])
+        handleSpellList();
+    }, [focus])
 
 
     const handlePress = () => {
         setFocus(!focus);
-        handleSpellList();
     }
 
     const handleSpellList = () => {
         if(picked){
-            if(picked.filter(p => p === id).length === 0){
-                let temp = picked.splice();
-                temp.push(id);
-                setPicked(temp);
-
-            }else{
-                setPicked(picked.filter(p=> p !== id));
+            if(picked.filter(p => p=== id).length == 0){
+                try{
+                    postCharacterSpell()
+                }catch(error){
+                    console.error(error)
+                }
             }
+
+            // if(picked.filter(p => p === id).length === 0){
+            //     let temp = picked.slice();
+            //     temp.push(id);
+            //     setPicked(temp);
+
+            // }else{
+            //     setPicked(picked.filter(p=> p !== id));
+            // }
         }
-
-
+        // console.log(picked);
     }
 
     return(

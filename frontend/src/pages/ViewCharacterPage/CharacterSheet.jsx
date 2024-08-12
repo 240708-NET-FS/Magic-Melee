@@ -20,7 +20,8 @@ const CharacterSheet = ({ character }) => {
       <NameAndStatusContainer character={character} />
       <section className="flex flex-row justify-stretch">
         <AbilityScoreContainer
-          characterID={character ? character.characterId : 3}
+          
+          characterID={character ? character.characterId : 2}
           abilityScoreID={character ? character.abilityScoreArrId : 1}
         />
         {/* <ArmorClass value={char? } /> */}
@@ -28,10 +29,10 @@ const CharacterSheet = ({ character }) => {
 
       <section className="flex flex-row justify-stretch">
         <SkillsContainer
-          characterID={character ? character.characterId : 3}
+          characterID={character ? character.characterId : 2}
           skillsID={character ? character.skillsID : 1}
         />
-        <SpellContainer characterID={character ? character.characterId : 3} />
+        <SpellContainer characterID={character ? character.characterId : 2} />
       </section>
     </section>
   );

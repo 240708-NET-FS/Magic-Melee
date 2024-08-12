@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import AbilityScoreBox from "./AbilityScoreBox";
+import postAbilityScores from "../../utilities/api/postAbilityScore";
 
 
 const AbilityScore = (props) => {
-    const abilities = ["str", "dex", "con", "int", "wis", "cha"]
+    const abs = ["str", "dex", "con", "int", "wis", "cha"]
 
     const scoreOpts = [8, 10, 12, 13, 14, 15]
     const [options, setOptions] = useState([8, 10, 12, 13, 14, 15]);
@@ -29,32 +30,24 @@ const AbilityScore = (props) => {
     useEffect(()=> {
         if(validateScores()){
             // console.log("hell yeah");
-            props.setAbilities([
-                {
-                    name: 'str',
-                    score: strPicked
-                },
-                {
-                    name: 'dex',
-                    score: dexPicked
-                },
-                {
-                    name: 'con',
-                    score: conPicked
-                },
-                {
-                    name: 'int',
-                    score: intPicked
-                },
-                {
-                    name: 'wis',
-                    score: wisPicked
-                },
-                {
-                    name: 'cha',
-                    score: chaPicked
-                }
-            ])
+            props.setAbilities({
+                str: parseInt(strPicked),
+                dex: parseInt(dexPicked),
+                con: parseInt(conPicked),
+                int: parseInt(intPicked),
+                wis: parseInt(wisPicked),
+                cha: parseInt(chaPicked)
+                
+        })
+            try{
+                
+                postAbilityScores(props.abilities).then(x => props.setAbilities(x));
+                console.log(props.abilities);
+                
+            }catch(error){
+                console.error(error);
+            }
+
            
         }else{
             console.log("Oh no!");

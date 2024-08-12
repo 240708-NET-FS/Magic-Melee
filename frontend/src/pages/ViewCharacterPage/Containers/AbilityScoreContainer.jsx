@@ -29,11 +29,17 @@ const AbilityScoreContainer = ({ characterID, abilityScoreID }) => {
 
   // API call to set values from database will go here
   useEffect(() => {
-    getAbilityScores(characterID).then((scoreObj) => {
-      delete scoreObj.abilityScoreArrId;
-      console.log("scores", scoreObj);
-      setScores(scoreObj);
-    });
+    try{
+      getAbilityScores(characterID).then((scoreObj) => {
+        delete scoreObj.abilityScoreArrId;
+        console.log("scores", scoreObj);
+        setScores(scoreObj);
+      });
+
+    }catch(error){
+      console.error(error);
+    }
+    
     //setScores((scores) => setRandomAbilityValues(scores));
   }, [characterID]);
 

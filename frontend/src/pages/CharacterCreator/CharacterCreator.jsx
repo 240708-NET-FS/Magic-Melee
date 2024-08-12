@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CharacterCreatorStyles from "../../Styles/CharacterCreatorStyles.css";
 import bg2 from "../../Assets/m&mbg2.jpg"
 import ListItem from "../../Components/CharacterCreatorComps/ListItem";
@@ -16,10 +16,13 @@ import postCharacter from "../../utilities/api/postCharacter";
 import postAbilityScores from "../../utilities/api/postAbilityScore";
 
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 // import getClassSpells from "../../utilities/api/getClassSpells";
 
 
 function CharacterCreator(){
+
+    const {user, setUser} = useContext(UserContext);
 
 
     const [loading, setLoading] = useState(true);
@@ -31,7 +34,7 @@ function CharacterCreator(){
 
     const [pageIndex, setPageIndex] = useState(0);
 
-    const types = ["Race", "Class", "Spells", "Abilities"]
+    const types = ["Race", "Class", "Abilities", "Spells"]
 
     const [type, setType] = useState(types[0]);
 
@@ -61,14 +64,20 @@ function CharacterCreator(){
         setLoading(false);
     }, [])
 
+    useEffect(()=> {
+        console.log(abilities);
+    }, [abilities])
+
 
     useEffect(()=> {
         if(types[pageIndex] === "Race"){
             setRace(picked);
         }else if(types[pageIndex] === "Class"){
             setCharClass(picked);
+        }else if(types[pageIndex] === "Abilities"){
+
         }else{
-            setCharSpells(picked);
+
         }
 
     }, [picked])
@@ -96,22 +105,27 @@ function CharacterCreator(){
     const handleNext = () => {
         if(buttonText !== "Submit" && pageIndex + 1 < types.length){
             setPageIndex(pageIndex + 1);
-        }else{
+        }else if(types[pageIndex] === "Spells" && abilities){
+            console.log("Hello");
+        }
+        else{
             handleSubmit();
 
         }
     }
 
+
+
+    
+
+    
     const handleSubmit = () => {
         if(abilities !== null){
-            // postAbilityScores(abilities);
-
-        //     console.log("hell yeah!");   
+            navigate(`/home/${user.firstName}/character-sheet/${name}`)
         } 
         // validate submission
         console.log("to character sheet");
-        // parse new character to db for user 
-        // post
+    
     }
 
 
@@ -149,7 +163,7 @@ function CharacterCreator(){
         try{
             let res = await getAllSpells(className);
             setSpells(res);
-            console.log(spells)
+            // console.log(spells)
         }catch(error){
             console.log(error);
         }
